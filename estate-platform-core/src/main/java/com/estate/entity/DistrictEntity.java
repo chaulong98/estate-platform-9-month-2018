@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "distric")
-public class DistricEntity extends BaseEntity{
+@Table(name = "district")
+public class DistrictEntity extends BaseEntity{
 
     private static final long serialVersionUID = -1308336977037166007L;
     @Column
@@ -14,13 +14,6 @@ public class DistricEntity extends BaseEntity{
 
     @Column
     private String name;
-
-    @OneToMany(mappedBy = "districEntity", fetch = FetchType.EAGER)
-    private List<BuildingEntity> news = new ArrayList<>();
-
-    public List<BuildingEntity> getNews() {
-        return news;
-    }
 
     public String getCode() {
         return code;

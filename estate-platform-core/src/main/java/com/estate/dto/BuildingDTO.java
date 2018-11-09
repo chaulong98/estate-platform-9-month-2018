@@ -1,14 +1,12 @@
 package com.estate.dto;
 
-import com.estate.entity.DistricEntity;
-
 public class BuildingDTO extends AbstractDTO {
 
     private static final long serialVersionUID = 4428522696190004907L;
 
     private String productName;
 
-    private String districCode;
+    private String district;
 
     private String ward;
 
@@ -72,14 +70,6 @@ public class BuildingDTO extends AbstractDTO {
 
     public void setProductName(String productName) {
         this.productName = productName;
-    }
-
-    public String getDistricCode() {
-        return districCode;
-    }
-
-    public void setDistricCode(String districCode) {
-        this.districCode = districCode;
     }
 
     public String getWard() {
@@ -304,5 +294,13 @@ public class BuildingDTO extends AbstractDTO {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
     }
 }

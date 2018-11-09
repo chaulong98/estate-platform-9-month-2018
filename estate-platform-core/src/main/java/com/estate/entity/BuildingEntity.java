@@ -11,9 +11,8 @@ public class BuildingEntity extends BaseEntity {
     @Column
     private String productName;
 
-    @ManyToOne
-    @JoinColumn(name = "distric_id", nullable = false)
-    private DistricEntity districEntity = new DistricEntity();
+    @Column
+    private String district;
 
     @Column
     private String ward;
@@ -40,14 +39,13 @@ public class BuildingEntity extends BaseEntity {
     private String leasedArea;
 
     @Column
-    private String deciptionArea;
+    private String descriptionArea;
 
     @Column
     private Integer rentCost;
 
     @Column
-    private String deciptionCost;
-
+    private String descriptionCost;
 
     @Column
     private Integer feesService;
@@ -86,7 +84,7 @@ public class BuildingEntity extends BaseEntity {
     private Integer brokeragefees;
 
     @Column
-    private String productType;
+    private String type;
 
     @Column
     private String note;
@@ -106,14 +104,6 @@ public class BuildingEntity extends BaseEntity {
 
     public void setProductName(String productName) {
         this.productName = productName;
-    }
-
-    public DistricEntity getDistricEntity() {
-        return districEntity;
-    }
-
-    public void setDistricEntity(DistricEntity districEntity) {
-        this.districEntity = districEntity;
     }
 
     public String getWard() {
@@ -180,28 +170,12 @@ public class BuildingEntity extends BaseEntity {
         this.leasedArea = leasedArea;
     }
 
-    public String getDeciptionArea() {
-        return deciptionArea;
-    }
-
-    public void setDeciptionArea(String deciptionArea) {
-        this.deciptionArea = deciptionArea;
-    }
-
     public Integer getRentCost() {
         return rentCost;
     }
 
     public void setRentCost(Integer rentCost) {
         this.rentCost = rentCost;
-    }
-
-    public String getDeciptionCost() {
-        return deciptionCost;
-    }
-
-    public void setDeciptionCost(String deciptionCost) {
-        this.deciptionCost = deciptionCost;
     }
 
     public Integer getFeesService() {
@@ -300,14 +274,6 @@ public class BuildingEntity extends BaseEntity {
         this.brokeragefees = brokeragefees;
     }
 
-    public String getProductType() {
-        return productType;
-    }
-
-    public void setProductType(String productType) {
-        this.productType = productType;
-    }
-
     public String getNote() {
         return note;
     }
@@ -338,5 +304,37 @@ public class BuildingEntity extends BaseEntity {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getDescriptionArea() {
+        return descriptionArea;
+    }
+
+    public void setDescriptionArea(String descriptionArea) {
+        this.descriptionArea = descriptionArea;
+    }
+
+    public String getDescriptionCost() {
+        return descriptionCost;
+    }
+
+    public void setDescriptionCost(String descriptionCost) {
+        this.descriptionCost = descriptionCost;
     }
 }

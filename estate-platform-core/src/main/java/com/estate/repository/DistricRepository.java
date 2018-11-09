@@ -1,8 +1,8 @@
 package com.estate.repository;
 
-import com.estate.entity.DistricEntity;
+import com.estate.entity.DistrictEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface DistricRepository extends JpaRepository<DistricEntity, Long> {
-    DistricEntity findOneByCode(String code);
+public interface DistricRepository extends JpaRepository<DistrictEntity, Long> {
+    DistrictEntity findOneByCode(String code);
 }

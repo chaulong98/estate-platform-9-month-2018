@@ -3,7 +3,7 @@
     <persistence-unit name="persistence-data">
         <class>com.estate.entity.UserEntity</class>
         <class>com.estate.entity.RoleEntity</class>
-        <class>com.estate.entity.DistricEntity</class>
+        <class>com.estate.entity.DistrictEntity</class>
         <class>com.estate.entity.BuildingEntity</class>
     </persistence-unit>
 </persistence>

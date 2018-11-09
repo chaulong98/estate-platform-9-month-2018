@@ -3,7 +3,7 @@ package com.estate.service.impl;
 import com.estate.converter.BuildingConverter;
 import com.estate.dto.BuildingDTO;
 import com.estate.entity.BuildingEntity;
-import com.estate.entity.DistricEntity;
+import com.estate.entity.DistrictEntity;
 import com.estate.repository.BuildingRepository;
 import com.estate.repository.DistricRepository;
 import com.estate.service.IBuildingService;
@@ -33,10 +33,7 @@ public class BuildingService implements IBuildingService {
 
     @Override
     public BuildingDTO save(BuildingDTO buildingDTO) {
-        buildingDTO.setDistricCode("ba-dinh");
-        DistricEntity districEntity = districRepository.findOneByCode(buildingDTO.getDistricCode());
         BuildingEntity buildingEntity = buildingConverter.convertToEntity(buildingDTO);
-        buildingEntity.setDistricEntity(districEntity);
         buildingEntity = buildingRepository.save(buildingEntity);
         return buildingConverter.convertToDto(buildingEntity);
     }
@@ -45,7 +42,6 @@ public class BuildingService implements IBuildingService {
     public BuildingDTO update(BuildingDTO updateDTO) {
         BuildingEntity exitBuilding = buildingRepository.findOne(updateDTO.getId());
         BuildingEntity updateNew = buildingConverter.convertToEntity(updateDTO);
-        updateNew.setDistricEntity(districRepository.findOneByCode(updateDTO.getDistricCode()));
         updateNew.setCreatedBy(exitBuilding.getCreatedBy());
         updateNew.setCreatedDate(exitBuilding.getCreatedDate());
         exitBuilding = buildingRepository.save(updateNew);
