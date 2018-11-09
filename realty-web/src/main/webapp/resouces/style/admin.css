@@ -1,0 +1,94 @@
+@charset "UTF-8";
+
+html.body {
+	font-family: "Roboto" !important;
+}
+
+#header {
+	background: linear-gradient(rgba(0, 0, 0, 0.42), rgba(0, 0, 0, 0.42)),
+		url("../images/hinhnen.jpg") no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	height: 662px;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.none_nav {
+	background: none !important;
+	border: none !important;
+}
+
+.navbar_center {
+	margin-left: 25% !important;
+}
+
+.navbar-nav a {
+	color: white !important;
+}
+
+.active>a {
+	background: none !important;
+}
+
+.dropdown-toggle {
+	background: none !important;
+}
+
+.dropdown-menu {
+	background: black;
+}
+
+.event_header {
+	text-align: center;
+	margin-top: 216px;
+}
+
+.event_header>span {
+	color: white;
+}
+
+.event_header>button {
+	color: white;
+	background: #39FFE1;
+}
+
+@media ( max-width : 575px) {
+	.navbar_center {
+	margin-left: 0% !important;
+}
+}
+
+@media ( max-width : 767px) {
+	.navbar_center {
+	margin-left: 0% !important;
+}
+}
+
+@media ( max-width : 991px) {
+}
+
+.navbar_center {
+	margin-left: 8% !important;
+}
+}
+.icon{
+	width: 48px;
+	height: 48px;
+}
+#info{
+	text-align: center;
+	margin-top: 48px;
+}
+#info > span{
+	margin-top: 16px
+}
+#title-sanpham{
+	margin-top: 100px;
+	text-align: center;;
+	font-size: 32px;
+	font-weight: 500;
+}
