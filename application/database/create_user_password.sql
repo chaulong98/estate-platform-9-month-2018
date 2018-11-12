@@ -1,0 +1,3 @@
+CREATE USER estate8month WITH PASSWORD '123456';
+CREATE DATABASE estate8month OWNER estate8month ENCODING = 'UTF8';
+CREATE SCHEMA estate8month;
