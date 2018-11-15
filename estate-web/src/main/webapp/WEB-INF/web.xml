@@ -6,7 +6,7 @@
 
     <display-name>estate-platform</display-name>
 
-    <!--Define root Spring container shared by any Servlet and Filter-->
+    <!--Create root Spring container shared by any Servlet and Filter-->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
@@ -15,6 +15,7 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>
             /WEB-INF/context/applicationContext.xml
+            /WEB-INF/context/security.xml
         </param-value>
     </context-param>
 
@@ -22,6 +23,7 @@
     <servlet>
         <servlet-name>dispatcherServlet</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <!--Declare spring container that init come up with dispatcher servlet-->
         <init-param>
             <param-name>contextConfigLocation</param-name>
             <param-value>/WEB-INF/context/dispatcher-servlet.xml</param-value>
@@ -34,7 +36,7 @@
     </servlet-mapping>
 
     <!-- Declare Spring Security Filter -->
-    <!-- <filter>
+     <filter>
          <filter-name>springSecurityFilterChain</filter-name>
          <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
      </filter>
@@ -45,7 +47,7 @@
          <dispatcher>ERROR</dispatcher>
      </filter-mapping>
 
-     &lt;!&ndash; sitemesh docarate &ndash;&gt;
+     <!-- sitemesh docarate -->
      <filter>
          <filter-name>sitemesh</filter-name>
          <filter-class>com.opensymphony.module.sitemesh.filter.PageFilter</filter-class>
@@ -54,9 +56,9 @@
          <filter-name>sitemesh</filter-name>
          <url-pattern>/*</url-pattern>
      </filter-mapping>
-     &lt;!&ndash; end sitemesh &ndash;&gt;
+     <!-- end sitemesh -->
 
-     <session-config>
+     <!--<session-config>
          <session-timeout>10</session-timeout>
      </session-config>-->
 

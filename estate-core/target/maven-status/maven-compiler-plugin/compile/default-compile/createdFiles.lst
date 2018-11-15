@@ -1,0 +1,5 @@
+com\example\config\JPAConfig.class
+com\example\entity\UserEntity.class
+com\example\repository\UserRepository.class
+com\example\controller\LoginController.class
+com\example\entity\RoleEntity.class

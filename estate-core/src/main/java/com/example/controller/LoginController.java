@@ -9,10 +9,10 @@ public class LoginController {
 
     @RequestMapping("/")
     public String defaultServlet(){
-        return "redirect:/login";
+        return "redirect:/dang-nhap";
     }
 
-    @RequestMapping("/login")
+    @RequestMapping("/dang-nhap")
     public ModelAndView login(){
         ModelAndView mav = new ModelAndView("login");
         return mav;
