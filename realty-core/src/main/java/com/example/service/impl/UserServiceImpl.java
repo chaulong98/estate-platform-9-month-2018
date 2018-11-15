@@ -196,4 +196,27 @@ public class UserServiceImpl implements UserService {
 		return list;
 	}
 
+	@Override
+	public List<UserModel> getUserAdmin() {
+	List<UserEntity> entities = userRepository.findAll();
+	List<UserEntity> personAdmin = new ArrayList<>();
+	List<UserModel> list = new ArrayList<>();
+	
+	for (UserEntity item : entities) {
+		int result = 0;
+		for (RoleEntity  role : item.getRoles()) {
+			if(role.getCode().equals("MANAGER")) {
+				result = 1;
+			}
+		}
+		if(result == 0) {
+			personAdmin.add(item);
+		}
+	}
+	for (UserEntity item : personAdmin) {
+		list.add(converterUser.convertToDto(item));
+	}
+		return list;
+	}
+
 }

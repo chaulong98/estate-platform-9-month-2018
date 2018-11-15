@@ -172,6 +172,21 @@ public class BuildingServiceImpl implements BuildingService {
 	
 	}
 
+	@Override
+	@Transactional
+	public BuildingModel editManager(Long id, BuildingModel model) {
+		BuildingEntity buildingEntity = buildingRepository.findOne(id);
+		List<UserEntity> userEntity = new ArrayList<>();
+		for (int i = 0; i < model.getDependencies().length; i++) {
+			UserEntity entity = userRepository.findOne(model.getDependencies()[i]);
+			userEntity.add(entity);
+		}
+
+		buildingEntity.setUserEntity(userEntity);
+		 BuildingEntity entity = buildingRepository.save(buildingEntity);
+		return converter.convertToDto(entity);
+	}
+
 	// @Transactional
 	// public void deleteUserBuilding(BuildingEntity buildingEntity) {
 	// for (UserBuiding item : buildingEntity.getUserBuidings()) {

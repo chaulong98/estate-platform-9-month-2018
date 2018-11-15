@@ -4,6 +4,9 @@
 <%@include file="/common/taglib.jsp"%>
 <c:url var="formUrl" value="/manager/building/list" />
 <c:url var="formEdit" value=""/>
+<c:url var="manager" value="/ajax/manager/building">
+<%--     <c:param name="urlType" value="manager" /> --%>
+</c:url>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -115,17 +118,45 @@
                                             <display:column headerClass="text-left" property="numberBasement" title="Số Tầng"/> 
                                             <display:column headerClass="col-actions" title="Thao tác">                                               
                                                 <a class="btn btn-sm btn-primary btn-edit" data-toggle= "tooltip" 
-                                                	title="Cập nhật bài viết" href='<c:url value="/manager/building/${tableList.id}"/>'><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                            </display:column>
+                                                	title="Cập nhật tòa nhà" href='<c:url value="/manager/building/${tableList.id}"/>'><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                                	<c:url var="editManager" value="/ajax/manager/building" >	
+                                                	    <c:param name="idBuilding" value="${tableList.id}"></c:param>
+                                                	</c:url>
+                                                	<a id="btnBuilding" class="btn btn-sm btn-primary btn-edit" sc-url = "${editManager}" onclick="entrustBuilding(this)"><i class="fa fa-pencil-square-o"></i></a>
+                                                	
+                                                	
+                                            </display:column>                  
                                         </display:table>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                
             </div>
         </div>
     </form:form>
+  
+    
 </div>
+
+<!-- modal -->
+
+  <div class="modal fade" id="myModal" role="dialog">
+    
+  </div>
+
+<script type="text/javascript">	
+  
+   function entrustBuilding(btn) {
+	
+	   var url =  $(btn).attr('sc-url') ;
+	   $('#myModal').load(url,'',function(){
+		   $('#myModal').modal('toggle');
+		   
+	       });
+}
+	
+</script>
 </body>
 </html>

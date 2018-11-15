@@ -272,12 +272,12 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label no-padding-right">Loại Sản Phẩm
 									</label>
+									
 								<div class="col-sm-9">
-								<form:checkbox path="productTypeModel"  value="Tang_Tret" label="Tầng Trệt" id="check_category" />
-								<br>
-									<form:checkbox path="productTypeModel"  value="Nguyen_Can" label="Nguyên Căn" id="check_category" />
-										<br>
-										<form:checkbox path="productTypeModel"  value="Noi_that" label="Nội Thất" id="check_category" />
+								
+								<c:forEach var="item" items="${enumBuildingType}">
+								<form:checkbox path="productTypeModel"  value="${item.code}" label="${item.name }" id="check_category" />
+								</c:forEach>
 									
 								</div>
 							</div>

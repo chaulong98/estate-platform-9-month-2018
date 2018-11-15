@@ -12,4 +12,5 @@ public interface BuildingService {
 	BuildingModel insertBuilding(BuildingModel model);
 	BuildingModel findBuilding(Long id);
 	BuildingModel updateBuilding(Long id,BuildingModel model);
+	BuildingModel editManager(Long id , BuildingModel model);
 }

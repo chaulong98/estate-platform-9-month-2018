@@ -16,8 +16,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.entity.BuildingEntity;
+import com.example.entity.UserEntity;
 import com.example.model.BuildingModel;
+import com.example.model.EnumBuilding;
 import com.example.repository.BuildingRepository;
 import com.example.service.BuildingService;
 import com.example.service.DistrictService;
@@ -49,6 +53,7 @@ public class BuildingController {
 		BuildingModel model = new BuildingModel();
 		model.setListuser(userService.getAll());
 		model.setMapDistrict(districtService.getAllDictrict());
+		map.addAttribute("enumBuildingType", EnumBuilding.getTypeBuildings());
 		map.addAttribute("model", model);
 		return "admin/building/edit";
 	}
@@ -58,8 +63,18 @@ public class BuildingController {
 		BuildingModel model = buildingService.findBuilding(id);
 		model.setMapDistrict(districtService.getAllDictrict());
 		model.setListuser(userService.getAll());
+		map.addAttribute("enumBuildingType", EnumBuilding.getTypeBuildings());
 		map.addAttribute("model", model);
 		return "admin/building/edit";
 	}
+	
+	@RequestMapping(value = "/ajax/manager/building", method = RequestMethod.GET)
+	public String manager(ModelMap map,@RequestParam(name = "idBuilding",required = true ) Long idBuilding) {
+		BuildingModel model = buildingService.findBuilding(idBuilding);
+		model.setListuser(userService.getUserAdmin());
+		map.addAttribute("model", model);
+		return "admin/building/manager";
+	}
+	
 
 }

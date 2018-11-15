@@ -16,5 +16,7 @@ public interface UserService {
 	UserModel findUserById(Long id);
 	Boolean checkUserNameAndEmailUnique(String userName , String email,Long idUser);
 	List<UserModel> getAll();
+	List<UserModel> getUserAdmin();
+	
 	
 }

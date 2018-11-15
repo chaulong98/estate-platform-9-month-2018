@@ -32,4 +32,10 @@ public class BuildingApi {
 		SessionUtils.getSession().putValue(session, "messageResponse", "Thành Công");
 		return ResponseEntity.ok(buildingService.updateBuilding(id, model));
 	}
+	@PostMapping("/manager/{id}")
+	public ResponseEntity<BuildingModel> addManager(@PathVariable("id") Long id,@RequestBody BuildingModel buildingModel,HttpSession session) {
+		SessionUtils.getSession().putValue(session, "messageResponse", "Thành Công");
+	
+		return ResponseEntity.ok(buildingService.editManager(id, buildingModel));
+	}
 }
