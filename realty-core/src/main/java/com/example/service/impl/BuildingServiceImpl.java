@@ -164,7 +164,7 @@ public class BuildingServiceImpl implements BuildingService {
 		BuildingEntity entity = buildingRepository.save(buildingEntity);
 		return converter.convertToDto(entity);
 	}
-
+     @Override
 	 @Transactional
 	 public void deleteUserBuilding(long[] ids) {
 	for (long item : ids) {
