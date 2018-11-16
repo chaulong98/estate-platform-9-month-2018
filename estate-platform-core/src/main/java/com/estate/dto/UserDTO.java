@@ -1,10 +1,16 @@
 package com.estate.dto;
 
+import com.estate.entity.BuildingEntity;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class UserDTO extends AbstractDTO{
     private String userName;
     private String fullName;
     private String password;
     private Integer status;
+    private List<BuildingEntity> buildings = new ArrayList<>();
 
     public String getUserName() {
         return userName;
@@ -36,5 +42,13 @@ public class UserDTO extends AbstractDTO{
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public List<BuildingEntity> getBuildings() {
+        return buildings;
+    }
+
+    public void setBuildings(List<BuildingEntity> buildings) {
+        this.buildings = buildings;
     }
 }

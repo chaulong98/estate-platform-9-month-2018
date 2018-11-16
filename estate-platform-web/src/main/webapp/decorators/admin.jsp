@@ -55,7 +55,7 @@
     </a>
 
 </div>
-<%--<script src="<c:url value='/template/js/global_javascript.js' />"></script>--%>
+<script src="<c:url value='/template/js/admin/global_admin.js' />"></script>
 <script src="<c:url value='/template/admin/assets/js/ace-extra.min.js' />"></script>
 <script src="<c:url value='/template/admin/assets/js/jquery-ui.custom.min.js' />"></script>
 <script src="<c:url value='/template/admin/assets/js/jquery.ui.touch-punch.min.js' />"></script>

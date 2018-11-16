@@ -2,6 +2,8 @@ package com.estate.entity;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "building")
@@ -33,7 +35,7 @@ public class BuildingEntity extends BaseEntity {
     private String direction;
 
     @Column
-    private String rank;
+    private String level;
 
     @Column
     private String leasedArea;
@@ -48,25 +50,25 @@ public class BuildingEntity extends BaseEntity {
     private String descriptionCost;
 
     @Column
-    private Integer feesService;
+    private String feesService;
 
     @Column
-    private Integer feesCar;
+    private String feesCar;
 
     @Column
-    private Integer feesMotorcycle;
+    private String feesMotorcycle;
 
     @Column
-    private Integer feesOvertime;
+    private String feesOvertime;
 
     @Column
-    private Integer electricBill;
+    private String electricBill;
 
     @Column
-    private Integer deposits;
+    private String deposits;
 
     @Column
-    private Integer pay;
+    private String pay;
 
     @Column
     private String rentTime;
@@ -81,7 +83,7 @@ public class BuildingEntity extends BaseEntity {
     private String phoneNumber;
 
     @Column
-    private Integer brokeragefees;
+    private String brokeragefees;
 
     @Column
     private String type;
@@ -98,12 +100,23 @@ public class BuildingEntity extends BaseEntity {
     @Column
     private String image;
 
+    @ManyToMany(mappedBy = "buildings", fetch = FetchType.EAGER)
+    private List<UserEntity> users = new ArrayList<>();
+
     public String getProductName() {
         return productName;
     }
 
     public void setProductName(String productName) {
         this.productName = productName;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
     }
 
     public String getWard() {
@@ -154,12 +167,12 @@ public class BuildingEntity extends BaseEntity {
         this.direction = direction;
     }
 
-    public String getRank() {
-        return rank;
+    public String getLevel() {
+        return level;
     }
 
-    public void setRank(String rank) {
-        this.rank = rank;
+    public void setLevel(String level) {
+        this.level = level;
     }
 
     public String getLeasedArea() {
@@ -170,6 +183,14 @@ public class BuildingEntity extends BaseEntity {
         this.leasedArea = leasedArea;
     }
 
+    public String getDescriptionArea() {
+        return descriptionArea;
+    }
+
+    public void setDescriptionArea(String descriptionArea) {
+        this.descriptionArea = descriptionArea;
+    }
+
     public Integer getRentCost() {
         return rentCost;
     }
@@ -178,59 +199,67 @@ public class BuildingEntity extends BaseEntity {
         this.rentCost = rentCost;
     }
 
-    public Integer getFeesService() {
+    public String getDescriptionCost() {
+        return descriptionCost;
+    }
+
+    public void setDescriptionCost(String descriptionCost) {
+        this.descriptionCost = descriptionCost;
+    }
+
+    public String getFeesService() {
         return feesService;
     }
 
-    public void setFeesService(Integer feesService) {
+    public void setFeesService(String feesService) {
         this.feesService = feesService;
     }
 
-    public Integer getFeesCar() {
+    public String getFeesCar() {
         return feesCar;
     }
 
-    public void setFeesCar(Integer feesCar) {
+    public void setFeesCar(String feesCar) {
         this.feesCar = feesCar;
     }
 
-    public Integer getFeesMotorcycle() {
+    public String getFeesMotorcycle() {
         return feesMotorcycle;
     }
 
-    public void setFeesMotorcycle(Integer feesMotorcycle) {
+    public void setFeesMotorcycle(String feesMotorcycle) {
         this.feesMotorcycle = feesMotorcycle;
     }
 
-    public Integer getFeesOvertime() {
+    public String getFeesOvertime() {
         return feesOvertime;
     }
 
-    public void setFeesOvertime(Integer feesOvertime) {
+    public void setFeesOvertime(String feesOvertime) {
         this.feesOvertime = feesOvertime;
     }
 
-    public Integer getElectricBill() {
+    public String getElectricBill() {
         return electricBill;
     }
 
-    public void setElectricBill(Integer electricBill) {
+    public void setElectricBill(String electricBill) {
         this.electricBill = electricBill;
     }
 
-    public Integer getDeposits() {
+    public String getDeposits() {
         return deposits;
     }
 
-    public void setDeposits(Integer deposits) {
+    public void setDeposits(String deposits) {
         this.deposits = deposits;
     }
 
-    public Integer getPay() {
+    public String getPay() {
         return pay;
     }
 
-    public void setPay(Integer pay) {
+    public void setPay(String pay) {
         this.pay = pay;
     }
 
@@ -266,12 +295,20 @@ public class BuildingEntity extends BaseEntity {
         this.phoneNumber = phoneNumber;
     }
 
-    public Integer getBrokeragefees() {
+    public String getBrokeragefees() {
         return brokeragefees;
     }
 
-    public void setBrokeragefees(Integer brokeragefees) {
+    public void setBrokeragefees(String brokeragefees) {
         this.brokeragefees = brokeragefees;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getNote() {
@@ -306,35 +343,11 @@ public class BuildingEntity extends BaseEntity {
         this.image = image;
     }
 
-    public String getDistrict() {
-        return district;
+    public List<UserEntity> getUsers() {
+        return users;
     }
 
-    public void setDistrict(String district) {
-        this.district = district;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getDescriptionArea() {
-        return descriptionArea;
-    }
-
-    public void setDescriptionArea(String descriptionArea) {
-        this.descriptionArea = descriptionArea;
-    }
-
-    public String getDescriptionCost() {
-        return descriptionCost;
-    }
-
-    public void setDescriptionCost(String descriptionCost) {
-        this.descriptionCost = descriptionCost;
+    public void setUsers(List<UserEntity> users) {
+        this.users = users;
     }
 }

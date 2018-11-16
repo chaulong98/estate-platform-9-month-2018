@@ -4,7 +4,7 @@
 
 <html>
 <head>
-    <title>Chỉnh sửa bài viết</title>
+    <title>Chỉnh sửa tòa nhà</title>
 </head>
 <body>
 <div class="main-content">
@@ -21,7 +21,7 @@
                     <i class="ace-icon fa fa-home home-icon"></i>
                     <a href="#">Trang chủ</a>
                 </li>
-                <li class="active">Chỉnh sửa bài viết</li>
+                <li class="active">Chỉnh sửa tòa nhà</li>
             </ul><!-- /.breadcrumb -->
         </div>
         <div class="page-content">
@@ -50,9 +50,9 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right">Quận</label>
                             <div class="col-sm-9">
-                                <form:select path="districCode">
+                                <form:select path="district">
                                     <form:option value="" label="-- Chọn quận --"/>
-                                    <form:options items="${districs}"/>
+                                    <form:options items="${districts}"/>
                                 </form:select>
                             </div>
                         </div>
@@ -125,8 +125,8 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right">Hạng</label>
                             <div class="col-sm-9">
-                                    <%--<input type="text" class="form-control" name="title" id="title"/>--%>
-                                <form:input path="rank" cssClass="form-control" id="rank"/>
+                                    <%--<input type="text" class="form-control" name="level" id="level"/>--%>
+                                <form:input path="level" cssClass="form-control" id="level"/>
                             </div>
                         </div>
                         <br/>
@@ -146,7 +146,7 @@
                             <label class="col-sm-3 control-label no-padding-right">Mô tả diện tích</label>
                             <div class="col-sm-9">
                                     <%--<input type="text" class="form-control" name="title" id="title"/>--%>
-                                <form:input path="deciptionArea" cssClass="form-control" id="deciptionArea"/>
+                                <form:input path="descriptionArea" cssClass="form-control" id="descriptionArea"/>
                             </div>
                         </div>
                         <br/>
@@ -166,7 +166,7 @@
                             <label class="col-sm-3 control-label no-padding-right">Mô tả giá</label>
                             <div class="col-sm-9">
                                     <%--<input type="text" class="form-control" name="title" id="title"/>--%>
-                                <form:input path="deciptionCost" cssClass="form-control" id="deciptionCost"/>
+                                <form:input path="descriptionCost" cssClass="form-control" id="descriptionCost"/>
                             </div>
                         </div>
                         <br/>
@@ -295,8 +295,14 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right">Loại sản phẩm</label>
                             <div class="col-sm-9">
-                                    <%--<input type="text" class="form-control" name="title" id="title"/>--%>
-                                <form:input path="productType" cssClass="form-control" id="productType"/>
+                                <table>
+                                    <c:forEach var="list" items="${buildingTypes}">
+                                        <tr>
+                                            <td><form:checkbox path="typeBuilding" value="${list.key}"></form:checkbox> </td>
+                                            <td>${list.value}</td>
+                                        </tr>
+                                    </c:forEach>
+                                </table>
                             </div>
                         </div>
                         <br/>
@@ -352,6 +358,7 @@
                                     <input type="button" class="btn btn-white btn-warning btn-bold"
                                            value="Thêm mới tòa nhà" id="btnAddOrUpdateBuilding"/>
                                 </c:if>
+
                             </div>
                         </div>
                         <form:hidden path="id" id="idBuilding"></form:hidden>
@@ -367,6 +374,7 @@
         $('#btnAddOrUpdateBuilding').click(function (e) {
             e.preventDefault();
             var data = {};
+            var type = [];
             //cach 1 chuyen du leiu json vao data
             // data['title'] = $('#title').val();
             // data['content'] = $('#content').val();
@@ -374,9 +382,13 @@
             //cach 2 chuyen du lieu vao data
             var formData = $('#formSubmit').serializeArray();
             $.each(formData, function (i, v) {
-                data["" + v.name + ""] = v.value;
+                if(v.name == 'typeBuilding'){
+                    type.push(v.value);
+                }else {
+                    data["" + v.name + ""] = v.value;
+                }
             });
-
+            data["typeBuilding"] = type;
             var idBuilding = $('#idBuilding').val();
             if (idBuilding == ""){
                 addBuilding(data);
@@ -394,10 +406,12 @@
             contentType: 'application/json',
             dataType: 'json',
             success: function (result) {
-                window.location.href = "<c:url value='/admin/building/edit?id="+result.id+"&message=insert_success'/>";
+                <%--window.location.href = "<c:url value='/admin/building/edit?id="+result.id+"&message=insert_success'/>";--%>
+                window.location.href = "<c:url value='/admin/building/list'/>";
             },
             error: function (result) {
-                window.location.href = "<c:url value='/admin/building/edit?id="+result.id+"&message=error_system'/>";
+                <%--window.location.href = "<c:url value='/admin/building/edit?id="+result.id+"&message=error_system'/>";--%>
+                window.location.href = "<c:url value='/admin/building/list?error'/>";
             },
         });
     }
@@ -410,10 +424,12 @@
             contentType: 'application/json',
             dataType: 'json',
             success: function (result) {
-                window.location.href = "<c:url value='/admin/building/edit?id="+result.id+"&message=update_success'/>";
+                <%--window.location.href = "<c:url value='/admin/building/edit?id="+result.id+"&message=update_success'/>";--%>
+                window.location.href = "<c:url value='/admin/building/list'/>";
             },
             error: function (result) {
-                window.location.href = "<c:url value='/admin/building/edit?id="+result.id+"&message=error_system'/>";
+                <%--window.location.href = "<c:url value='/admin/building/edit?id="+result.id+"&message=error_system'/>";--%>
+                window.location.href = "<c:url value='/admin/building/list?error'/>";
             },
         });
     }

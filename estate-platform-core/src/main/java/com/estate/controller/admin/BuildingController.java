@@ -1,17 +1,18 @@
 package com.estate.controller.admin;
 
+import com.estate.constant.SystemConstant;
 import com.estate.dto.BuildingDTO;
 import com.estate.service.IBuildingService;
-import com.estate.service.IDistricService;
-import com.estate.constant.SystemConstant;
+import com.estate.service.IDistrictService;
+import com.estate.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.data.domain.PageRequest;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -22,7 +23,11 @@ public class BuildingController {
     private IBuildingService buildingService;
 
     @Autowired
-    private IDistricService districService;
+    private IDistrictService districtService;
+
+    @Autowired
+    private IUserService userService;
+
 
     @RequestMapping(value = "/admin/building/list", method = RequestMethod.GET)
     public ModelAndView showBuilding(@ModelAttribute(SystemConstant.MODEL) BuildingDTO model) {
@@ -32,9 +37,11 @@ public class BuildingController {
         return mav;
     }
 
-    @RequestMapping(value = "/admin/building/assignment", method = RequestMethod.GET)
+    //giao phó tòa nhà
+    @RequestMapping(value = "/admin/building/entrust", method = RequestMethod.GET)
     public ModelAndView showBuildingAssignment(@ModelAttribute(SystemConstant.MODEL) BuildingDTO model) {
-        ModelAndView mav = new ModelAndView("admin/building/list");
+        ModelAndView mav = new ModelAndView("admin/building/entrust");
+        mav.addObject("listUser", userService.getUsers());
         return mav;
     }
 
@@ -46,7 +53,8 @@ public class BuildingController {
         if (id != null) {
             model = buildingService.findOneId(id);
         }
-        mav.addObject("districs", districService.getDistrics());
+        mav.addObject("districts", districtService.getDistricts());
+        mav.addObject("buildingTypes", buildingService.getBuildingType());
         mav.addObject(SystemConstant.MODEL, model);
         return mav;
     }

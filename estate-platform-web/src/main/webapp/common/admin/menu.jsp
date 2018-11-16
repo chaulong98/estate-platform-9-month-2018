@@ -12,23 +12,6 @@
         }
     </script>
     <div class="sidebar-shortcuts">
-        <div class="sidebar-shortcuts-large">
-            <button class="btn btn-success">
-                <i class="ace-icon fa fa-signal"></i>
-            </button>
-
-            <button class="btn btn-info">
-                <i class="ace-icon fa fa-pencil"></i>
-            </button>
-
-            <button class="btn btn-warning">
-                <i class="ace-icon fa fa-users"></i>
-            </button>
-
-            <button class="btn btn-danger">
-                <i class="ace-icon fa fa-cogs"></i>
-            </button>
-        </div>
         <div class="sidebar-shortcuts-mini">
             <span class="btn btn-success"></span>
 
@@ -46,24 +29,31 @@
                 <span class="menu-text">Quản lý bài đăng</span>
                 <b class="arrow fa fa-angle-down"></b>
             </a>
-            <b class="arrow"></b>
-            <ul class="submenu">
-                <li class="">
-                    <a href='<c:url value="/admin/building/list"/>'>
-                        <i class="menu-icon fa fa-caret-right"></i>
-                        Danh sách sản phẩm
-                    </a>
-                    <b class="arrow"></b>
-                </li>
 
-                <%--neu la user thi mo cai nay--%>
-                <li class="">
-                    <a href='<c:url value="/admin/building/assignment"/>'>
-                        <i class="menu-icon fa fa-caret-right"></i>
-                        Danh sách sản phẩm phụ trách
-                    </a>
-                    <b class="arrow"></b>
-                </li>
+            <b class="arrow"></b>
+
+            <ul class="submenu">
+
+                <security:authorize ifAnyGranted="MANAGER">
+                    <li class="">
+                        <a href='<c:url value="/admin/building/list"/>'>
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Danh sách sản phẩm
+                        </a>
+                        <b class="arrow"></b>
+                    </li>
+                </security:authorize>
+                <security:authorize ifAnyGranted="USER">
+                    <%--neu la user thi mo cai nay--%>
+                    <li class="">
+                        <a href='<c:url value="/admin/building/entrust"/>'>
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Danh sách sản phẩm phụ trách
+                        </a>
+                        <b class="arrow"></b>
+                    </li>
+                </security:authorize>
+
             </ul>
         </li>
     </ul>

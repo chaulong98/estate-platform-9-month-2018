@@ -14,12 +14,18 @@ public class BuildingAPI {
     private BuildingService buildingService;
 
     @PostMapping
-    public ResponseEntity<BuildingDTO> createNew(@RequestBody BuildingDTO dto){
+    public ResponseEntity<BuildingDTO> createBuilding(@RequestBody BuildingDTO dto){
         return ResponseEntity.ok(buildingService.save(dto));
     }
-
     @PutMapping
-    public ResponseEntity<BuildingDTO> updateNew(@RequestBody BuildingDTO updateNew){
-        return ResponseEntity.ok(buildingService.update(updateNew));
+    public ResponseEntity<BuildingDTO> updateBuilding(@RequestBody BuildingDTO updateBuilding){
+        return ResponseEntity.ok(buildingService.update(updateBuilding));
     }
+
+    //    lưu nhân viên dc phụ trách
+//    @PostMapping
+//    public ResponseEntity<BuildingDTO> entrustUserBuilding(@RequestBody BuildingDTO dto){
+//        return ResponseEntity.ok(buildingService.save(dto));
+//    }
+
 }

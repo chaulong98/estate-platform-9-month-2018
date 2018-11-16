@@ -1,10 +1,17 @@
 package com.estate.entity;
 
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
 @MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
 public class BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 6226162321362096475L;
@@ -14,15 +21,19 @@ public class BaseEntity implements Serializable {
     private Long id;
 
     @Column
+    @CreatedDate
     private Date createdDate;
 
     @Column
+    @CreatedBy
     private String createdBy;
 
     @Column
+    @LastModifiedDate
     private Date modifiedDate;
 
     @Column
+    @LastModifiedBy
     private String modifiedBy;
 
     public Long getId() {

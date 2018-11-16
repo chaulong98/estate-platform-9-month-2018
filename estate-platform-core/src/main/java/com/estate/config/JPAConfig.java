@@ -26,6 +26,7 @@ import java.util.Properties;
 @EnableJpaRepositories(basePackages = {"com.estate.repository"})
 @EnableTransactionManagement
 @PropertySource("classpath:application.properties")
+@EnableJpaAuditing(auditorAwareRef = "auditorAware")
 public class JPAConfig {
     @Autowired
     private Environment environment;
@@ -72,5 +73,24 @@ public class JPAConfig {
         //properties.setProperty("hibernate.hbm2ddl.auto", "create");
         properties.setProperty("hibernate.hbm2ddl.auto", "none");
         return properties;
+    }
+
+    //dung auditing spring data jpa de xet createdBy
+    @Bean
+    public AuditorAware<String> auditorAware(){
+        return new AuditorAwareImpl();
+    }
+
+    public class AuditorAwareImpl implements AuditorAware<String> {
+        //return name people edit new
+        @Override
+        public String getCurrentAuditor() {
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            if (auth == null || !auth.isAuthenticated()){
+                return null;
+            }else {
+                return auth.getName();
+            }
+        }
     }
 }

@@ -1,5 +1,10 @@
 package com.estate.dto;
 
+import com.estate.entity.UserEntity;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class BuildingDTO extends AbstractDTO {
 
     private static final long serialVersionUID = 4428522696190004907L;
@@ -20,29 +25,29 @@ public class BuildingDTO extends AbstractDTO {
 
     private String direction;
 
-    private String rank;
+    private String level;
 
     private String leasedArea;
 
-    private String deciptionArea;
+    private String descriptionArea;
 
     private Integer rentCost;
 
-    private String deciptionCost;
+    private String descriptionCost;
 
-    private Integer feesService;
+    private String feesService;
 
-    private Integer feesCar;
+    private String feesCar;
 
-    private Integer feesMotorcycle;
+    private String feesMotorcycle;
 
-    private Integer feesOvertime;
+    private String feesOvertime;
 
-    private Integer electricBill;
+    private String electricBill;
 
-    private Integer deposits;
+    private String deposits;
 
-    private Integer pay;
+    private String pay;
 
     private String rentTime;
 
@@ -52,9 +57,9 @@ public class BuildingDTO extends AbstractDTO {
 
     private String phoneNumber;
 
-    private Integer brokeragefees;
+    private String brokeragefees;
 
-    private String productType;
+    private String[] typeBuilding = new String[]{};
 
     private String note;
 
@@ -64,12 +69,22 @@ public class BuildingDTO extends AbstractDTO {
 
     private String image;
 
+    private String[] users = new String[]{};
+
     public String getProductName() {
         return productName;
     }
 
     public void setProductName(String productName) {
         this.productName = productName;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
     }
 
     public String getWard() {
@@ -120,12 +135,12 @@ public class BuildingDTO extends AbstractDTO {
         this.direction = direction;
     }
 
-    public String getRank() {
-        return rank;
+    public String getLevel() {
+        return level;
     }
 
-    public void setRank(String rank) {
-        this.rank = rank;
+    public void setLevel(String level) {
+        this.level = level;
     }
 
     public String getLeasedArea() {
@@ -136,12 +151,12 @@ public class BuildingDTO extends AbstractDTO {
         this.leasedArea = leasedArea;
     }
 
-    public String getDeciptionArea() {
-        return deciptionArea;
+    public String getDescriptionArea() {
+        return descriptionArea;
     }
 
-    public void setDeciptionArea(String deciptionArea) {
-        this.deciptionArea = deciptionArea;
+    public void setDescriptionArea(String descriptionArea) {
+        this.descriptionArea = descriptionArea;
     }
 
     public Integer getRentCost() {
@@ -152,67 +167,67 @@ public class BuildingDTO extends AbstractDTO {
         this.rentCost = rentCost;
     }
 
-    public String getDeciptionCost() {
-        return deciptionCost;
+    public String getDescriptionCost() {
+        return descriptionCost;
     }
 
-    public void setDeciptionCost(String deciptionCost) {
-        this.deciptionCost = deciptionCost;
+    public void setDescriptionCost(String descriptionCost) {
+        this.descriptionCost = descriptionCost;
     }
 
-    public Integer getFeesService() {
+    public String getFeesService() {
         return feesService;
     }
 
-    public void setFeesService(Integer feesService) {
+    public void setFeesService(String feesService) {
         this.feesService = feesService;
     }
 
-    public Integer getFeesCar() {
+    public String getFeesCar() {
         return feesCar;
     }
 
-    public void setFeesCar(Integer feesCar) {
+    public void setFeesCar(String feesCar) {
         this.feesCar = feesCar;
     }
 
-    public Integer getFeesMotorcycle() {
+    public String getFeesMotorcycle() {
         return feesMotorcycle;
     }
 
-    public void setFeesMotorcycle(Integer feesMotorcycle) {
+    public void setFeesMotorcycle(String feesMotorcycle) {
         this.feesMotorcycle = feesMotorcycle;
     }
 
-    public Integer getFeesOvertime() {
+    public String getFeesOvertime() {
         return feesOvertime;
     }
 
-    public void setFeesOvertime(Integer feesOvertime) {
+    public void setFeesOvertime(String feesOvertime) {
         this.feesOvertime = feesOvertime;
     }
 
-    public Integer getElectricBill() {
+    public String getElectricBill() {
         return electricBill;
     }
 
-    public void setElectricBill(Integer electricBill) {
+    public void setElectricBill(String electricBill) {
         this.electricBill = electricBill;
     }
 
-    public Integer getDeposits() {
+    public String getDeposits() {
         return deposits;
     }
 
-    public void setDeposits(Integer deposits) {
+    public void setDeposits(String deposits) {
         this.deposits = deposits;
     }
 
-    public Integer getPay() {
+    public String getPay() {
         return pay;
     }
 
-    public void setPay(Integer pay) {
+    public void setPay(String pay) {
         this.pay = pay;
     }
 
@@ -248,20 +263,20 @@ public class BuildingDTO extends AbstractDTO {
         this.phoneNumber = phoneNumber;
     }
 
-    public Integer getBrokeragefees() {
+    public String getBrokeragefees() {
         return brokeragefees;
     }
 
-    public void setBrokeragefees(Integer brokeragefees) {
+    public void setBrokeragefees(String brokeragefees) {
         this.brokeragefees = brokeragefees;
     }
 
-    public String getProductType() {
-        return productType;
+    public String[] getTypeBuilding() {
+        return typeBuilding;
     }
 
-    public void setProductType(String productType) {
-        this.productType = productType;
+    public void setTypeBuilding(String[] typeBuilding) {
+        this.typeBuilding = typeBuilding;
     }
 
     public String getNote() {
@@ -296,11 +311,11 @@ public class BuildingDTO extends AbstractDTO {
         this.image = image;
     }
 
-    public String getDistrict() {
-        return district;
+    public String[] getUsers() {
+        return users;
     }
 
-    public void setDistrict(String district) {
-        this.district = district;
+    public void setUsers(String[] users) {
+        this.users = users;
     }
 }

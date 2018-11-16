@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Danh sách bài viết</title>
+    <title>Danh sách tòa nhà</title>
 </head>
 <body>
 <div class="main-content">
@@ -24,7 +24,7 @@
                     <i class="ace-icon fa fa-home home-icon"></i>
                     <a href="#">Trang chủ</a>
                 </li>
-                <li class="active">Danh sách bài viết</li>
+                <li class="active">Danh sách tòa nhà</li>
             </ul><!-- /.breadcrumb -->
         </div>
         <div class="page-content">
@@ -56,12 +56,12 @@
                                                     <i class="fa fa-plus-circle bigger-110 purple"></i>
                                                 </span>
                                         </a>
-                                        <%--<button id="btnDelete" type="button" class="dt-button buttons-html5 btn btn-white btn-primary btn-bold" disabled--%>
-                                        <%--data-toggle="tooltip" title="Xóa bài viết" onclick="warningBeforeDelete()">--%>
-                                        <%--<span>--%>
-                                        <%--<i class="fa fa-trash-o bigger-110 pink"></i>--%>
-                                        <%--</span>--%>
-                                        <%--</button>--%>
+                                        <button id="btnDelete" type="button" class="dt-button buttons-html5 btn btn-white btn-primary btn-bold" disabled
+                                                data-toggle="tooltip" title="Xóa bài viết">
+                                                    <span>
+                                                        <i class="fa fa-trash-o bigger-110 pink"></i>
+                                                	</span>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -69,11 +69,12 @@
                     </div>
                     <form:form action="${formURL}" modelAttribute="model" id="formSubmit" method="get">
                         <div class="row">
-                            <div class="col-xs-12">
+                            <div class="c-xs-12">
                                 <div class="table-responsive">
                                     <table class="table">
                                         <thead>
                                         <tr>
+                                            <th><input type="checkbox" value="" id="checkAll"/></th>
                                             <th>Ngày</th>
                                             <th>Tên sản phẩm</th>
                                             <th>Địa chỉ</th>
@@ -90,24 +91,40 @@
                                         <tbody>
                                         <c:forEach var="item" items="${model.listResult}">
                                             <tr>
+                                                <td><input type="checkbox" value="${item.id}" id="checkbox_${item.id}"/></td>
                                                 <td>${item.createdDate}</td>
                                                 <td>${item.productName}</td>
                                                 <td>${item.ward}</td>
                                                 <td>${item.managerName}</td>
                                                 <td>${item.phoneNumber}</td>
                                                 <td>${item.buildingArea}</td>
-                                                <td>${item.deciptionArea}</td>
+                                                <td>${item.descriptionArea}</td>
                                                 <td>${item.rentCost}</td>
-                                                <td>${item.rentCost}</td>
-                                                <td>${item.rentCost}</td>
+                                                <td>${item.feesService}</td>
+                                                <td>${item.brokeragefees}</td>
                                                 <td>
                                                     <c:url var="editURL" value="/admin/building/edit">
                                                         <c:param name="id" value="${item.id}"/>
                                                     </c:url>
+
                                                     <a class="btn btn-sm btn-primary btn-edit" data-toggle="tooltip"
                                                        title="Cập nhật bài viết" href='${editURL}'><i
                                                             class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                     </a>
+
+                                                    <security:authorize ifAnyGranted="MANAGER">
+                                                        <c:url var="entrustURL" value="/admin/building/entrust">
+                                                            <c:param name="id" value="${item.id}"/>
+                                                        </c:url>
+
+                                                        <a class="btn btn-xs btn-primary btn-edit"
+                                                                data-toggle="tooltip" type="button"
+                                                                title='Giao tòa nhà'
+                                                                href="${entrustURL}">
+                                                            <i class="fa fa-tasks"></i>
+                                                        </a>
+                                                    </security:authorize>
+
                                                 </td>
                                             </tr>
                                         </c:forEach>
@@ -132,6 +149,7 @@
         </div>
     </div>
 </div>
+
 <script type="text/javascript">
     var totalPages = ${model.totalPages};
     var visiblePages = ${model.maxPageItems};

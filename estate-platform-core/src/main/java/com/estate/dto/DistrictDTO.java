@@ -1,8 +1,9 @@
 package com.estate.dto;
 
-public class DistricDTO extends AbstractDTO {
+public class DistrictDTO extends AbstractDTO {
 
     private static final long serialVersionUID = 4537876828679648255L;
+
     private String code;
 
     private String name;
