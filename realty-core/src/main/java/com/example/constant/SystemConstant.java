@@ -5,4 +5,5 @@ public class SystemConstant {
 	public static final String BASE_DIR = "/fileupload/";
 	public static final String THUMBNAIL = "/thumbnail/";
 	public static final String MODELCOMMENT = "modelComment";
+	public static final String HOME_BUILDING = "C:/home/Building";
 }

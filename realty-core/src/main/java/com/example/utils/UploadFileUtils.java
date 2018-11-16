@@ -2,6 +2,7 @@ package com.example.utils;
 
 import com.example.constant.SystemConstant;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,7 +18,7 @@ public class UploadFileUtils {
 		checkAndCreateFolder(SystemConstant.BASE_DIR, folderFile);
 		FileOutputStream outputStream = null;
 		try {
-			String pathFile = SystemConstant.BASE_DIR  + folderFile + fileName;
+			String pathFile = SystemConstant.BASE_DIR + folderFile + fileName;
 			File file = new File(pathFile);
 			if (file.exists()) {
 				file.delete();
@@ -45,6 +46,34 @@ public class UploadFileUtils {
 		File file = new File(fileLocation + folderFile);
 		if (!file.exists()) {
 			file.mkdirs();
+		}
+	}
+
+	public static void writeOrUpdate(String path, byte[] bytes) {
+		path = SystemConstant.HOME_BUILDING + path;
+		File file = new File(StringUtils.substringBeforeLast(path, "/"));
+		// check folder
+		if (!file.exists()) {
+			file.mkdir();
+		}
+		FileOutputStream fop = null;
+		try {
+
+			fop = new FileOutputStream(path);
+			fop.write(bytes);
+			fop.flush();
+			fop.close();
+			System.out.println("Done");
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (fop != null) {
+					fop.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }

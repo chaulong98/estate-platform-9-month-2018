@@ -88,7 +88,7 @@ public class BuildingEntity extends BaseEntity {
 	@Column
 	private String note;
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "users_building", joinColumns = {
 			@JoinColumn(name = "building_id", nullable = false) }, inverseJoinColumns = {
 					@JoinColumn(name = "user_id", nullable = false) })

@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -37,5 +38,10 @@ public class BuildingApi {
 		SessionUtils.getSession().putValue(session, "messageResponse", "Thành Công");
 	
 		return ResponseEntity.ok(buildingService.editManager(id, buildingModel));
+	}
+	@DeleteMapping
+	public ResponseEntity<Void> deleteNews(@RequestBody long[] ids) {
+		buildingService.deleteUserBuilding(ids);
+		return ResponseEntity.noContent().build();
 	}
 }

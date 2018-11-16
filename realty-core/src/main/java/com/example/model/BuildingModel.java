@@ -10,7 +10,11 @@ public class BuildingModel extends AbstractModel<BuildingModel> {
 
 
 	private static final long serialVersionUID = -3102755265825827766L;
-
+	
+	private String imageName;
+	
+    private String base64Image;
+	
 	private Long[] dependencies;
 
 	private String nameBuilding;
@@ -330,6 +334,28 @@ public class BuildingModel extends AbstractModel<BuildingModel> {
 
 	public void setMapDistrict(Map<String, String> mapDistrict) {
 		this.mapDistrict = mapDistrict;
+	}
+
+
+	public String getImageName() {
+		return imageName;
+	}
+
+	public void setImageName(String imageName) {
+		this.imageName = imageName;
+	}
+
+	public String getBase64Image() {
+//		cắt chuỗi base 64
+		if(base64Image != null) {
+			return base64Image.split(",")[1];
+			
+		}
+		return base64Image;
+	}
+
+	public void setBase64Image(String base64Image) {
+		this.base64Image = base64Image;
 	}
 
 }

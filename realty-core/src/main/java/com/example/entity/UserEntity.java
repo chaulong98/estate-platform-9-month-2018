@@ -36,14 +36,14 @@ public class UserEntity extends BaseEntity {
 	@Column
 	private Integer status;
 
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "users_roles", joinColumns = {
 			@JoinColumn(name = "user_id", nullable = false) }, inverseJoinColumns = {
 					@JoinColumn(name = "role_id", nullable = false) })
 
 	private List<RoleEntity> roles;
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL }, mappedBy = "userEntity")
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "userEntity")
 	private List<BuildingEntity> building;
 
 	public List<BuildingEntity> getBuilding() {

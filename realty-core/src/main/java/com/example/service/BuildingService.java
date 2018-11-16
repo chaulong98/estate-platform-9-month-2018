@@ -13,4 +13,5 @@ public interface BuildingService {
 	BuildingModel findBuilding(Long id);
 	BuildingModel updateBuilding(Long id,BuildingModel model);
 	BuildingModel editManager(Long id , BuildingModel model);
+	void deleteUserBuilding(long[] ids);
 }

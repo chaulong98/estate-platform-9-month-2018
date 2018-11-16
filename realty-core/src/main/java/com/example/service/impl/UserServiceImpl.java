@@ -11,6 +11,7 @@ import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.converter.UserConverter;
 import com.example.entity.RoleEntity;
@@ -39,6 +40,7 @@ public class UserServiceImpl implements UserService {
 	private PasswordEncoder passwordEncoder;
 
 	@Override
+	@Transactional
 	public List<UserModel> getNews(String userName, String fullName, Pageable pageable) {
 		Page<UserEntity> page = null;
 		if (userName != null && StringUtils.isNotEmpty(userName)) {
@@ -55,6 +57,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	@Transactional
 	public long getTotalItems(String userName, String fullName) {
 		long totalItem = 0;
 		if (userName != null && StringUtils.isNotEmpty(userName)) {
@@ -67,6 +70,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	@Transactional
 	public UserModel insertUser(UserModel model) {
 
 		if (checkUserNameAndEmailUnique(model.getUserName(), model.getEmail(), model.getId())) {
@@ -93,6 +97,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	@Transactional
 	public UserModel updateUser(Long id, UserModel model) {
 
 		if (checkUserNameAndEmailUnique(model.getUserName(), model.getEmail(), id)) {
@@ -118,6 +123,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	@Transactional
 	public UserModel findUserById(Long id) {
 		UserEntity entity = userRepository.findOne(id);
 		UserModel model = converterUser.convertToDto(entity);
@@ -132,6 +138,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	@Transactional
 	public Boolean checkUserNameAndEmailUnique(String userName, String email, Long idUser) {
 		UserEntity nameUser = userRepository.findOneByUserName(userName);
 		UserEntity emailUser = userRepository.findOneByEmail(email);
@@ -185,6 +192,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	@Transactional
 	public List<UserModel> getAll() {
 		List<UserEntity> entities = userRepository.findAll();
 		List<UserModel> list = new ArrayList<>();
@@ -197,6 +205,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	@Transactional
 	public List<UserModel> getUserAdmin() {
 	List<UserEntity> entities = userRepository.findAll();
 	List<UserEntity> personAdmin = new ArrayList<>();

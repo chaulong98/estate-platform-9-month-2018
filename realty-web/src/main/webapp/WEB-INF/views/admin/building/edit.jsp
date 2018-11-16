@@ -37,22 +37,7 @@
 									</form:select>
 								</div>
 							</div>
-							<br>
-							<br>
-							<div class="check_manager">
-							<div class="form-group">
-								<label class="col-sm-3 control-label no-padding-right">Người Quản Lý
-								</label>
-								<div class="col-sm-9">
-								
-									<c:forEach var="item" items="${model.listuser}" >
-										<form:checkbox path="dependencies"  value="${item.id}" label="${item.fullName}"  />
-									
-<%-- 									  <label><input id="check_admin" type="checkbox" value="${item.id}">${item.fullName}</label> --%>
-									</c:forEach>
-								</div>
-							</div>
-							</div>
+
 							
 							<br/>
 							<br/>
@@ -281,8 +266,36 @@
 									
 								</div>
 							</div>
+							<br>
+							<br>
 							</div>
-							  		
+							
+								<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right">Hình ảnh 
+									</label>
+								<div class="col-sm-9">
+								  <input type="file" name="file" id="uploadImage" >
+								</div>
+							</div>
+							  	<br>
+							  	<br>
+							  
+							<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right">Xem
+									trước</label>
+								<div class="col-sm-9">
+									<c:if test="${not empty model.thumbnail}">
+<%-- 										<c:set var="image" value="/repository/${model.thumbnail}" /> --%>
+<%-- 										<img src="<c:url value='${image}'/>" id="viewImage" --%>
+<!-- 											width="150px" height="150px"> -->
+                          <img src="<c:url value='/images/${model.thumbnail}'/>" id="viewImage" width="150px" height="150px">
+									</c:if>
+									<c:if test="${empty model.thumbnail}">
+										<img src="<c:url value='/image/no-image.png'/>" id="viewImage"
+											width="150px" height="150px">
+									</c:if>
+								</div>
+							</div>	
 							<div class="form-group">
 								<div class="col-sm-12">
 									<c:if test="${not empty model.id}">
@@ -306,8 +319,12 @@
 		</div>
 	</div>
 	
-	<script>
+	<script type="text/javascript">
+	
+	  var base64Image = "";
+	    var imageName = "";
 	$(document).ready(function () {
+
 		$("input[name=rentArea]").keypress(function (e) {
 
 			  if (/\d+|,+|[/b]+|-+/i.test(e.key) ){
@@ -321,19 +338,46 @@
 			});
 	});
     
+	
+	 $('#uploadImage').change(function (event) {
+		 var reader = new FileReader();
+		 var file  = $(this)[0].files[0];
+		 reader.onload = function (e) {	            	
+               $('#viewImage').attr('src', reader.result);	                
+               base64Image = e.target.result;
+               imageName = file.name;
+           };
+		 
+           reader.readAsDataURL(file);
+          
+      });
+	 
+	 
+// 	 function readURL(input, imageId) {
+// 	        if (input.files && input.files[0]) {
+// 	            var reader = new FileReader();
+// 	            reader.onload = function (e) {
+	            	
+// 	                $('#' +imageId).attr('src', reader.result);
+	                
+// 	                base64Image = e.target.result;
+// // 	                get ten file 
+// 	                imageName = input.files[0].name;
+// 	            }
+// 	            reader.readAsDataURL(input.files[0]);
+// 	        }
+// 	    }
 
     $('#btnAddOrUpdateNews').click(function (e) {	
         e.preventDefault();
         var dataArray = {};
-        var dependencies = $('.check_manager input[type=checkbox]:checked').map(function () {
-            return $(this).val();
-        }).get();
+       
         var checkcategory = $('.checkcategory input[type=checkbox]:checked').map(function () {
             return $(this).val();
         }).get();
         
         dataArray['district'] = $('#district').val();
-        dataArray['dependencies'] = dependencies;
+       
         dataArray['nameBuilding'] = $('#nameBuilding').val();
         dataArray['guild'] = $('#guild').val();
         dataArray['street'] = $('#street').val();
@@ -357,10 +401,17 @@
         dataArray['managementName'] = $('#managementName').val();
         dataArray['managementPhone'] = $('#managementPhone').val();
         dataArray['productTypeModel'] = checkcategory;
-   
+        if(base64Image != ""){
+        	
+         dataArray['imageName'] = imageName;
+         dataArray['base64Image'] = base64Image;
+        }
+      
            
             if ($('#id').val() != "") {
+            	
             	updateBuilding(dataArray, $('#id').val());
+            	
             }
          else {    
                  insertBuilding(dataArray);

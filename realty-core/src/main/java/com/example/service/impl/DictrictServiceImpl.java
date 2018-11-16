@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.entity.DistrictEntity;
 import com.example.repository.DistrictRepository;
@@ -17,6 +18,7 @@ public class DictrictServiceImpl implements DistrictService {
 	@Autowired
 	private DistrictRepository districtRepository;
 	@Override
+	@Transactional 
 	public Map<String, String> getAllDictrict() {
 		List<DistrictEntity> districtEntity = districtRepository.findAll();
 		Map<String, String> map = new HashMap<>();

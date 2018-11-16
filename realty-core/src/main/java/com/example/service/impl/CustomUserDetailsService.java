@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.converter.UserConverter;
 import com.example.entity.UserEntity;
@@ -32,6 +33,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 	private UserConverter userConverter;
 
 	@Override
+	@Transactional
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		UserEntity userEntity = userRepository.findOneByUserName(username);
 		UserModel userModel = userConverter.convertToDto(userEntity);

@@ -51,7 +51,6 @@ public class BuildingController {
 	@RequestMapping(value = "/manager/building/edit", method = RequestMethod.GET)
 	public String editBuilding(ModelMap map) {
 		BuildingModel model = new BuildingModel();
-		model.setListuser(userService.getAll());
 		model.setMapDistrict(districtService.getAllDictrict());
 		map.addAttribute("enumBuildingType", EnumBuilding.getTypeBuildings());
 		map.addAttribute("model", model);
@@ -62,7 +61,6 @@ public class BuildingController {
 	public String editBuilding(ModelMap map,@PathVariable("idBuilding") Long id) {
 		BuildingModel model = buildingService.findBuilding(id);
 		model.setMapDistrict(districtService.getAllDictrict());
-		model.setListuser(userService.getAll());
 		map.addAttribute("enumBuildingType", EnumBuilding.getTypeBuildings());
 		map.addAttribute("model", model);
 		return "admin/building/edit";

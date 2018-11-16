@@ -5,6 +5,7 @@
 <c:url var="formUrl" value="/manager/building/list" />
 <c:url var="formEdit" value=""/>
 <c:url var="manager" value="/ajax/manager/building">
+<c:url var="deleteURL" value="/ajax/building" />
 <%--     <c:param name="urlType" value="manager" /> --%>
 </c:url>
 <html>
@@ -13,6 +14,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+
 <div class="main-content">
     <form:form>
    
@@ -155,7 +157,33 @@
 		   $('#myModal').modal('toggle');
 		   
 	       });
-}
+        }
+   
+   
+   function warningBeforeDelete() {
+       showAlertBeforeDelete(function () {
+           event.preventDefault();
+           var dataArray = $('body input[type=checkbox]:checked').map(function () {
+               return $(this).val();
+           }).get();
+           deleteNews(dataArray);
+       });
+   }
+   function deleteNews(data) {
+       $.ajax ({
+           url: '${deleteURL}',
+           type: 'DELETE',
+           dataType: 'json',
+           contentType:'application/json',
+           data: JSON.stringify(data),
+           success: function(res) {
+               window.location.href = "<c:url value='/manager/building/list'/>";
+           },
+           error: function(res) {
+               console.log(res);
+           }
+       });
+   }
 	
 </script>
 </body>
