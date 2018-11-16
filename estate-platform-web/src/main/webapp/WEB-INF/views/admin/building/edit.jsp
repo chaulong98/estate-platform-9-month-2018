@@ -296,12 +296,7 @@
                             <label class="col-sm-3 control-label no-padding-right">Loại sản phẩm</label>
                             <div class="col-sm-9">
                                 <table>
-                                    <c:forEach var="list" items="${buildingTypes}">
-                                        <tr>
-                                            <td><form:checkbox path="typeBuilding" value="${list.key}"></form:checkbox> </td>
-                                            <td>${list.value}</td>
-                                        </tr>
-                                    </c:forEach>
+                                    <td><form:checkboxes items="${buildingTypes}" path="typeBuilding" /></td>
                                 </table>
                             </div>
                         </div>

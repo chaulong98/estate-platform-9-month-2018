@@ -1,4 +1,4 @@
-set search_path to estate;
+set search_path to estateletuan;
 
 INSERT INTO role(code, name) VALUES ('MANAGER','manager');
 INSERT INTO role(code, name) VALUES ('USER','user');
