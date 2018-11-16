@@ -35,7 +35,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right">Chọn quận:</label>
                             <div class="col-sm-9">
-                                <form:select path="district" cssClass="form-control">
+                                <form:select path="district" cssClass="form-control" cssStyle="width: auto">
                                     <form:option value="" label="-- Chọn quận --"/>
                                     <form:options items="${district}" />
                                 </form:select>
