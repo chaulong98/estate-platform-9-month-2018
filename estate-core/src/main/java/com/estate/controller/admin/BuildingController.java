@@ -2,6 +2,7 @@ package com.estate.controller.admin;
 
 import com.estate.constant.SystemConstant;
 import com.estate.dto.BuildingDTO;
+import com.estate.enums.BuildingType;
 import com.estate.security.utils.MessageResponseUtils;
 import com.estate.service.IBuildingService;
 import com.estate.service.IDistrictService;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
+import java.util.*;
 
 
 @Controller
@@ -30,7 +31,7 @@ public class BuildingController {
 
     @RequestMapping(value = "/admin/building/list", method = RequestMethod.GET)
     public ModelAndView showBuilding (@ModelAttribute("model") BuildingDTO model) {
-        ModelAndView mav = new ModelAndView("/admin/building/list");
+        ModelAndView mav = new ModelAndView("admin/building/list");
         buildingService.findAll(model, new PageRequest(model.getPage() - 1 , model.getMaxPageItems()));
         mav.addObject(SystemConstant.MODEL, model);
         return mav;
@@ -45,6 +46,9 @@ public class BuildingController {
             model = buildingService.findById(id);
         }
         initMessageResponse(mav,request);
+        ArrayList<String> types = new ArrayList<String>();
+        EnumSet.allOf(BuildingType.class).forEach(buildingType -> types.add(buildingType.getValue()));
+        mav.addObject("type", types);
         mav.addObject("district", districtService.getDistrict());
         mav.addObject(SystemConstant.MODEL, model);
         return mav;

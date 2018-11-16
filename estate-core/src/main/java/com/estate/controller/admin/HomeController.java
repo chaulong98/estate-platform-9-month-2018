@@ -33,7 +33,7 @@ public class HomeController {
 		if(authentication!=null){
 			new SecurityContextLogoutHandler().logout(request,response,authentication);
 		}
-		return "redirect:/admin/home";
+		return "redirect:/dang-nhap";
 	}
 
 	@RequestMapping(value = "/access-denied",method = RequestMethod.GET)

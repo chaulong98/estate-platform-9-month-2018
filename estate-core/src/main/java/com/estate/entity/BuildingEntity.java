@@ -1,5 +1,7 @@
 package com.estate.entity;
 
+import com.estate.enums.BuildingType;
+
 import javax.persistence.*;
 
 @Entity
@@ -26,7 +28,7 @@ public class BuildingEntity extends BaseEntity {
     private String basement;
 
     @Column
-    private String floorarea;
+    private String floorArea;
 
     @Column
     private String direction;
@@ -35,55 +37,55 @@ public class BuildingEntity extends BaseEntity {
     private String grade;
 
     @Column
-    private String rentingarea;
+    private String rentArea;
 
     @Column(columnDefinition = "TEXT")
     private String description;
 
     @Column
-    private String rentingfee;
+    private String rentFee;
 
     @Column
-    private String feedescription;
+    private String feeDescription;
 
     @Column
-    private String servicefee;
+    private String serviceFee;
 
     @Column
-    private String carfee;
+    private String carFee;
 
     @Column
-    private String motorbikefee;
+    private String motorbikeFee;
 
     @Column
-    private String outtimefee;
+    private String outTimeFee;
 
     @Column
-    private String electricbill;
+    private String electricBill;
 
     @Column
     private String deposit;
 
     @Column
-    private String paymentmethod;
+    private String paymentMethod;
 
     @Column
-    private String rentingduration;
+    private String rentDuration;
 
     @Column
-    private String decoratetime;
+    private String decorateTime;
 
     @Column
-    private String managername;
+    private String managerName;
 
     @Column
-    private String managerphone;
+    private String managerPhone;
 
     @Column
-    private String agencyfee;
+    private String agencyFee;
 
     @Column
-    private String buildingform;
+    private String type;
 
     @Column(columnDefinition = "TEXT")
     private String note;
@@ -93,6 +95,9 @@ public class BuildingEntity extends BaseEntity {
 
     @Column
     private String map;
+
+    @Column
+    private String avatar;
 
     public String getName() {
         return name;
@@ -142,14 +147,6 @@ public class BuildingEntity extends BaseEntity {
         this.basement = basement;
     }
 
-    public String getFloorarea() {
-        return floorarea;
-    }
-
-    public void setFloorarea(String floorarea) {
-        this.floorarea = floorarea;
-    }
-
     public String getDirection() {
         return direction;
     }
@@ -166,14 +163,6 @@ public class BuildingEntity extends BaseEntity {
         this.grade = grade;
     }
 
-    public String getRentingarea() {
-        return rentingarea;
-    }
-
-    public void setRentingarea(String rentingarea) {
-        this.rentingarea = rentingarea;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -182,124 +171,12 @@ public class BuildingEntity extends BaseEntity {
         this.description = description;
     }
 
-    public String getRentingfee() {
-        return rentingfee;
-    }
-
-    public void setRentingfee(String rentingfee) {
-        this.rentingfee = rentingfee;
-    }
-
-    public String getFeedescription() {
-        return feedescription;
-    }
-
-    public void setFeedescription(String feedescription) {
-        this.feedescription = feedescription;
-    }
-
-    public String getServicefee() {
-        return servicefee;
-    }
-
-    public void setServicefee(String servicefee) {
-        this.servicefee = servicefee;
-    }
-
-    public String getCarfee() {
-        return carfee;
-    }
-
-    public void setCarfee(String carfee) {
-        this.carfee = carfee;
-    }
-
-    public String getMotorbikefee() {
-        return motorbikefee;
-    }
-
-    public void setMotorbikefee(String motorbikefee) {
-        this.motorbikefee = motorbikefee;
-    }
-
-    public String getOuttimefee() {
-        return outtimefee;
-    }
-
-    public void setOuttimefee(String outtimefee) {
-        this.outtimefee = outtimefee;
-    }
-
-    public String getElectricbill() {
-        return electricbill;
-    }
-
-    public void setElectricbill(String electricbill) {
-        this.electricbill = electricbill;
-    }
-
     public String getDeposit() {
         return deposit;
     }
 
     public void setDeposit(String deposit) {
         this.deposit = deposit;
-    }
-
-    public String getPaymentmethod() {
-        return paymentmethod;
-    }
-
-    public void setPaymentmethod(String paymentmethod) {
-        this.paymentmethod = paymentmethod;
-    }
-
-    public String getRentingduration() {
-        return rentingduration;
-    }
-
-    public void setRentingduration(String rentingduration) {
-        this.rentingduration = rentingduration;
-    }
-
-    public String getDecoratetime() {
-        return decoratetime;
-    }
-
-    public void setDecoratetime(String decoratetime) {
-        this.decoratetime = decoratetime;
-    }
-
-    public String getManagername() {
-        return managername;
-    }
-
-    public void setManagername(String managername) {
-        this.managername = managername;
-    }
-
-    public String getManagerphone() {
-        return managerphone;
-    }
-
-    public void setManagerphone(String managerphone) {
-        this.managerphone = managerphone;
-    }
-
-    public String getAgencyfee() {
-        return agencyfee;
-    }
-
-    public void setAgencyfee(String agencyfee) {
-        this.agencyfee = agencyfee;
-    }
-
-    public String getBuildingform() {
-        return buildingform;
-    }
-
-    public void setBuildingform(String buildingform) {
-        this.buildingform = buildingform;
     }
 
     public String getNote() {
@@ -324,5 +201,141 @@ public class BuildingEntity extends BaseEntity {
 
     public void setMap(String map) {
         this.map = map;
+    }
+
+    public String getFloorArea() {
+        return floorArea;
+    }
+
+    public void setFloorArea(String floorArea) {
+        this.floorArea = floorArea;
+    }
+
+    public String getRentArea() {
+        return rentArea;
+    }
+
+    public void setRentArea(String rentArea) {
+        this.rentArea = rentArea;
+    }
+
+    public String getRentFee() {
+        return rentFee;
+    }
+
+    public void setRentFee(String rentFee) {
+        this.rentFee = rentFee;
+    }
+
+    public String getFeeDescription() {
+        return feeDescription;
+    }
+
+    public void setFeeDescription(String feeDescription) {
+        this.feeDescription = feeDescription;
+    }
+
+    public String getServiceFee() {
+        return serviceFee;
+    }
+
+    public void setServiceFee(String serviceFee) {
+        this.serviceFee = serviceFee;
+    }
+
+    public String getCarFee() {
+        return carFee;
+    }
+
+    public void setCarFee(String carFee) {
+        this.carFee = carFee;
+    }
+
+    public String getMotorbikeFee() {
+        return motorbikeFee;
+    }
+
+    public void setMotorbikeFee(String motorbikeFee) {
+        this.motorbikeFee = motorbikeFee;
+    }
+
+    public String getOutTimeFee() {
+        return outTimeFee;
+    }
+
+    public void setOutTimeFee(String outTimeFee) {
+        this.outTimeFee = outTimeFee;
+    }
+
+    public String getElectricBill() {
+        return electricBill;
+    }
+
+    public void setElectricBill(String electricBill) {
+        this.electricBill = electricBill;
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public String getRentDuration() {
+        return rentDuration;
+    }
+
+    public void setRentDuration(String rentDuration) {
+        this.rentDuration = rentDuration;
+    }
+
+    public String getDecorateTime() {
+        return decorateTime;
+    }
+
+    public void setDecorateTime(String decorateTime) {
+        this.decorateTime = decorateTime;
+    }
+
+    public String getManagerName() {
+        return managerName;
+    }
+
+    public void setManagerName(String managerName) {
+        this.managerName = managerName;
+    }
+
+    public String getManagerPhone() {
+        return managerPhone;
+    }
+
+    public void setManagerPhone(String managerPhone) {
+        this.managerPhone = managerPhone;
+    }
+
+    public String getAgencyFee() {
+        return agencyFee;
+    }
+
+    public void setAgencyFee(String agencyFee) {
+        this.agencyFee = agencyFee;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

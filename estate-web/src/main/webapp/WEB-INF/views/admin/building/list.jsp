@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Danh sách bài viết</title>
+    <title>Danh sách toà nhà</title>
 </head>
 <body>
 <div class="main-content">
@@ -20,7 +20,7 @@
                     <i class="ace-icon fa fa-home home-icon"></i>
                     <a href="<c:url value="/admin/home"/>">Trang chủ</a>
                 </li>
-                <li class="active">Danh sách bài viết</li>
+                <li class="active">Danh sách toà nhà</li>
             </ul><!-- /.breadcrumb -->
         </div>
         <div class="page-content">
@@ -55,26 +55,18 @@
                                     <div class="widget-main">
                                         <div class="form-horizontal">
                                             <div class="form-group">
-                                                <label class="col-sm-2 control-label">Tiêu đề:</label>
+                                                <label class="col-sm-2 control-label">Tên:</label>
                                                 <div class="col-sm-8">
                                                     <div class="fg-line">
-                                                        <form:input path="title" cssClass="form-control input-sm"/>
+                                                        <form:input path="name" cssClass="form-control input-sm"/>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-2 control-label">Nội dung:</label>
+                                                <label class="col-sm-2 control-label">Quận:</label>
                                                 <div class="col-sm-8">
                                                     <div class="fg-line">
-                                                        <form:input path="content" cssClass="form-control input-sm"/>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label">Thể loại:</label>
-                                                <div class="col-sm-8">
-                                                    <div class="fg-line">
-                                                        <form:input path="categoryName" cssClass="form-control input-sm"/>
+                                                        <form:input path="district" cssClass="form-control input-sm"/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -95,13 +87,13 @@
                                 <div class="pull-right tableTools-container">
                                     <div class="dt-buttons btn-overlap btn-group">
                                         <a flag="info" class="dt-button buttons-colvis btn btn-white btn-primary btn-bold"
-                                           data-toggle="tooltip" title="Thêm bài viết mới" href='<c:url value="/admin/building/edit"/>'>
+                                           data-toggle="tooltip" title="Thêm toà nhà mới" href='<c:url value="/admin/building/edit"/>'>
                                                     <span>
                                                     <i class="fa fa-plus-circle bigger-110 purple"></i>
                                                 </span>
                                         </a>
                                         <button id="btnDelete" type="button" class="dt-button buttons-html5 btn btn-white btn-primary btn-bold" disabled
-                                                data-toggle="tooltip" title="Xóa bài viết">
+                                                data-toggle="tooltip" title="Xóa toà nhà">
                                                     <span>
                                                         <i class="fa fa-trash-o bigger-110 pink"></i>
                                                 	</span>
@@ -118,7 +110,8 @@
                                         <thead>
                                         <tr>
                                             <th><input type="checkbox" value="" id="checkAll"/></th>
-                                            <th>Tên bài viết</th>
+                                            <th>Tên toà nhà</th>
+                                            <th>Loại</th>
                                             <th>Thao tác</th>
                                         </tr>
                                         </thead>
@@ -126,15 +119,15 @@
                                         <c:forEach var="item" items="${model.listResult}">
                                             <tr>
                                                 <td><input type="checkbox" value="${item.id}" id="checkbox_${item.id}"/></td>
-                                                <td>${item.title}</td>
+                                                <td>${item.name}</td>
+                                                <td>${item.type}</td>
                                                 <td>
                                                     <c:url var="editURL" value="/admin/building/edit">
                                                         <c:param name="id" value="${item.id}"/>
                                                     </c:url>
                                                     <a class="btn btn-sm btn-primary btn-edit" data-toggle="tooltip"
-                                                       title="Cập nhật bài viết" href='${editURL}'><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                       title="Cập nhật toà nhà" href='${editURL}'><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                     </a>
-
                                                 </td>
                                             </tr>
                                         </c:forEach>

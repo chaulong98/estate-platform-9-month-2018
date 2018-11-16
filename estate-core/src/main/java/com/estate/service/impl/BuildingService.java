@@ -3,10 +3,10 @@ package com.estate.service.impl;
 import com.estate.converter.BuildingConverter;
 import com.estate.dto.BuildingDTO;
 import com.estate.entity.BuildingEntity;
-import com.estate.entity.DistrictEntity;
 import com.estate.repository.BuildingRepository;
-import com.estate.repository.DistrictRepository;
+import com.estate.security.utils.UploadFileUtils;
 import com.estate.service.IBuildingService;
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -15,6 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,9 +28,6 @@ public class BuildingService implements IBuildingService {
 
     @Autowired
     private BuildingConverter converter;
-
-    @Autowired
-    private DistrictRepository districtRepository;
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -42,16 +41,23 @@ public class BuildingService implements IBuildingService {
     public void findAll(BuildingDTO model, Pageable pageable) {
         List<BuildingEntity> news = buildingRepository.findAll(pageable).getContent();
         model.setListResult(news.stream().map(item -> converter.convertToDto(item)).collect(Collectors.toList()));
+        Collections.sort(model.getListResult(), new Comparator<BuildingDTO>() {
+            @Override
+            public int compare(BuildingDTO o1, BuildingDTO o2) {
+                return o1.getId().compareTo(o2.getId());
+            }
+        });
         model.setTotalItems(getTotalItems().intValue());
     }
 
     @Override
     @Transactional
     public BuildingDTO save(BuildingDTO buildingDTO) {
-        DistrictEntity district = districtRepository.findOneByCode(buildingDTO.getDistrict());
         BuildingEntity buildingEntity = converter.convertToEntity(buildingDTO);
-        buildingEntity.setDistrict(district.toString());
         buildingRepository.save(buildingEntity);
+        if(buildingDTO.getBase64() != null){
+            writeImg(buildingDTO, buildingEntity);
+        }
         return converter.convertToDto(buildingEntity);
     }
 
@@ -60,11 +66,22 @@ public class BuildingService implements IBuildingService {
     public BuildingDTO update(BuildingDTO updateBuilding) {
         BuildingEntity existBuilding = buildingRepository.findOne(updateBuilding.getId());
         BuildingEntity update = converter.convertToEntity(updateBuilding);
-        update.setDistrict(districtRepository.findOneByCode(updateBuilding.getDistrict()).toString());
         update.setCreatedDate(existBuilding.getCreatedDate());
         update.setCreatedBy(existBuilding.getCreatedBy());
+        if(updateBuilding.getBase64() != null){
+            writeImg(updateBuilding, update);
+        } else {
+            update.setAvatar(existBuilding.getAvatar());
+        }
         existBuilding = buildingRepository.save(update);
         return converter.convertToDto(existBuilding);
+    }
+
+    private void writeImg(BuildingDTO updateBuilding, BuildingEntity updateEntity) {
+        byte[] decodedBase64 = Base64.decodeBase64(updateBuilding.getBase64().getBytes());
+        String path = updateBuilding.getImgName();
+        UploadFileUtils.writeOrUpdate(path,decodedBase64);
+        updateEntity.setAvatar("/anh/test/" + path);
     }
 
     @Override

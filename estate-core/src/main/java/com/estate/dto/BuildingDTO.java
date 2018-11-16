@@ -10,29 +10,51 @@ public class BuildingDTO extends AbstractDTO<BuildingDTO> {
     private String street;
     private String structure;
     private String basement;
-    private String floorarea;
+    private String floorArea;
     private String direction;
     private String grade;
-    private String rentingarea;
+    private String rentArea;
     private String description;
-    private String rentingfee;
-    private String feedescription;
-    private String servicefee;
-    private String carfee;
-    private String motorbikefee;
-    private String outtimefee;
-    private String electricbill;
+    private String rentFee;
+    private String feeDescription;
+    private String serviceFee;
+    private String carFee;
+    private String motorbikeFee;
+    private String outTimeFee;
+    private String electricBill;
     private String deposit;
-    private String paymentmethod;
-    private String rentingduration;
-    private String decoratetime;
-    private String managername;
-    private String managerphone;
-    private String agencyfee;
-    private String buildingform;
+    private String paymentMethod;
+    private String rentDuration;
+    private String decorateTime;
+    private String managerName;
+    private String managerPhone;
+    private String agencyFee;
+    private String type;
     private String note;
     private String link;
     private String map;
+    private String avatar;
+    private String base64;
+    private String imgName;
+
+    public String getBase64() {
+        if (base64 != null) {
+            return base64.split(",")[1];
+        }
+        return base64;
+    }
+
+    public void setBase64(String base64) {
+        this.base64 = base64;
+    }
+
+    public String getImgName() {
+        return imgName;
+    }
+
+    public void setImgName(String imgName) {
+        this.imgName = imgName;
+    }
 
     public String getName() {
         return name;
@@ -82,12 +104,12 @@ public class BuildingDTO extends AbstractDTO<BuildingDTO> {
         this.basement = basement;
     }
 
-    public String getFloorarea() {
-        return floorarea;
+    public String getFloorArea() {
+        return floorArea;
     }
 
-    public void setFloorarea(String floorarea) {
-        this.floorarea = floorarea;
+    public void setFloorArea(String floorArea) {
+        this.floorArea = floorArea;
     }
 
     public String getDirection() {
@@ -106,12 +128,12 @@ public class BuildingDTO extends AbstractDTO<BuildingDTO> {
         this.grade = grade;
     }
 
-    public String getRentingarea() {
-        return rentingarea;
+    public String getRentArea() {
+        return rentArea;
     }
 
-    public void setRentingarea(String rentingarea) {
-        this.rentingarea = rentingarea;
+    public void setRentArea(String rentArea) {
+        this.rentArea = rentArea;
     }
 
     public String getDescription() {
@@ -122,60 +144,60 @@ public class BuildingDTO extends AbstractDTO<BuildingDTO> {
         this.description = description;
     }
 
-    public String getRentingfee() {
-        return rentingfee;
+    public String getRentFee() {
+        return rentFee;
     }
 
-    public void setRentingfee(String rentingfee) {
-        this.rentingfee = rentingfee;
+    public void setRentFee(String rentFee) {
+        this.rentFee = rentFee;
     }
 
-    public String getFeedescription() {
-        return feedescription;
+    public String getFeeDescription() {
+        return feeDescription;
     }
 
-    public void setFeedescription(String feedescription) {
-        this.feedescription = feedescription;
+    public void setFeeDescription(String feeDescription) {
+        this.feeDescription = feeDescription;
     }
 
-    public String getServicefee() {
-        return servicefee;
+    public String getServiceFee() {
+        return serviceFee;
     }
 
-    public void setServicefee(String servicefee) {
-        this.servicefee = servicefee;
+    public void setServiceFee(String serviceFee) {
+        this.serviceFee = serviceFee;
     }
 
-    public String getCarfee() {
-        return carfee;
+    public String getCarFee() {
+        return carFee;
     }
 
-    public void setCarfee(String carfee) {
-        this.carfee = carfee;
+    public void setCarFee(String carFee) {
+        this.carFee = carFee;
     }
 
-    public String getMotorbikefee() {
-        return motorbikefee;
+    public String getMotorbikeFee() {
+        return motorbikeFee;
     }
 
-    public void setMotorbikefee(String motorbikefee) {
-        this.motorbikefee = motorbikefee;
+    public void setMotorbikeFee(String motorbikeFee) {
+        this.motorbikeFee = motorbikeFee;
     }
 
-    public String getOuttimefee() {
-        return outtimefee;
+    public String getOutTimeFee() {
+        return outTimeFee;
     }
 
-    public void setOuttimefee(String outtimefee) {
-        this.outtimefee = outtimefee;
+    public void setOutTimeFee(String outTimeFee) {
+        this.outTimeFee = outTimeFee;
     }
 
-    public String getElectricbill() {
-        return electricbill;
+    public String getElectricBill() {
+        return electricBill;
     }
 
-    public void setElectricbill(String electricbill) {
-        this.electricbill = electricbill;
+    public void setElectricBill(String electricBill) {
+        this.electricBill = electricBill;
     }
 
     public String getDeposit() {
@@ -186,60 +208,60 @@ public class BuildingDTO extends AbstractDTO<BuildingDTO> {
         this.deposit = deposit;
     }
 
-    public String getPaymentmethod() {
-        return paymentmethod;
+    public String getPaymentMethod() {
+        return paymentMethod;
     }
 
-    public void setPaymentmethod(String paymentmethod) {
-        this.paymentmethod = paymentmethod;
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
     }
 
-    public String getRentingduration() {
-        return rentingduration;
+    public String getRentDuration() {
+        return rentDuration;
     }
 
-    public void setRentingduration(String rentingduration) {
-        this.rentingduration = rentingduration;
+    public void setRentDuration(String rentDuration) {
+        this.rentDuration = rentDuration;
     }
 
-    public String getDecoratetime() {
-        return decoratetime;
+    public String getDecorateTime() {
+        return decorateTime;
     }
 
-    public void setDecoratetime(String decoratetime) {
-        this.decoratetime = decoratetime;
+    public void setDecorateTime(String decorateTime) {
+        this.decorateTime = decorateTime;
     }
 
-    public String getManagername() {
-        return managername;
+    public String getManagerName() {
+        return managerName;
     }
 
-    public void setManagername(String managername) {
-        this.managername = managername;
+    public void setManagerName(String managerName) {
+        this.managerName = managerName;
     }
 
-    public String getManagerphone() {
-        return managerphone;
+    public String getManagerPhone() {
+        return managerPhone;
     }
 
-    public void setManagerphone(String managerphone) {
-        this.managerphone = managerphone;
+    public void setManagerPhone(String managerPhone) {
+        this.managerPhone = managerPhone;
     }
 
-    public String getAgencyfee() {
-        return agencyfee;
+    public String getAgencyFee() {
+        return agencyFee;
     }
 
-    public void setAgencyfee(String agencyfee) {
-        this.agencyfee = agencyfee;
+    public void setAgencyFee(String agencyFee) {
+        this.agencyFee = agencyFee;
     }
 
-    public String getBuildingform() {
-        return buildingform;
+    public String getType() {
+        return type;
     }
 
-    public void setBuildingform(String buildingform) {
-        this.buildingform = buildingform;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getNote() {
@@ -264,5 +286,13 @@ public class BuildingDTO extends AbstractDTO<BuildingDTO> {
 
     public void setMap(String map) {
         this.map = map;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

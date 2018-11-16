@@ -39,7 +39,7 @@
         <li class="">
             <a href="#" class="dropdown-toggle">
                 <i class="menu-icon fa fa-list"></i>
-                <span class="menu-text">Quản lý bài đăng</span>
+                <span class="menu-text"> Menu </span>
                 <b class="arrow fa fa-angle-down"></b>
             </a>
             <b class="arrow"></b>
@@ -47,7 +47,7 @@
                 <li class="">
                     <a href='<c:url value="/admin/building/list"/>'>
                         <i class="menu-icon fa fa-caret-right"></i>
-                        Danh sách bài đăng
+                        Danh sách toà nhà
                     </a>
                     <b class="arrow"></b>
                 </li>
