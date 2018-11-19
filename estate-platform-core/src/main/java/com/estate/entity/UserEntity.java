@@ -29,7 +29,7 @@ public class UserEntity extends BaseEntity{
     private List<RoleEntity> roles = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "entrust",
+    @JoinTable(name = "user_building",
             joinColumns = @JoinColumn(name = "user_id", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "building_id", nullable = false))
     private List<BuildingEntity> buildings = new ArrayList<>();

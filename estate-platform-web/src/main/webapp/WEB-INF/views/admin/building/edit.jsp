@@ -80,7 +80,6 @@
                         <br/>
 
 
-
                         <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right">Cấu trúc</label>
                             <div class="col-sm-9">
@@ -296,7 +295,7 @@
                             <label class="col-sm-3 control-label no-padding-right">Loại sản phẩm</label>
                             <div class="col-sm-9">
                                 <table>
-                                    <td><form:checkboxes items="${buildingTypes}" path="typeBuilding" /></td>
+                                    <td><form:checkboxes items="${buildingTypes}" path="typeBuilding"/></td>
                                 </table>
                             </div>
                         </div>
@@ -335,9 +334,8 @@
 
                         <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right">Ảnh mô tả</label>
-                            <div class="col-sm-9">
-                                    <%--<input type="text" class="form-control" name="title" id="title"/>--%>
-                                <form:input path="image" cssClass="form-control" id="image"/>
+                            <div class="col-sm-3">
+                                <input type="file" name="file" id="uploadImage"/>
                             </div>
                         </div>
                         <br/>
@@ -365,11 +363,14 @@
 </div>
 
 <script type="text/javascript">
+    var base64Image = '';
+    var imageName = '';
+
     $(document).ready(function () {
         $('#btnAddOrUpdateBuilding').click(function (e) {
             e.preventDefault();
             var data = {};
-            var type = [];
+            var typeBuildings = [];
             //cach 1 chuyen du leiu json vao data
             // data['title'] = $('#title').val();
             // data['content'] = $('#content').val();
@@ -377,20 +378,36 @@
             //cach 2 chuyen du lieu vao data
             var formData = $('#formSubmit').serializeArray();
             $.each(formData, function (i, v) {
-                if(v.name == 'typeBuilding'){
-                    type.push(v.value);
-                }else {
+                if (v.name == 'typeBuilding') {
+                    typeBuildings.push(v.value);
+                } else {
                     data["" + v.name + ""] = v.value;
                 }
             });
-            data["typeBuilding"] = type;
+            data["typeBuilding"] = typeBuildings;
+            if (base64Image != '') {
+                data["imageName"] = imageName;
+                data["base64Image"] = base64Image;
+            }
             var idBuilding = $('#idBuilding').val();
-            if (idBuilding == ""){
+            if (idBuilding == "") {
                 addBuilding(data);
-            }else{
+            } else {
                 updateBuilding(data);
             }
         });
+
+        //upload image
+        $('#uploadImage').change(function (event) {
+            var reader = new FileReader();
+            var file = $(this)[0].files[0];
+            reader.onload = function (e) {
+                base64Image = e.target.result;
+                imageName = file.name;
+            };
+            reader.readAsDataURL(file);
+        });
+
     });
 
     function addBuilding(data) {
@@ -401,12 +418,10 @@
             contentType: 'application/json',
             dataType: 'json',
             success: function (result) {
-                <%--window.location.href = "<c:url value='/admin/building/edit?id="+result.id+"&message=insert_success'/>";--%>
-                window.location.href = "<c:url value='/admin/building/list'/>";
+                window.location.href = "<c:url value='/admin/building/edit?id="+result.id+"&message=insert_success'/>";
             },
             error: function (result) {
-                <%--window.location.href = "<c:url value='/admin/building/edit?id="+result.id+"&message=error_system'/>";--%>
-                window.location.href = "<c:url value='/admin/building/list?error'/>";
+                window.location.href = "<c:url value='/admin/building/edit?id="+result.id+"&message=error_system'/>";
             },
         });
     }
@@ -419,15 +434,14 @@
             contentType: 'application/json',
             dataType: 'json',
             success: function (result) {
-                <%--window.location.href = "<c:url value='/admin/building/edit?id="+result.id+"&message=update_success'/>";--%>
-                window.location.href = "<c:url value='/admin/building/list'/>";
+                window.location.href = "<c:url value='/admin/building/edit?id="+result.id+"&message=update_success'/>";
             },
             error: function (result) {
-                <%--window.location.href = "<c:url value='/admin/building/edit?id="+result.id+"&message=error_system'/>";--%>
-                window.location.href = "<c:url value='/admin/building/list?error'/>";
+                window.location.href = "<c:url value='/admin/building/edit?id="+result.id+"&message=error_system'/>";
             },
         });
     }
+
 </script>
 </body>
 </html>

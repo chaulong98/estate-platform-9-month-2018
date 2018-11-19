@@ -11,6 +11,7 @@ public class UserDTO extends AbstractDTO{
     private String password;
     private Integer status;
     private List<BuildingEntity> buildings = new ArrayList<>();
+    private String check;
 
     public String getUserName() {
         return userName;

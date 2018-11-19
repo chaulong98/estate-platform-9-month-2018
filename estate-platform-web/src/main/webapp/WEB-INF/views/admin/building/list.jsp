@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="/common/taglib.jsp" %>
 <c:url var="formURL" value="/admin/building/list"></c:url>
+<c:url var="deleteUrl" value="/api/admin/building"/>
 <%@ page import="com.estate.utils.SecurityUtils" %>
 <html>
 <head>
@@ -30,14 +31,14 @@
         <div class="page-content">
             <div class="row">
                 <div class="col-xs-12">
-                    <%--<c:if test="${not empty messageResponse}">--%>
-                    <%--<div class="alert alert-block alert-${alert}">--%>
-                    <%--<button type="button" class="close" data-dismiss="alert">--%>
-                    <%--<i class="ace-icon fa fa-times"></i>--%>
-                    <%--</button>--%>
-                    <%--${messageResponse}--%>
-                    <%--</div>--%>
-                    <%--</c:if>--%>
+                    <c:if test="${not empty messageResponse}">
+                        <div class="alert alert-block alert-${alert}">
+                            <button type="button" class="close" data-dismiss="alert">
+                                <i class="ace-icon fa fa-times"></i>
+                            </button>
+                                ${messageResponse}
+                        </div>
+                    </c:if>
                 </div>
             </div>
             <div class="row">
@@ -56,7 +57,9 @@
                                                     <i class="fa fa-plus-circle bigger-110 purple"></i>
                                                 </span>
                                         </a>
-                                        <button id="btnDelete" type="button" class="dt-button buttons-html5 btn btn-white btn-primary btn-bold" disabled
+                                        <button id="btnDelete" type="button"
+                                                class="dt-button buttons-html5 btn btn-white btn-primary btn-bold"
+                                                disabled
                                                 data-toggle="tooltip" title="Xóa bài viết">
                                                     <span>
                                                         <i class="fa fa-trash-o bigger-110 pink"></i>
@@ -91,7 +94,8 @@
                                         <tbody>
                                         <c:forEach var="item" items="${model.listResult}">
                                             <tr>
-                                                <td><input type="checkbox" value="${item.id}" id="checkbox_${item.id}"/></td>
+                                                <td><input type="checkbox" value="${item.id}" id="checkbox_${item.id}"/>
+                                                </td>
                                                 <td>${item.createdDate}</td>
                                                 <td>${item.productName}</td>
                                                 <td>${item.ward}</td>
@@ -113,14 +117,16 @@
                                                     </a>
 
                                                     <security:authorize ifAnyGranted="MANAGER">
-                                                        <c:url var="entrustURL" value="/admin/building/entrust">
+                                                        <c:url var="assignmentURL" value="/admin/building/assignment">
                                                             <c:param name="id" value="${item.id}"/>
                                                         </c:url>
 
                                                         <a class="btn btn-xs btn-primary btn-edit"
-                                                                data-toggle="tooltip" type="button"
-                                                                title='Giao tòa nhà'
-                                                                href="${entrustURL}">
+                                                           type="button"
+                                                           title='Giao tòa nhà'
+                                                           data-toggle="tooltip"
+                                                           href="${assignmentURL}"
+                                                        >
                                                             <i class="fa fa-tasks"></i>
                                                         </a>
                                                     </security:authorize>
@@ -176,6 +182,39 @@
             }
         });
     });
+
+    $(document).ready(function () {
+        $('#btnDelete').click(function (e) {
+                e.preventDefault();
+                var data = {};
+
+                var data = $('body input[type=checkbox]:checked').map(function () {
+                    return $(this).val();
+                }).get();
+                if (data[0] == "") {
+                    data.splice(0, 1);
+                }
+                deleteBuilding(data);
+            }
+        );
+    });
+
+    //xoa bai viet
+    function deleteBuilding(data) {
+        $.ajax({
+            url: '${deleteUrl}',
+            type: 'DELETE',
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function (result) {
+                window.location.href = "<c:url value='/admin/building/list?message=delete_success'/>";
+            },
+            error: function (result) {
+                window.location.href = "<c:url value='/admin/building/list?message=error_system'/>";
+            },
+        });
+    }
 </script>
 </body>
 </html>

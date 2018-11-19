@@ -11,4 +11,6 @@ public interface IBuildingService {
     BuildingDTO update(BuildingDTO buildingDTO);
     BuildingDTO findOneId(Long id);
     Map<String, String> getBuildingType();
+    void deleteBuilding(long[] id);
+    void staffsBuilding(Long buildingId, long[] userIds);
 }

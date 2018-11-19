@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="/common/taglib.jsp" %>
-
+<c:url var="APIurl" value="/api/admin/building"/>
 <html>
 <head>
     <title>Giao phó tòa nhà</title>
@@ -43,15 +43,15 @@
                             </tr>
                             <c:forEach var="list" items="${listUser}">
                                 <tr>
-                                    <%--<input type="checkbox" value="${list.id}" id="checkbox_${list.id}"/>--%>
-                                    <td><form:checkbox path="users" value="${list.id}"></form:checkbox> </td>
+                                        <%--<input type="checkbox" value="${list.id}" id="checkbox_${list.id}"/>--%>
+                                    <td><form:checkbox path="users" value="${list.id}"></form:checkbox></td>
                                     <td>${list.fullName}</td>
                                 </tr>
                             </c:forEach>
                         </table>
 
                         <input type="button" class="btn btn-white btn-warning btn-bold"
-                               value="Giao phó tòa nhà" id="btnEntrustBuilding"/>
+                               value="Giao phó tòa nhà" id="btnAssignmentBuilding"/>
                         <%--hien id cua toa nha--%>
                         <form:hidden path="id" id="idBuilding"></form:hidden>
                     </form:form>
@@ -63,17 +63,35 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#btnEntrustBuilding').click(function (e) {
-            e.preventDefault();
-            var data = {};
-            var idUsers = [];
-            var formData = $('#formSubmit').serializeArray();
-            $.each(formData, function (i, v) {
-                idUsers.push(v.value);
-            });
-            data["users"] = idUsers;
-        });
+        $('#btnAssignmentBuilding').click(function (e) {
+                e.preventDefault();
+                var userIds = {};
+                var idBuilding = $('#idBuilding').val();
+
+                var userIds = $('body input[type=checkbox]:checked').map(function () {
+                    return $(this).val();
+                }).get();
+                userAssignmentBuilding(userIds, idBuilding);
+            }
+        );
     });
+
+    //them user vao building
+    function userAssignmentBuilding(userIds, idBuilding) {
+        $.ajax({
+            url: '${APIurl}/'+idBuilding,
+            type: 'POST',
+            data: JSON.stringify(userIds),
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function (result) {
+                window.location.href = "<c:url value='/admin/building/list?message=delete_success'/>";
+            },
+            error: function (result) {
+                window.location.href = "<c:url value='/admin/building/list?message=error_system'/>";
+            },
+        });
+    }
 </script>
 </body>
 </html>

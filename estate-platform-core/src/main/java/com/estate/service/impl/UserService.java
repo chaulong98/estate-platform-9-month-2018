@@ -1,7 +1,10 @@
 package com.estate.service.impl;
 
+import com.estate.converter.BuildingConverter;
 import com.estate.converter.UserConverter;
+import com.estate.dto.BuildingDTO;
 import com.estate.dto.UserDTO;
+import com.estate.entity.BuildingEntity;
 import com.estate.entity.UserEntity;
 import com.estate.repository.UserRepository;
 import com.estate.service.IUserService;
@@ -20,10 +23,13 @@ public class UserService implements IUserService {
     @Autowired
     private UserConverter userConverter;
 
+    @Autowired
+    private BuildingConverter buildingConverter;
+
     @Override
     public List<UserDTO> getUsers() {
         List<UserDTO> results = new ArrayList<>();
-        results = userRepository.findByRoles_Code("USER").stream().map(item -> userConverter.convertToDto(item)).collect(Collectors.toList());
+        results = userRepository.findByRoles_CodeAndStatus("USER", "1").stream().map(item -> userConverter.convertToDto(item)).collect(Collectors.toList());
         return results;
     }
 

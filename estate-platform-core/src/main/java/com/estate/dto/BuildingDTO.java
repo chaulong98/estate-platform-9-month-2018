@@ -69,6 +69,10 @@ public class BuildingDTO extends AbstractDTO {
 
     private String image;
 
+    private String base64Image;
+
+    private String imageName;
+
     private String[] users = new String[]{};
 
     public String getProductName() {
@@ -317,5 +321,24 @@ public class BuildingDTO extends AbstractDTO {
 
     public void setUsers(String[] users) {
         this.users = users;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+
+    public String getBase64Image() {
+        if (base64Image != null){
+            return base64Image.split(",")[1];
+        }
+        return base64Image;
+    }
+
+    public void setBase64Image(String base64Image) {
+        this.base64Image = base64Image;
     }
 }
