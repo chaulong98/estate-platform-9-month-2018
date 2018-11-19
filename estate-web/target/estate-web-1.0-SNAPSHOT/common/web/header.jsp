@@ -1,4 +1,5 @@
-<div id="navbar" class="navbar navbar-default"  style="height: 45px">
+<%@ page import="com.example.utils.SecurityUtils" %>
+<div id="navbar" class="navbar navbar-default" style="height: 45px">
     <script type="text/javascript">
         try{ace.settings.check('navbar' , 'fixed')}catch(e){}
     </script>
@@ -282,14 +283,16 @@
 
                 <li class="light-blue">
                     <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-                        <img class="nav-user-photo" src="/template/assets/avatars/user.jpg" alt="Jason's Photo" />
-                        <span class="user-info">
+                    <img class="nav-user-photo" src="/template/assets/avatars/user.jpg" alt="Jason's Photo" />
+                    <span class="user-info">
 									<small>Welcome,</small>
-									Jason
+									<%=SecurityUtils.getPrincipal().getFullName()%>
 								</span>
 
-                        <i class="ace-icon fa fa-caret-down"></i>
+                    <i class="ace-icon fa fa-caret-down"></i>
                     </a>
+
+
 
                     <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
                         <li>
@@ -309,9 +312,9 @@
                         <li class="divider"></li>
 
                         <li>
-                            <a href="#">
+                            <a href="<c:url value='/logout'/>">
                                 <i class="ace-icon fa fa-power-off"></i>
-                                Logout
+
                             </a>
                         </li>
                     </ul>

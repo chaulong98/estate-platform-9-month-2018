@@ -1,7 +1,9 @@
 package com.example.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class AbstractDTO<T> implements Serializable {
     private static final long serialVersionUID = -2813016614802950797L;
@@ -10,6 +12,11 @@ public class AbstractDTO<T> implements Serializable {
     private String createdBy;
     private Date modifiedDate;
     private String modifiedBy;
+    private int totalPages = 0;
+    private int maxPageItems = 2;
+    private int page = 1;
+    private List<T> listResult = new ArrayList<>();
+
 
     public Long getId() {
         return id;
@@ -49,5 +56,37 @@ public class AbstractDTO<T> implements Serializable {
 
     public void setModifiedBy(String modifiedBy) {
         this.modifiedBy = modifiedBy;
+    }
+
+    public int getTotalPages() {
+        return totalPages;
+    }
+
+    public void setTotalPages(int totalPages) {
+        this.totalPages = totalPages;
+    }
+
+    public int getMaxPageItems() {
+        return maxPageItems;
+    }
+
+    public void setMaxPageItems(int maxPageItems) {
+        this.maxPageItems = maxPageItems;
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public List<T> getListResult() {
+        return listResult;
+    }
+
+    public void setListResult(List<T> listResult) {
+        this.listResult = listResult;
     }
 }

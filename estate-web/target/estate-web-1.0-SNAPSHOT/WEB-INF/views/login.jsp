@@ -26,7 +26,7 @@
                     </div>
                 </c:if>
                 <div class="space-6"></div>
-                <form action="j_spring_security_check" method="POST">
+                <form action="<c:url value='/j_spring_security_check'/>" method="POST">
                     <fieldset>
                         <label class="block clearfix">
                                                             <span class="block input-icon input-icon-right">

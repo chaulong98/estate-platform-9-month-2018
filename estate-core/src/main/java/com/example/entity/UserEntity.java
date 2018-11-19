@@ -37,6 +37,17 @@ public class UserEntity {
             inverseJoinColumns = @JoinColumn(name = "role_id", nullable = false))
     private List<RoleEntity> roles = new ArrayList<>();
 
+    @ManyToMany(mappedBy = "staffs", fetch = FetchType.EAGER)
+    private List<BuildingEntity> buildings = new ArrayList<>();
+
+    public List<BuildingEntity> getBuildings() {
+        return buildings;
+    }
+
+    public void setBuildings(List<BuildingEntity> buildings) {
+        this.buildings = buildings;
+    }
+
     public List<RoleEntity> getRoles() {
         return roles;
     }

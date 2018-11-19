@@ -7,7 +7,8 @@
 
     <meta name="description" content="overview &amp; stats" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.1/jquery.twbsPagination.min.js"></script>
     <!-- bootstrap & fontawesome -->
     <link rel="stylesheet" href="/template/assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/template/assets/font-awesome/4.2.0/css/font-awesome.min.css" />
@@ -32,8 +33,6 @@
         <!-- footer -->
     </div>
 
-    <!--[if !IE]> -->
-    <script src="/template/assets/js/jquery.2.1.1.min.js"></script>
 
     <!--[if !IE]> -->
     <script type="text/javascript">
@@ -45,13 +44,13 @@
     </script>
     <script src="/template/assets/js/bootstrap.min.js"></script>
 
-<script src="/template/assets/js/jquery-ui.custom.min.js"></script>
-<script src="/template/assets/js/jquery.ui.touch-punch.min.js"></script>
-<script src="/template/assets/js/jquery.easypiechart.min.js"></script>
-<script src="/template/assets/js/jquery.sparkline.min.js"></script>
-<script src="/template/assets/js/jquery.flot.min.js"></script>
-<script src="/template/assets/js/jquery.flot.pie.min.js"></script>
-<script src="/template/assets/js/jquery.flot.resize.min.js"></script>
+    <script src="/template/assets/js/jquery-ui.custom.min.js"></script>
+    <script src="/template/assets/js/jquery.ui.touch-punch.min.js"></script>
+    <script src="/template/assets/js/jquery.easypiechart.min.js"></script>
+    <script src="/template/assets/js/jquery.sparkline.min.js"></script>
+    <script src="/template/assets/js/jquery.flot.min.js"></script>
+    <script src="/template/assets/js/jquery.flot.pie.min.js"></script>
+    <script src="/template/assets/js/jquery.flot.resize.min.js"></script>
 
 <!-- ace scripts -->
 <script src="/template/assets/js/ace-elements.min.js"></script>
