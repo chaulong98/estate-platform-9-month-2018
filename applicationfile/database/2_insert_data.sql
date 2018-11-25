@@ -6,10 +6,22 @@ insert into role(code,name) values('USER','người dùng');
 insert into users(username,password,fullname,status)
 values('admin','$2a$10$/RUbuT9KIqk6f8enaTQiLOXzhnUkiwEJRdtzdrMXXwU7dgnLKTCYG','trung anh',1);
 insert into users(username,password,fullname,status)
-values('trung anh','$2a$10$/RUbuT9KIqk6f8enaTQiLOXzhnUkiwEJRdtzdrMXXwU7dgnLKTCYG','anh trung',1);
+values('trunganh','$2a$10$/RUbuT9KIqk6f8enaTQiLOXzhnUkiwEJRdtzdrMXXwU7dgnLKTCYG','anh trung',1);
+insert into users(username,password,fullname,status)
+values('admin2','$2a$10$/RUbuT9KIqk6f8enaTQiLOXzhnUkiwEJRdtzdrMXXwU7dgnLKTCYG','trung anh',1);
+insert into users(username,password,fullname,status)
+values('trunganh2','$2a$10$/RUbuT9KIqk6f8enaTQiLOXzhnUkiwEJRdtzdrMXXwU7dgnLKTCYG','anh trung',1);
+insert into users(username,password,fullname,status)
+values('trunganh3','$2a$10$/RUbuT9KIqk6f8enaTQiLOXzhnUkiwEJRdtzdrMXXwU7dgnLKTCYG','anh trung',1);
+insert into users(username,password,fullname,status)
+values('trunganh4','$2a$10$/RUbuT9KIqk6f8enaTQiLOXzhnUkiwEJRdtzdrMXXwU7dgnLKTCYG','anh trung',1);
 
 INSERT INTO user_role(user_id,role_id) VALUES (1,1);
 INSERT INTO user_role(user_id,role_id) VALUES (2,2);
+INSERT INTO user_role(user_id,role_id) VALUES (3,1);
+INSERT INTO user_role(user_id,role_id) VALUES (4,2);
+INSERT INTO user_role(user_id,role_id) VALUES (5,2);
+INSERT INTO user_role(user_id,role_id) VALUES (6,2);
 
 INSERT INTO district(code,name)
 values('ba-dinh','Ba Đình');
