@@ -4,12 +4,14 @@ import com.estate.constant.BuildingType;
 import com.estate.constant.SystemConstant;
 import com.estate.converter.BuildingConverter;
 import com.estate.dto.BuildingDTO;
+import com.estate.dto.UserDTO;
 import com.estate.entity.BuildingEntity;
 import com.estate.entity.UserEntity;
 import com.estate.repository.BuildingRepository;
 import com.estate.repository.DistrictRepository;
 import com.estate.repository.UserRepository;
 import com.estate.service.IBuildingService;
+import com.estate.utils.SecurityUtils;
 import com.estate.utils.UploadFileUtils;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +49,7 @@ public class BuildingService implements IBuildingService {
         BuildingEntity buildingEntity = new BuildingEntity();
         buildingEntity = buildingConverter.convertToEntity(buildingDTO);
         buildingEntity.setType(String.join(",", buildingDTO.getTypeBuilding()));
-        if (buildingDTO.getBase64Image() != null){
+        if (buildingDTO.getBase64Image() != null) {
             writeImage(buildingDTO, buildingEntity);
         }
         buildingEntity = buildingRepository.save(buildingEntity);
@@ -58,7 +60,7 @@ public class BuildingService implements IBuildingService {
         byte[] bytes = Base64.decodeBase64(buildingDTO.getBase64Image());
         String path = "/test/" + buildingDTO.getImageName();
         UploadFileUtils.writeOrUpdate(path, bytes);
-        buildingEntity.setImage(SystemConstant.HOME_NEW+path);
+        buildingEntity.setImage(SystemConstant.HOME_NEW + path);
     }
 
     @Override
@@ -69,9 +71,10 @@ public class BuildingService implements IBuildingService {
         updateBuilding.setCreatedBy(exitBuilding.getCreatedBy());
         updateBuilding.setCreatedDate(exitBuilding.getCreatedDate());
         updateBuilding.setType(String.join(",", updateDTO.getTypeBuilding()));
-        if (updateDTO.getBase64Image() != null){
+        updateBuilding.setUsers(exitBuilding.getUsers());
+        if (updateDTO.getBase64Image() != null) {
             writeImage(updateDTO, updateBuilding);
-        }else {
+        } else {
             updateBuilding.setImage(exitBuilding.getImage());
         }
         exitBuilding = buildingRepository.save(updateBuilding);
@@ -83,7 +86,6 @@ public class BuildingService implements IBuildingService {
         BuildingEntity buildingEntity = buildingRepository.findOne(id);
         BuildingDTO dto = new BuildingDTO();
         dto = buildingConverter.convertToDto(buildingEntity);
-        //String[] types = new String[]{};
         dto.setTypeBuilding(buildingEntity.getType().split(","));
         return dto;
     }
@@ -99,7 +101,7 @@ public class BuildingService implements IBuildingService {
 
     @Override
     public void deleteBuilding(long[] id) {
-        for (long item : id){
+        for (long item : id) {
             buildingRepository.delete(item);
         }
     }
@@ -107,17 +109,19 @@ public class BuildingService implements IBuildingService {
     @Override
     public void staffsBuilding(Long buildingId, long[] userIds) {
         List<UserEntity> users = new ArrayList<>();
-        UserEntity user = new UserEntity();
-        List<BuildingEntity> buildings = new ArrayList<>();
         BuildingEntity buildingEntity = buildingRepository.findOne(buildingId);
-        for (long id : userIds){
-            user = userRepository.findOne(id);
-            buildings.add(buildingEntity);
-            user.setBuildings(buildings);
-            users.add(user);
+        for (long id : userIds) {
+            UserEntity userEntity = userRepository.findOne(id);
+            users.add(userEntity);
         }
         buildingEntity.setUsers(users);
-        userRepository.save(user);
         buildingRepository.save(buildingEntity);
+    }
+
+    @Override
+    public void findBuildingByUsers(BuildingDTO model) {
+        List<BuildingEntity> builds = buildingRepository.findAllByUsers(userRepository.findOneByUserName(SecurityUtils.getPrincipal().getUsername()));
+        model.setListResult(builds.stream().map(item -> buildingConverter.convertToDto(item)).collect(Collectors.toList()));
+        model.setTotalItem(buildingRepository.getTotalItems().intValue());
     }
 }

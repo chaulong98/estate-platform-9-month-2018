@@ -2,10 +2,8 @@ package com.estate.service.impl;
 
 import com.estate.converter.BuildingConverter;
 import com.estate.converter.UserConverter;
-import com.estate.dto.BuildingDTO;
 import com.estate.dto.UserDTO;
-import com.estate.entity.BuildingEntity;
-import com.estate.entity.UserEntity;
+import com.estate.repository.BuildingRepository;
 import com.estate.repository.UserRepository;
 import com.estate.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,19 +21,20 @@ public class UserService implements IUserService {
     @Autowired
     private UserConverter userConverter;
 
-    @Autowired
-    private BuildingConverter buildingConverter;
-
     @Override
-    public List<UserDTO> getUsers() {
+    public List<UserDTO> getUsers(Long buildingId) {
         List<UserDTO> results = new ArrayList<>();
         results = userRepository.findByRoles_CodeAndStatus("USER", "1").stream().map(item -> userConverter.convertToDto(item)).collect(Collectors.toList());
-        return results;
-    }
 
-    @Override
-    public Long getId(String name) {
-        Long id = userRepository.findIdByFullName("a");
-        return null;
+        //tim user theo building id
+        List<UserDTO> userDTOS = userRepository.findByBuildings_Id(buildingId).stream().map(item -> userConverter.convertToDto(item)).collect(Collectors.toList());
+        for (UserDTO item : userDTOS) {
+            for (UserDTO item1 : results){
+                if (item1.getUserName().equals(item.getUserName())){
+                    item1.setCheck("checked");
+                }
+            }
+        }
+        return results;
     }
 }

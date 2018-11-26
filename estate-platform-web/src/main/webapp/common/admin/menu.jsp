@@ -26,7 +26,7 @@
         <li class="">
             <a href="#" class="dropdown-toggle">
                 <i class="menu-icon fa fa-list"></i>
-                <span class="menu-text">Quản lý bài đăng</span>
+                <span class="menu-text">Quản lý tòa nhà</span>
                 <b class="arrow fa fa-angle-down"></b>
             </a>
 
@@ -38,7 +38,7 @@
                     <li class="">
                         <a href='<c:url value="/admin/building/list"/>'>
                             <i class="menu-icon fa fa-caret-right"></i>
-                            Danh sách sản phẩm
+                            Danh sách tòa nhà
                         </a>
                         <b class="arrow"></b>
                     </li>
@@ -46,9 +46,9 @@
                 <security:authorize ifAnyGranted="USER">
                     <%--neu la user thi mo cai nay--%>
                     <li class="">
-                        <a href='<c:url value="/admin/building/entrust"/>'>
+                        <a href='<c:url value="/admin/building/assignment/list"/>'>
                             <i class="menu-icon fa fa-caret-right"></i>
-                            Danh sách sản phẩm phụ trách
+                            Danh sách tòa nhà phụ trách
                         </a>
                         <b class="arrow"></b>
                     </li>

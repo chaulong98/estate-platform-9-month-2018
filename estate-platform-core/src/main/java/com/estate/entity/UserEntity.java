@@ -6,7 +6,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
-public class UserEntity extends BaseEntity{
+public class UserEntity extends BaseEntity {
 
     private static final long serialVersionUID = -3455668089586840260L;
 
@@ -28,10 +28,7 @@ public class UserEntity extends BaseEntity{
             inverseJoinColumns = @JoinColumn(name = "role_id", nullable = false))
     private List<RoleEntity> roles = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_building",
-            joinColumns = @JoinColumn(name = "user_id", nullable = false),
-            inverseJoinColumns = @JoinColumn(name = "building_id", nullable = false))
+    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
     private List<BuildingEntity> buildings = new ArrayList<>();
 
     public String getUserName() {

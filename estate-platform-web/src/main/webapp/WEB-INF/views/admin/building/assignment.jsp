@@ -35,17 +35,16 @@
                         </div>
                     </c:if>
                     <form:form id="formSubmit" modelAttribute="model">
-
-                        <table>
+                        <table class="table">
                             <tr>
-                                <td></td>
+                                <td>Chọn</td>
                                 <td>Danh sách nhân viên</td>
                             </tr>
                             <c:forEach var="list" items="${listUser}">
                                 <tr>
-                                        <%--<input type="checkbox" value="${list.id}" id="checkbox_${list.id}"/>--%>
-                                    <td><form:checkbox path="users" value="${list.id}"></form:checkbox></td>
-                                    <td>${list.fullName}</td>
+                                        <%--<td><form:checkbox path="users" value="${list.id}"></form:checkbox></td>--%>
+                                    <th><input type="checkbox" value="${list.id}"  ${list.check}/></th>
+                                    <th>${list.fullName}</th>
                                 </tr>
                             </c:forEach>
                         </table>
@@ -79,7 +78,7 @@
     //them user vao building
     function userAssignmentBuilding(userIds, idBuilding) {
         $.ajax({
-            url: '${APIurl}/'+idBuilding,
+            url: '${APIurl}/' + idBuilding,
             type: 'POST',
             data: JSON.stringify(userIds),
             contentType: 'application/json',

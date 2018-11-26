@@ -8,6 +8,5 @@ import com.estate.entity.UserEntity;
 import java.util.List;
 
 public interface IUserService {
-    List<UserDTO> getUsers();
-    Long getId(String name);
+    List<UserDTO> getUsers(Long buildingId);
 }

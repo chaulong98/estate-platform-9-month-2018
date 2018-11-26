@@ -52,4 +52,17 @@ public class UserDTO extends AbstractDTO{
     public void setBuildings(List<BuildingEntity> buildings) {
         this.buildings = buildings;
     }
+
+    public String getCheck() {
+        if (check != null){
+            check = "checked";
+        }else {
+            check = "";
+        }
+        return check;
+    }
+
+    public void setCheck(String check) {
+        this.check = check;
+    }
 }

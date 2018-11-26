@@ -100,7 +100,10 @@ public class BuildingEntity extends BaseEntity {
     @Column
     private String image;
 
-    @ManyToMany(mappedBy = "buildings", fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_building",
+            joinColumns = @JoinColumn(name = "user_id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "building_id", nullable = false))
     private List<UserEntity> users = new ArrayList<>();
 
     public String getProductName() {

@@ -30,22 +30,34 @@ public class BuildingController {
 
     @Autowired
     private IUserService userService;
+    public static Long id;
 
 
     @RequestMapping(value = "/admin/building/list", method = RequestMethod.GET)
-    public ModelAndView showBuilding(@ModelAttribute(SystemConstant.MODEL) BuildingDTO model, HttpServletRequest request) {
+    public ModelAndView showBuilding(@ModelAttribute(SystemConstant.MODEL) BuildingDTO model, /*@ModelAttribute("modal1") BuildingDTO model1,*/ HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("admin/building/list");
         buildingService.findAll(model, new PageRequest(model.getPage() - 1, model.getMaxPageItems()));
         mav.addObject(SystemConstant.MODEL, model);
+//        mav.addObject("modal1", model1);
+//        mav.addObject("listUser", userService.getUsers(model.getId()));
         initMessageResponse(mav, request);
         return mav;
     }
 
     //giao phó tòa nhà
     @RequestMapping(value = "/admin/building/assignment", method = RequestMethod.GET)
-    public ModelAndView showBuildingAssignment(@ModelAttribute(SystemConstant.MODEL) BuildingDTO model) {
+    public ModelAndView showBuildingAssignment(@ModelAttribute(SystemConstant.MODEL) BuildingDTO model, @RequestParam(value = "id", required = false) Long buildingId) {
         ModelAndView mav = new ModelAndView("admin/building/assignment");
-        mav.addObject("listUser", userService.getUsers());
+        mav.addObject("listUser", userService.getUsers(buildingId));
+        return mav;
+    }
+
+    //hien building dc giao pho o user
+    @RequestMapping(value = "/admin/building/assignment/list", method = RequestMethod.GET)
+    public ModelAndView showBuildings(@ModelAttribute(SystemConstant.MODEL) BuildingDTO model, HttpServletRequest request) {
+        ModelAndView mav = new ModelAndView("admin/building/list");
+        buildingService.findBuildingByUsers(model);
+        mav.addObject(SystemConstant.MODEL, model);
         return mav;
     }
 
