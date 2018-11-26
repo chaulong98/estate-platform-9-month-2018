@@ -34,11 +34,6 @@
     </div>
 
 
-    <!--[if !IE]> -->
-    <script type="text/javascript">
-        window.jQuery || document.write("<script src='/template/assets/js/jquery.min.js'>"+"<"+"/script>");
-    </script>
-
     <script type="text/javascript">
         if('ontouchstart' in document.documentElement) document.write("<script src='/template/assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
     </script>

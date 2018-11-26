@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,5 +32,27 @@ public class BuildingService implements IBuildingService{
         }
         model.setListResult(buildingDTOS);
         model.setTotalPages((int) ((buildingRepository.count())/(model.getMaxPageItems())));
+    }
+
+    public BuildingDTO findById(Long id){
+        BuildingEntity entity = buildingRepository.findOne(id);
+        BuildingDTO dto = buildingConverter.convertToDto(entity);
+        return dto;
+    }
+
+    @Override
+    public BuildingDTO save(BuildingDTO dto) {
+        BuildingEntity buildingEntity = buildingConverter.convertToEntity(dto);
+        buildingEntity = buildingRepository.save(buildingEntity);
+        return buildingConverter.convertToDto(buildingEntity);
+    }
+
+    @Override
+    public BuildingDTO update(BuildingDTO updateDto) {
+        BuildingEntity updateEntity = buildingConverter.convertToEntity(updateDto);
+        BuildingEntity existEntity = buildingRepository.findOne(updateDto.getId());
+        updateEntity.setStaffs(existEntity.getStaffs());
+        existEntity = buildingRepository.save(updateEntity);
+        return buildingConverter.convertToDto(existEntity);
     }
 }

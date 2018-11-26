@@ -16,7 +16,7 @@ public class BuildingEntity {
     private String buildingName;
 
     @Column
-    private String district;
+    private Integer district;
 
     @Column
     private String ward;
@@ -118,11 +118,11 @@ public class BuildingEntity {
         this.buildingName = buildingName;
     }
 
-    public String getDistrict() {
+    public Integer getDistrict() {
         return district;
     }
 
-    public void setDistrict(String district) {
+    public void setDistrict(Integer district) {
         this.district = district;
     }
 

@@ -9,9 +9,8 @@ INSERT INTO users(fullname, password, status, username) VALUES ('nhân viên 1',
 INSERT INTO user_role(user_id, role_id) VALUES (1,1);
 INSERT INTO user_role(user_id, role_id) VALUES (2,2);
 
-INSERT INTO building(emptyarea, basementarea, buildingname, releasedcost, feeservice, managername, phonenumber) VALUES (184,350,'Galleria Tower', 195, 45, 'A.Thinh/A.Binh', '0904255854');
-INSERT INTO building(emptyarea, basementarea, buildingname, releasedcost, feeservice, managername, phonenumber) VALUES (170,200,'Coteccon', 200, 40, 'A.Nam', '1232456');
-INSERT INTO building(emptyarea, basementarea, buildingname, releasedcost, feeservice, managername, phonenumber) VALUES (160,120,'Dong Nhan', 123, 15, 'A.Tam', '4532123');
-INSERT INTO building(emptyarea, basementarea, buildingname, releasedcost, feeservice, managername, phonenumber) VALUES (90,100,'Tan Minh Nhan', 456, 15, 'A.Tam', '79841231');
-INSERT INTO building(emptyarea, basementarea, buildingname, releasedcost, feeservice, managername, phonenumber) VALUES (130,150,'Etown', 112, 45, 'A.Thinh/A.Xam', '09042558546544');
-INSERT INTO building(emptyarea, basementarea, buildingname, releasedcost, feeservice, managername, phonenumber) VALUES (4,140,'Green', 100, 45, 'A.Tung', '09412325854');
+INSERT INTO building(district, emptyarea, basementarea, buildingname, releasedcost, feeservice, managername, phonenumber) VALUES (1, 170,200,'Coteccon', 200, 40, 'A.Nam', '1232456');
+INSERT INTO building(district, emptyarea, basementarea, buildingname, releasedcost, feeservice, managername, phonenumber) VALUES (2, 160,120,'Dong Nhan', 123, 15, 'A.Tam', '4532123');
+INSERT INTO building(district, emptyarea, basementarea, buildingname, releasedcost, feeservice, managername, phonenumber) VALUES (3,120, 100,'Tan Minh Nhan', 456, 15, 'A.Tam', '79841231');
+INSERT INTO building(district, emptyarea, basementarea, buildingname, releasedcost, feeservice, managername, phonenumber) VALUES (4, 130,150,'Etown', 112, 45, 'A.Thinh/A.Xam', '09042558546544');
+INSERT INTO building(district, emptyarea, basementarea, buildingname, releasedcost, feeservice, managername, phonenumber) VALUES (5, 100, 140,'Green', 100, 45, 'A.Tung', '09412325854');

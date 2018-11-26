@@ -1,4 +1,5 @@
 com\example\dto\AbstractDTO.class
+com\example\controller\api\BuildingApi.class
 com\example\controller\LoginController.class
 com\example\controller\user\HomeController.class
 com\example\converter\BuildingConverter.class
@@ -8,6 +9,7 @@ com\example\entity\RoleEntity.class
 com\example\repository\BuildingRepository.class
 com\example\entity\BuildingEntity.class
 com\example\controller\manager\BuildingController.class
+com\example\constant\Type.class
 com\example\controller\manager\HomeController.class
 com\example\service\impl\BuildingService.class
 com\example\dto\MyUserDetail.class
