@@ -3,7 +3,9 @@ package com.example.controller.manager;
 import com.example.constant.SystemConstant;
 import com.example.constant.Type;
 import com.example.dto.BuildingDTO;
+import com.example.dto.UserDTO;
 import com.example.service.impl.BuildingService;
+import com.example.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,9 @@ public class BuildingController {
 
     @Autowired
     BuildingService buildingService;
+
+    @Autowired
+    UserService userService;
 
     @RequestMapping(value = "/manager-building-list", method = RequestMethod.GET)
     public ModelAndView listPage(@ModelAttribute(SystemConstant.MODEL) BuildingDTO model){
@@ -46,10 +51,10 @@ public class BuildingController {
     }
 
     @RequestMapping(value = "/ajax-manager-building-delivery", method = RequestMethod.GET)
-    public ModelAndView staffPage(@ModelAttribute(SystemConstant.MODEL) BuildingDTO model){
+    public ModelAndView staffPage(UserDTO model){
         ModelAndView mav = new ModelAndView("manager/building/delivery");
-        /*buildingService.findAll(model, new PageRequest(model.getPage() - 1, model.getMaxPageItems()));
-        mav.addObject(SystemConstant.MODEL, model);*/
+        model.setListResult(userService.findAllStaff());
+        mav.addObject(SystemConstant.MODEL, model);
         return mav;
     }
 
