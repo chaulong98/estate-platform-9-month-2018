@@ -1,5 +1,6 @@
 package com.estate.dto;
 
+import com.estate.entity.BuildingEntity;
 import com.estate.entity.UserEntity;
 
 import java.util.List;
@@ -40,7 +41,6 @@ public class BuildingDTO extends AbstractDTO<BuildingDTO> {
     private String avatar;
     private String base64;
     private String imgName;
-    private String staffs;
 
     public String getBase64() {
         if (base64 != null) {
@@ -301,11 +301,4 @@ public class BuildingDTO extends AbstractDTO<BuildingDTO> {
         this.avatar = avatar;
     }
 
-    public String getStaffs() {
-        return staffs;
-    }
-
-    public void setStaffs(String staffs) {
-        this.staffs = staffs;
-    }
 }

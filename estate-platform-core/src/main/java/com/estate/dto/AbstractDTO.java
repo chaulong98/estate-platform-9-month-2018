@@ -99,4 +99,5 @@ public class AbstractDTO<T> implements Serializable {
     public void setPage(int page) {
         this.page = page;
     }
+
 }

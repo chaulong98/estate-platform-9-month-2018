@@ -226,7 +226,7 @@
         }
         $.ajax({
             url: '${APIurl}?userID='+assignList+ '&buildingId=' + buildingId ,
-            type: 'POST',
+            type: se'POST',
             contentType:'application/json',
             dataType:'json',
             success: function(result){
