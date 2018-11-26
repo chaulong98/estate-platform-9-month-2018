@@ -19,7 +19,7 @@ public interface IBuildingService {
 
     void deleteBuilding(long[] id);
 
-    void staffsBuilding(Long buildingId, long[] userIds);
+    void assignStaffsToBuilding(Long buildingId, long[] userIds);
 
     void findBuildingByUsers(BuildingDTO model);
 }

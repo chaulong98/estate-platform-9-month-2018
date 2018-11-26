@@ -75,6 +75,11 @@ public class BuildingDTO extends AbstractDTO {
 
     private String[] users = new String[]{};
 
+    private Integer areaFrom;
+    private Integer areaTo;
+    private Integer costFrom;
+    private Integer costTo;
+
     public String getProductName() {
         return productName;
     }
@@ -342,4 +347,35 @@ public class BuildingDTO extends AbstractDTO {
         this.base64Image = base64Image;
     }
 
+    public Integer getAreaFrom() {
+        return areaFrom;
+    }
+
+    public void setAreaFrom(Integer areaFrom) {
+        this.areaFrom = areaFrom;
+    }
+
+    public Integer getAreaTo() {
+        return areaTo;
+    }
+
+    public void setAreaTo(Integer areaTo) {
+        this.areaTo = areaTo;
+    }
+
+    public Integer getCostFrom() {
+        return costFrom;
+    }
+
+    public void setCostFrom(Integer costFrom) {
+        this.costFrom = costFrom;
+    }
+
+    public Integer getCostTo() {
+        return costTo;
+    }
+
+    public void setCostTo(Integer costTo) {
+        this.costTo = costTo;
+    }
 }

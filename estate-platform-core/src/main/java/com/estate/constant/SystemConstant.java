@@ -11,5 +11,5 @@ public class SystemConstant {
     public static final String ERROR_SYSTEM = "error_system";
     public static final String ALERT = "alert";
     public static final String MESSAGE_RESPONSE = "messageResponse";
-    public static final String HOME_NEW = "/home/new";
+    public static final String HOME_ESTATE = "/home/estate";
 }

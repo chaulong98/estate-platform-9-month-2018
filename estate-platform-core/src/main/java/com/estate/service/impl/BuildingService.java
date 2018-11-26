@@ -45,6 +45,7 @@ public class BuildingService implements IBuildingService {
     }
 
     @Override
+    @Transactional
     public BuildingDTO save(BuildingDTO buildingDTO) {
         BuildingEntity buildingEntity = new BuildingEntity();
         buildingEntity = buildingConverter.convertToEntity(buildingDTO);
@@ -58,12 +59,13 @@ public class BuildingService implements IBuildingService {
 
     private void writeImage(BuildingDTO buildingDTO, BuildingEntity buildingEntity) {
         byte[] bytes = Base64.decodeBase64(buildingDTO.getBase64Image());
-        String path = "/test/" + buildingDTO.getImageName();
+        String path = "/building/" + buildingDTO.getImageName();
         UploadFileUtils.writeOrUpdate(path, bytes);
-        buildingEntity.setImage(SystemConstant.HOME_NEW + path);
+        buildingEntity.setImage(SystemConstant.HOME_ESTATE + path);
     }
 
     @Override
+    @Transactional
     public BuildingDTO update(BuildingDTO updateDTO) {
         BuildingEntity exitBuilding = new BuildingEntity();
         exitBuilding = buildingRepository.findOne(updateDTO.getId());
@@ -100,6 +102,7 @@ public class BuildingService implements IBuildingService {
     }
 
     @Override
+    @Transactional
     public void deleteBuilding(long[] id) {
         for (long item : id) {
             buildingRepository.delete(item);
@@ -107,7 +110,8 @@ public class BuildingService implements IBuildingService {
     }
 
     @Override
-    public void staffsBuilding(Long buildingId, long[] userIds) {
+    @Transactional
+    public void assignStaffsToBuilding(Long buildingId, long[] userIds) {
         List<UserEntity> users = new ArrayList<>();
         BuildingEntity buildingEntity = buildingRepository.findOne(buildingId);
         for (long id : userIds) {

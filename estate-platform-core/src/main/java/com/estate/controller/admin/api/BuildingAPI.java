@@ -1,7 +1,7 @@
 package com.estate.controller.admin.api;
 
 import com.estate.dto.BuildingDTO;
-import com.estate.service.impl.BuildingService;
+import com.estate.service.IBuildingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 public class BuildingAPI {
 
     @Autowired
-    private BuildingService buildingService;
+    private IBuildingService buildingService;
 
     @PostMapping
     public ResponseEntity<BuildingDTO> createBuilding(@RequestBody BuildingDTO dto) {
@@ -31,8 +31,8 @@ public class BuildingAPI {
 
 //    //        lưu nhân viên dc phụ trách
     @PostMapping("/{id}")
-    public ResponseEntity<Void> userAssignmentBuilding(@PathVariable("id") Long buildingId, @RequestBody long[] userIds) {
-        buildingService.staffsBuilding(buildingId, userIds);
+    public ResponseEntity<Void> assignStaffToBuilding(@PathVariable("id") Long buildingId, @RequestBody long[] userIds) {
+        buildingService.assignStaffsToBuilding(buildingId, userIds);
         return ResponseEntity.noContent().build();
     }
 

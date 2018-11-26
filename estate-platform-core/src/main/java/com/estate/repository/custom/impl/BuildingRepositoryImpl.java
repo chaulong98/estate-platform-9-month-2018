@@ -1,16 +1,24 @@
 package com.estate.repository.custom.impl;
 
+import com.estate.entity.BuildingEntity;
+import com.estate.paging.PageRequest;
 import com.estate.repository.custom.BuildingRepositoryCustom;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.util.List;
 
 public class BuildingRepositoryImpl implements BuildingRepositoryCustom {
 
     //muốn sử dụng query thì cần entityManager
     @PersistenceContext
     private EntityManager entityManager;
+
+    @Override
+    public List<BuildingEntity> findAll(PageRequest pageRequest) {
+        return null;
+    }
 
     @Override
     public Long getTotalItems() {
