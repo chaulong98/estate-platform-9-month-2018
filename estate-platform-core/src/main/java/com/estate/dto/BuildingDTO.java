@@ -79,6 +79,8 @@ public class BuildingDTO extends AbstractDTO {
     private Integer areaTo;
     private Integer costFrom;
     private Integer costTo;
+    private String staffName;
+    private boolean checkPriority = false;
 
     public String getProductName() {
         return productName;
@@ -337,7 +339,7 @@ public class BuildingDTO extends AbstractDTO {
     }
 
     public String getBase64Image() {
-        if (base64Image != null){
+        if (base64Image != null) {
             return base64Image.split(",")[1];
         }
         return base64Image;
@@ -377,5 +379,21 @@ public class BuildingDTO extends AbstractDTO {
 
     public void setCostTo(Integer costTo) {
         this.costTo = costTo;
+    }
+
+    public String getStaffName() {
+        return staffName;
+    }
+
+    public void setStaffName(String staffName) {
+        this.staffName = staffName;
+    }
+
+    public boolean isCheckPriority() {
+        return checkPriority;
+    }
+
+    public void setCheckPriority(boolean checkPriority) {
+        this.checkPriority = checkPriority;
     }
 }

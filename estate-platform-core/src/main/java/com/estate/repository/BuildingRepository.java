@@ -12,6 +12,9 @@ import java.util.List;
 public interface BuildingRepository extends JpaRepository<BuildingEntity, Long>, BuildingRepositoryCustom {
     Page<BuildingEntity> findAll(Pageable pageable);
 
+    //tim building theo staffs
+    Page<BuildingEntity> findAllByStaffs(UserEntity userEntity, Pageable pageable);
+
     //tim building theo users
-    List<BuildingEntity> findAllByUsers(UserEntity userEntity);
+    Page<BuildingEntity> findAllByUsers(UserEntity userEntity, Pageable pageable);
 }

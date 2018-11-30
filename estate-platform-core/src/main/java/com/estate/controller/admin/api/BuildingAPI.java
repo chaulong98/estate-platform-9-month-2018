@@ -36,4 +36,18 @@ public class BuildingAPI {
         return ResponseEntity.noContent().build();
     }
 
+    //them toa nha uu tien
+    @PostMapping("/priority/{id}")
+    public ResponseEntity<Void> buildingPriority(@PathVariable("id") Long buildingId) {
+        buildingService.buildingPriority(buildingId);
+        return ResponseEntity.noContent().build();
+    }
+
+    //xoa toa nha uu tien
+    @DeleteMapping("/priority/delete")
+    public ResponseEntity<Void> deleteBuildingPriority(@RequestBody long[] id) {
+        buildingService.deleteBuildingPriority(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

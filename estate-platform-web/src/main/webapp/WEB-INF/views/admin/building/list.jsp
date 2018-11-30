@@ -3,6 +3,7 @@
 <c:url var="formURL" value="/admin/building/list"></c:url>
 <c:url var="deleteUrl" value="/api/admin/building"/>
 <c:url var="APIurl" value="/api/admin/building"/>
+<c:url var="Priorityurl" value="/api/admin/building/priority"/>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -68,12 +69,13 @@
                                         <div class="col-sm-6">
                                             <label>Diện tích sàn</label>
                                             <div class="fg-line">
-                                                <input type="number" name="buildingArea" class="form-control input-sm" value="${model.buildingArea}"/>
+                                                <input type="number" name="buildingArea" class="form-control input-sm"
+                                                       value="${model.buildingArea}"/>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <%--<div class="col-sm-4">
+                                        <div class="col-sm-4">
                                             <label>Quận hiện có</label>
                                             <div class="fg-line">
                                                 <form:select path="district" id="district">
@@ -81,7 +83,7 @@
                                                     <form:options items="${districts}"/>
                                                 </form:select>
                                             </div>
-                                        </div>--%>
+                                        </div>
                                         <div class="col-sm-4">
                                             <label>Phường</label>
                                             <div class="fg-line">
@@ -99,14 +101,16 @@
                                         <div class="col-sm-4">
                                             <label>Số tầng hầm</label>
                                             <div class="fg-line">
-                                                <input type="number" name="basementNumber" class="form-control input-sm" value="${model.basementNumber}"
+                                                <input type="number" name="basementNumber" class="form-control input-sm"
+                                                       value="${model.basementNumber}"
                                                        id="basementNumber"/>
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
                                             <label>Hướng</label>
                                             <div class="fg-line">
-                                                <form:input path="direction" id="direction" cssClass="form-control input-sm"/>
+                                                <form:input path="direction" id="direction"
+                                                            cssClass="form-control input-sm"/>
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
@@ -120,29 +124,33 @@
                                         <div class="col-sm-3">
                                             <label>Diện tích từ</label>
                                             <div class="fg-line">
-                                                <input type="number" name="areaFrom" class="form-control input-sm" value="${model.areaFrom}" id="areaFrom"/>
+                                                <input type="number" name="areaFrom" class="form-control input-sm"
+                                                       value="${model.areaFrom}" id="areaFrom"/>
                                             </div>
                                         </div>
                                         <div class="col-sm-3">
                                             <label>Diện tích đến</label>
                                             <div class="fg-line">
-                                                <input type="number" name="areaTo" class="form-control input-sm" value="${model.areaTo}" id="areaTo"/>
+                                                <input type="number" name="areaTo" class="form-control input-sm"
+                                                       value="${model.areaTo}" id="areaTo"/>
                                             </div>
                                         </div>
                                         <div class="col-sm-3">
                                             <label>Giá thuê từ</label>
                                             <div class="fg-line">
-                                                <input type="number" name="costFrom" class="form-control input-sm" value="${model.costFrom}" id="costFrom"/>
+                                                <input type="number" name="costFrom" class="form-control input-sm"
+                                                       value="${model.costFrom}" id="costFrom"/>
                                             </div>
                                         </div>
                                         <div class="col-sm-3">
                                             <label>Giá thuê đến</label>
                                             <div class="fg-line">
-                                                <input type="number" name="costTo" class="form-control input-sm" value="${model.costTo}" id="costTo"/>
+                                                <input type="number" name="costTo" class="form-control input-sm"
+                                                       value="${model.costTo}" id="costTo"/>
                                             </div>
                                         </div>
                                     </div>
-                                    <%--<div class="form-group">
+                                    <div class="form-group">
                                         <div class="col-sm-4">
                                             <label>Tên quản lý</label>
                                             <div class="fg-line">
@@ -153,11 +161,12 @@
                                         <div class="col-sm-4">
                                             <label>Điện thoại quản lý</label>
                                             <div class="fg-line">
-                                                <form:input path="managerPhone" id="managerPhone"
+                                                <form:input path="phoneNumber" id="phoneNumber"
                                                             cssClass="form-control input-sm"/>
                                             </div>
                                         </div>
-                                       <div class="col-sm-4">
+                                        <security:authorize ifAnyGranted="MANAGER">
+                                            <div class="col-sm-4">
                                                 <label>Chọn nhân viên phụ trách</label>
                                                 <div class="fg-line">
                                                     <form:select path="staffName" id="staffName">
@@ -165,15 +174,16 @@
                                                         <form:options items="${staffMaps}"/>
                                                     </form:select>
                                                 </div>
-                                       </div>
-                                    </div>--%>
-                                    <%--<div class="form-group">
+                                            </div>
+                                        </security:authorize>
+                                    </div>
+                                    <div class="form-group">
                                         <div class="col-sm-6">
                                             <div class="fg-line">
-                                                <form:checkboxes path="typeArrays" items="${mapTypes}"/>
+                                                <form:checkboxes path="typeBuilding" items="${buildingTypes}"/>
                                             </div>
                                         </div>
-                                    </div>--%>
+                                    </div>
                                     <div class="form-group">
                                         <div class="col-sm-6">
                                             <button id="btnSearch" type="button"
@@ -217,84 +227,99 @@
                             </div>
                         </div>
                     </div>
-                        <div class="row">
-                            <div class="c-xs-12">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
+                    <div class="row">
+                        <div class="c-xs-12">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <td><input type="checkbox" value="" id="checkAll"/></td>
+                                        <th>Ngày</th>
+                                        <th>Tên sản phẩm</th>
+                                        <th>Địa chỉ</th>
+                                        <th>Tên quản lí</th>
+                                        <th>Số điện thoại</th>
+                                        <th>D.T sàn</th>
+                                        <th>D.T trống</th>
+                                        <th>Giá thuê</th>
+                                        <th>Phí dịch vụ</th>
+                                        <th>Phí môi giới</th>
+                                        <th>Thao tác</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <c:forEach var="item" items="${model.listResult}">
                                         <tr>
-                                            <td><input type="checkbox" value="" id="checkAll"/></td>
-                                            <th>Ngày</th>
-                                            <th>Tên sản phẩm</th>
-                                            <th>Địa chỉ</th>
-                                            <th>Tên quản lí</th>
-                                            <th>Số điện thoại</th>
-                                            <th>D.T sàn</th>
-                                            <th>D.T trống</th>
-                                            <th>Giá thuê</th>
-                                            <th>Phí dịch vụ</th>
-                                            <th>Phí môi giới</th>
-                                            <th>Thao tác</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <c:forEach var="item" items="${model.listResult}">
-                                            <tr>
-                                                <td><input type="checkbox" value="${item.id}" id="checkbox_${item.id}"/>
-                                                </td>
-                                                <td>${item.createdDate}</td>
-                                                <td>${item.productName}</td>
-                                                <td>${item.ward}</td>
-                                                <td>${item.managerName}</td>
-                                                <td>${item.phoneNumber}</td>
-                                                <td>${item.buildingArea}</td>
-                                                <td>${item.descriptionArea}</td>
-                                                <td>${item.rentCost}</td>
-                                                <td>${item.feesService}</td>
-                                                <td>${item.brokeragefees}</td>
-                                                <td>
-                                                    <c:url var="editURL" value="/admin/building/edit">
-                                                        <c:param name="id" value="${item.id}"/>
-                                                    </c:url>
+                                            <td><input type="checkbox" value="${item.id}" id="checkbox_${item.id}"/>
+                                            </td>
+                                            <td>${item.createdDate}</td>
+                                            <td>${item.productName}</td>
+                                            <td>${item.ward}</td>
+                                            <td>${item.managerName}</td>
+                                            <td>${item.phoneNumber}</td>
+                                            <td>${item.buildingArea}</td>
+                                            <td>${item.descriptionArea}</td>
+                                            <td>${item.rentCost}</td>
+                                            <td>${item.feesService}</td>
+                                            <td>${item.brokeragefees}</td>
+                                            <td>
+                                                <c:url var="editURL" value="/admin/building/edit">
+                                                    <c:param name="id" value="${item.id}"/>
+                                                </c:url>
 
-                                                    <a class="btn btn-sm btn-primary btn-edit" data-toggle="tooltip"
-                                                       title="Cập nhật bài viết" href='${editURL}'><i
-                                                            class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                <a class="btn btn-xs btn-primary btn-edit"
+                                                   type="button"
+                                                   title="Cập nhật bài viết"
+                                                   href='${editURL}'>
+
+                                                        <%--<i class="fa fa-pencil-square-o" aria-hidden="true"></i>--%>
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+
+                                                <security:authorize ifAnyGranted="MANAGER">
+                                                    <%--<c:url var="assignmentURL" value="/admin/building/assignment">--%>
+                                                    <%--<c:param name="id" value="${item.id}"/>--%>
+                                                    <%--</c:url>--%>
+
+                                                    <a class="btn btn-xs btn-primary btn-edit"
+                                                       type="button"
+                                                       id="btngiaoPho"
+                                                       title='Giao tòa nhà'
+                                                        <%--href="${assignmentURL}"--%>
+                                                       value="${item.id}"
+                                                       data-toggle="modal" data-target="#myModal"
+                                                    >
+                                                        <i class="fa fa-tasks"></i>
                                                     </a>
+                                                </security:authorize>
+                                                <c:if test="${item.checkPriority == false}">
+                                                    <a class="btn btn-xs btn-primary btn-edit"
+                                                       type="button"
+                                                       id="btnPriority"
+                                                       value = "${item.id}"
+                                                       title='Sự ưu tiên'
+                                                    >
+                                                        <i class="fa fa-plus-square"></i>
+                                                    </a>
+                                                </c:if>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                    </tbody>
+                                </table>
+                                <ul style="margin-left: 400px;" id="pagination-demo" class="pagination">
 
-                                                    <security:authorize ifAnyGranted="MANAGER">
-                                                        <c:url var="assignmentURL" value="/admin/building/assignment">
-                                                            <c:param name="id" value="${item.id}"/>
-                                                        </c:url>
-
-                                                        <a class="btn btn-xs btn-primary btn-edit"
-                                                           type="button"
-                                                           id="btngiaoPho"
-                                                           title='Giao tòa nhà'
-                                                           href="${assignmentURL}"
-                                                           <%--data-toggle="modal" data-target="#myModal"--%>
-                                                        >
-                                                            <i class="fa fa-tasks"></i>
-                                                        </a>
-                                                    </security:authorize>
-                                                </td>
-                                            </tr>
-                                        </c:forEach>
-                                        </tbody>
-                                    </table>
-                                    <ul style="margin-left: 400px;" id="pagination-demo" class="pagination">
-
-                                    </ul>
-                                        <%--
-                                        trong spring:form
-                                        thì thẻ input không cần giá trị value
-                                        để có thể lấy page của AbstractDTO
-                                        chỉ cần name = "page" thì có thể lấy giá trị của nó rồi
-                                        --%>
-                                    <input type="hidden" name="page" id="page"/>
-                                </div>
+                                </ul>
+                                    <%--
+                                    trong spring:form
+                                    thì thẻ input không cần giá trị value
+                                    để có thể lấy page của AbstractDTO
+                                    chỉ cần name = "page" thì có thể lấy giá trị của nó rồi
+                                    --%>
+                                <input type="hidden" name="page" id="page"/>
                             </div>
                         </div>
+                    </div>
                 </div>
                 </form:form>
             </div>
@@ -306,45 +331,44 @@
 <%--hien giao toa nha--%>
 <%--modal bootrap--%>
 <!-- Modal -->
-<%--<div class="modal fade" id="myModal" role="dialog">--%>
-    <%--&lt;%&ndash;<div class="modal-dialog">&ndash;%&gt;--%>
-        <%--&lt;%&ndash;<!-- Modal content-->&ndash;%&gt;--%>
-        <%--&lt;%&ndash;<div class="modal-content">&ndash;%&gt;--%>
-            <%--&lt;%&ndash;<div class="modal-header">&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<button type="button" class="close" data-dismiss="modal">&times;</button>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<h4 class="modal-title">Danh sách nhân viên</h4>&ndash;%&gt;--%>
-            <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-            <%--&lt;%&ndash;<div class="modal-body">&ndash;%&gt;--%>
-                <%--&lt;%&ndash;&lt;%&ndash;<form:form modelAttribute="modal1">&ndash;%&gt;&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;&lt;%&ndash;<table class="table">&ndash;%&gt;&ndash;%&gt;--%>
-                        <%--&lt;%&ndash;&lt;%&ndash;<tr>&ndash;%&gt;&ndash;%&gt;--%>
-                            <%--&lt;%&ndash;&lt;%&ndash;<td>Chọn</td>&ndash;%&gt;&ndash;%&gt;--%>
-                            <%--&lt;%&ndash;&lt;%&ndash;<td>Danh sách nhân viên</td>&ndash;%&gt;&ndash;%&gt;--%>
-                        <%--&lt;%&ndash;&lt;%&ndash;</tr>&ndash;%&gt;&ndash;%&gt;--%>
-                        <%--&lt;%&ndash;&lt;%&ndash;<c:forEach var="list" items="${listUser}">&ndash;%&gt;&ndash;%&gt;--%>
-                            <%--&lt;%&ndash;&lt;%&ndash;<tr>&ndash;%&gt;&ndash;%&gt;--%>
-                                <%--&lt;%&ndash;&lt;%&ndash;<th><input type="checkbox" value="${list.id}" ${list.check}/></th>&ndash;%&gt;&ndash;%&gt;--%>
-                                <%--&lt;%&ndash;&lt;%&ndash;<th>${list.fullName}</th>&ndash;%&gt;&ndash;%&gt;--%>
-                            <%--&lt;%&ndash;&lt;%&ndash;</tr>&ndash;%&gt;&ndash;%&gt;--%>
-                        <%--&lt;%&ndash;&lt;%&ndash;</c:forEach>&ndash;%&gt;&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;&lt;%&ndash;</table>&ndash;%&gt;&ndash;%&gt;--%>
-                <%--&lt;%&ndash;&lt;%&ndash;</form:form>&ndash;%&gt;&ndash;%&gt;--%>
-            <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-            <%--&lt;%&ndash;<div class="modal-footer">&ndash;%&gt;--%>
-                <%--&lt;%&ndash;&lt;%&ndash;<input type="button" class="btn btn-white btn-warning btn-bold"&ndash;%&gt;&ndash;%&gt;--%>
-                       <%--&lt;%&ndash;&lt;%&ndash;value="Giao phó tòa nhà" data-dismiss="modal" id="btnAssignmentBuilding"/>&ndash;%&gt;&ndash;%&gt;--%>
-            <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-        <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Danh sách nhân viên</h4>
+            </div>
+            <div class="modal-body">
+                <%--<form:form modelAttribute="modal1">--%>
+                <table class="table">
+                    <tr>
+                        <td>Chọn</td>
+                        <td>Danh sách nhân viên</td>
+                    </tr>
+                    <c:forEach var="list" items="${listUser}">
+                        <tr>
+                            <th><input type="checkbox" value="${list.id}" ${list.check}/></th>
+                            <th>${list.fullName}</th>
+                        </tr>
+                    </c:forEach>
+                </table>
+                <%--</form:form>--%>
+            </div>
+            <div class="modal-footer">
+                <input type="button" class="btn btn-white btn-warning btn-bold"
+                       value="Giao phó tòa nhà" data-dismiss="modal" id="btnAssignmentBuilding"/>
+            </div>
+        </div>
 
-    <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-<%--</div>--%>
+    </div>
+</div>
 
 <script type="text/javascript">
     var totalPages = ${model.totalPages};
     var visiblePages = ${model.maxPageItems};
     var startPage = ${model.page};
-    // var idBuilding = 0;
-    // var url = window.location.href;
+    var idBuilding = 0;
 
     $(function () {
         var obj = $('#pagination-demo').twbsPagination({
@@ -365,11 +389,6 @@
         });
     });
 
-    <%--document.getElementById("btngiaoPho").onclick = function () {--%>
-    <%--this.href += "/admin/building/list&id=" + ${item.id};--%>
-    <%--alert(this.href);--%>
-    <%--};--%>
-
     $(document).ready(function () {
         $('#btnDelete').click(function (e) {
                 e.preventDefault();
@@ -388,25 +407,30 @@
             }
         );
 
-        // $('#btngiaoPho').click(function (e) {
-        //     idBuilding = $(this).closest('td').find('input').val();
-        //     // window.location.href += "?id" + idBuilding;
-        //     // response.
-        //     // $('#myModal').modal('show');
-        // });
+        //giao pho toa nha
+        $('#formSubmit a#btngiaoPho').click(function (e) {
+            e.preventDefault();
+            idBuilding = $(this).attr('value');
+        });
 
-    //     //giao pho toa nha
-    //     $('#btnAssignmentBuilding').click(function (e) {
-    //             e.preventDefault();
-    //             var userIds = {};
-    //             // var idBuilding = $('#idBuilding').val();
-    //
-    //             var userIds = $('body th input[type=checkbox]:checked').map(function () {
-    //                 return $(this).val();
-    //             }).get();
-    //             userAssignmentBuilding(userIds, idBuilding);
-    //         }
-    //     );
+        //giao pho toa nha
+        $('#btnAssignmentBuilding').click(function (e) {
+                e.preventDefault();
+                var userIds = {};
+
+                var userIds = $('body th input[type=checkbox]:checked').map(function () {
+                    return $(this).val();
+                }).get();
+                userAssignmentBuilding(userIds, idBuilding);
+            }
+        );
+
+        //toa nha uu tien
+        $('#formSubmit a#btnPriority').click(function (e) {
+            e.preventDefault();
+            idBuilding = $(this).attr('value');
+            buildingPriority(idBuilding);
+        });
     });
 
     //xoa bai viet
@@ -426,22 +450,39 @@
         });
     }
 
-    <%--//them user vao building--%>
-    <%--function userAssignmentBuilding(userIds, idBuilding) {--%>
-        <%--$.ajax({--%>
-            <%--url: '${APIurl}/' + idBuilding,--%>
-            <%--type: 'POST',--%>
-            <%--data: JSON.stringify(userIds),--%>
-            <%--contentType: 'application/json',--%>
-            <%--dataType: 'json',--%>
-            <%--success: function (result) {--%>
-                <%--window.location.href = "<c:url value='/admin/building/list?message=delete_success'/>";--%>
-            <%--},--%>
-            <%--error: function (result) {--%>
-                <%--window.location.href = "<c:url value='/admin/building/list?message=error_system'/>";--%>
-            <%--},--%>
-        <%--});--%>
-    <%--}--%>
+    //them user vao building
+    function userAssignmentBuilding(userIds, idBuilding) {
+        $.ajax({
+            url: '${APIurl}/' + idBuilding,
+            type: 'POST',
+            data: JSON.stringify(userIds),
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function (result) {
+                window.location.href = "<c:url value='/admin/building/list?message=delete_success'/>";
+            },
+            error: function (result) {
+                window.location.href = "<c:url value='/admin/building/list?message=error_system'/>";
+            },
+        });
+    }
+
+    //them su uu tien building
+    function buildingPriority(idBuilding) {
+        $.ajax({
+            url: '${Priorityurl}/' + idBuilding,
+            type: 'POST',
+            data: JSON.stringify(idBuilding),
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function (result) {
+                window.location.href = "<c:url value='/admin/building/list?message=delete_success'/>";
+            },
+            error: function (result) {
+                window.location.href = "<c:url value='/admin/building/list?message=error_system'/>";
+            },
+        });
+    }
 </script>
 </body>
 </html>

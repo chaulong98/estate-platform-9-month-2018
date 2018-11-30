@@ -32,16 +32,34 @@ public class BuildingService implements IBuildingService {
     private BuildingRepository buildingRepository;
 
     @Autowired
-    private BuildingConverter buildingConverter;
+    private UserRepository userRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private BuildingConverter buildingConverter;
+
 
     @Override
     public void findAll(BuildingDTO model, Pageable pageable) {
         List<BuildingEntity> builds = buildingRepository.findAll(pageable).getContent();
-        model.setListResult(builds.stream().map(item -> buildingConverter.convertToDto(item)).collect(Collectors.toList()));
+        model.setListResult(getAllBuildingDTO(builds));
         model.setTotalItem(buildingRepository.getTotalItems().intValue());
+    }
+
+    @Override
+    public void findBuildingPriority(BuildingDTO model, Pageable pageable) {
+        List<BuildingEntity> builds = buildingRepository.findAllByUsers(userRepository.findOneByUserName(SecurityUtils.getPrincipal().getUsername()), pageable).getContent();
+        model.setListResult(getAllBuildingDTO(builds));
+        model.setTotalItem(buildingRepository.getTotalItems().intValue());
+    }
+
+    public List<BuildingDTO> getAllBuildingDTO(List<BuildingEntity> builds) {
+        List<BuildingDTO> buildingDTOS = builds.stream().map(item -> buildingConverter.convertToDto(item)).collect(Collectors.toList());
+        for (BuildingDTO item : buildingDTOS) {
+            if (item.getUsers().length > 0) {
+                item.setCheckPriority(true);
+            }
+        }
+        return buildingDTOS;
     }
 
     @Override
@@ -110,22 +128,53 @@ public class BuildingService implements IBuildingService {
     }
 
     @Override
+    public void deleteBuildingPriority(long[] id) {
+        BuildingEntity buildingEntity = new BuildingEntity();
+        UserEntity userEntity = userRepository.findOneByUserName(SecurityUtils.getPrincipal().getUsername());
+        List<UserEntity> users = new ArrayList<>();
+        for (long item : id) {
+            buildingEntity = buildingRepository.findOne(item);
+            users = buildingEntity.getUsers();
+            for (int i = 0; i < users.size(); i++) {
+                if (users.get(i).getUserName().equals(userEntity.getUserName())) {
+                    users.remove(i);
+                }
+            }
+            buildingEntity.setUsers(users);
+            buildingRepository.save(buildingEntity);
+        }
+    }
+
+    @Override
     @Transactional
     public void assignStaffsToBuilding(Long buildingId, long[] userIds) {
-        List<UserEntity> users = new ArrayList<>();
+        List<UserEntity> staffs = new ArrayList<>();
         BuildingEntity buildingEntity = buildingRepository.findOne(buildingId);
         for (long id : userIds) {
             UserEntity userEntity = userRepository.findOne(id);
-            users.add(userEntity);
+            staffs.add(userEntity);
         }
-        buildingEntity.setUsers(users);
+        buildingEntity.setStaffs(staffs);
         buildingRepository.save(buildingEntity);
     }
 
     @Override
-    public void findBuildingByUsers(BuildingDTO model) {
-        List<BuildingEntity> builds = buildingRepository.findAllByUsers(userRepository.findOneByUserName(SecurityUtils.getPrincipal().getUsername()));
+    public void findBuildingByUsers(BuildingDTO model, Pageable pageable) {
+        List<BuildingEntity> builds = buildingRepository.findAllByStaffs(userRepository.findOneByUserName(SecurityUtils.getPrincipal().getUsername()), pageable).getContent();
         model.setListResult(builds.stream().map(item -> buildingConverter.convertToDto(item)).collect(Collectors.toList()));
         model.setTotalItem(buildingRepository.getTotalItems().intValue());
     }
+
+    //them toa nha vao dah sach uu tien
+    @Override
+    public void buildingPriority(Long buildingId) {
+        List<UserEntity> users = new ArrayList<>();
+        BuildingEntity buildingEntity = buildingRepository.findOne(buildingId);
+        users.add(userRepository.findOneByUserName(SecurityUtils.getPrincipal().getUsername()));
+        buildingEntity.setUsers(users);
+        buildingRepository.save(buildingEntity);
+    }
+
+    //xoa toa nha khoi danh sach uu tien
+
 }

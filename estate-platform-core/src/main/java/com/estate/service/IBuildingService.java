@@ -9,6 +9,8 @@ import java.util.Map;
 public interface IBuildingService {
     void findAll(BuildingDTO model, Pageable pageable);
 
+    void findBuildingPriority(BuildingDTO model, Pageable pageable);
+
     BuildingDTO save(BuildingDTO buildingDTO);
 
     BuildingDTO update(BuildingDTO buildingDTO);
@@ -19,7 +21,12 @@ public interface IBuildingService {
 
     void deleteBuilding(long[] id);
 
+    void deleteBuildingPriority(long[] id);
+
     void assignStaffsToBuilding(Long buildingId, long[] userIds);
 
-    void findBuildingByUsers(BuildingDTO model);
+    void findBuildingByUsers(BuildingDTO model, Pageable pageable);
+
+    void buildingPriority(Long buildingId);
+
 }
