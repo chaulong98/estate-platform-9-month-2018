@@ -1,13 +1,12 @@
 package com.estate.service;
 
 import com.estate.dto.BuildingDTO;
-import com.estate.dto.UserDTO;
 import org.springframework.data.domain.Pageable;
-
+import java.util.List;
 import java.util.Map;
 
 public interface IBuildingService {
-    void findAll(BuildingDTO model, Pageable pageable);
+    List<BuildingDTO> findAll(BuildingDTO model, com.estate.paging.PageRequest pageRequest);
 
     void findBuildingPriority(BuildingDTO model, Pageable pageable);
 

@@ -1,5 +1,6 @@
 package com.estate.repository.custom.impl;
 
+import com.estate.builder.BuildingBuilder;
 import com.estate.entity.BuildingEntity;
 import com.estate.paging.PageRequest;
 import com.estate.repository.custom.BuildingRepositoryCustom;
@@ -16,7 +17,9 @@ public class BuildingRepositoryImpl implements BuildingRepositoryCustom {
     private EntityManager entityManager;
 
     @Override
-    public List<BuildingEntity> findAll(PageRequest pageRequest) {
+    public List<BuildingEntity> findAll(BuildingBuilder builder, PageRequest pageRequest) {
+        StringBuilder sql = new StringBuilder("SELECT * FROM building AS b");
+        sql.append(" WHERE 1 = 1 ");
         return null;
     }
 

@@ -1,6 +1,4 @@
-package com.estate.constant;
-
-import org.springframework.stereotype.Component;
+package com.estate.enums;
 
 public enum BuildingType {
     groundFloor("Tầng trệt"),

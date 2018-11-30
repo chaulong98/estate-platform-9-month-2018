@@ -40,10 +40,9 @@ public class UserService implements IUserService {
 
     @Override
     public Map<String, String> getStaffs() {
-        List<UserDTO> userDTOS = new ArrayList<>();
         Map<String, String> results = new HashMap<>();
-        userDTOS = userRepository.findByRoles_CodeAndStatus("USER", "1").stream().map(item -> userConverter.convertToDto(item)).collect(Collectors.toList());
-        for (UserDTO item : userDTOS){
+        List<UserDTO> userDTOS = userRepository.findByRoles_CodeAndStatus("USER", "1").stream().map(item -> userConverter.convertToDto(item)).collect(Collectors.toList());
+        for (UserDTO item : userDTOS) {
             results.put(item.getUserName(), item.getFullName());
         }
         return results;

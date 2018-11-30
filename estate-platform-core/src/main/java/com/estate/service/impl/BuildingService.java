@@ -1,14 +1,13 @@
 package com.estate.service.impl;
 
-import com.estate.constant.BuildingType;
+import com.estate.builder.BuildingBuilder;
+import com.estate.enums.BuildingType;
 import com.estate.constant.SystemConstant;
 import com.estate.converter.BuildingConverter;
 import com.estate.dto.BuildingDTO;
-import com.estate.dto.UserDTO;
 import com.estate.entity.BuildingEntity;
 import com.estate.entity.UserEntity;
 import com.estate.repository.BuildingRepository;
-import com.estate.repository.DistrictRepository;
 import com.estate.repository.UserRepository;
 import com.estate.service.IBuildingService;
 import com.estate.utils.SecurityUtils;
@@ -39,10 +38,24 @@ public class BuildingService implements IBuildingService {
 
 
     @Override
-    public void findAll(BuildingDTO model, Pageable pageable) {
-        List<BuildingEntity> builds = buildingRepository.findAll(pageable).getContent();
-        model.setListResult(getAllBuildingDTO(builds));
-        model.setTotalItem(buildingRepository.getTotalItems().intValue());
+    public List<BuildingDTO> findAll(BuildingDTO model, com.estate.paging.PageRequest pageRequest) {
+        List<BuildingEntity> buildings = buildingRepository.findAll(getBuildingBuilder(model), pageRequest);
+        return buildings.stream().map(item -> buildingConverter.convertToDto(item)).collect(Collectors.toList());
+    }
+
+    private BuildingBuilder getBuildingBuilder(BuildingDTO model) {
+        return new BuildingBuilder.Builder()
+                    .setProductName(model.getProductName())
+                    .setBasementNumber(model.getBasementNumber())
+                    .setBuildingArea(model.getBuildingArea())
+                    .setDirection(model.getDirection())
+                    .setLevel(model.getLevel())
+                    .setDistrict(model.getDistrict())
+                    .setManagerName(model.getManagerName())
+                    .setPhoneNumber(model.getPhoneNumber())
+                    .setWard(model.getWard())
+                    .setStreet(model.getStreet())
+                    .build();
     }
 
     @Override

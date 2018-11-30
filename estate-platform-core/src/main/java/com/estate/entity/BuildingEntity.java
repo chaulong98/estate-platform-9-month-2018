@@ -100,13 +100,13 @@ public class BuildingEntity extends BaseEntity {
     @Column
     private String image;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_building",
             joinColumns = @JoinColumn(name = "building_id", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "user_id", nullable = false))
     private List<UserEntity> staffs = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "priority",
             joinColumns = @JoinColumn(name = "user_id", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "building_id", nullable = false))
