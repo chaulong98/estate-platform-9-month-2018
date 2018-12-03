@@ -214,21 +214,21 @@
         });
 
         $('#btnAssign').click(function () {
-            var assignList = [];
+            var staffIds = $('#staffAssignList').find('tbody input[type=checkbox]:checked').map(function () {
+                return $(this).val();
+            }).get();
             var buildingId = $("#buildingId").val();
-            $('input[name=staff]:checked').each(function (){
-                assignList.push($(this).val());
-            });
-            updateAssignment(assignList,buildingId)
+            updateAssignment(staffIds,buildingId)
         });
     });
     function show(id) {
         $("#myModal").modal('show');
         $("#buildingId").val(id);
-        var list = getListUserIdByBuilding(id);
+        var list = getStaffBuilding(id);
         $("input[name=staff]").each(function (){
             var e = $(this);
             list.forEach(function (value) {
+                var e1 = $(this);
                 if(e.val() == value){
                     e.prop("checked",true);
                 }
@@ -241,10 +241,11 @@
             buildingId : buildingId
         }
         $.ajax({
-            url: '${APIurl}?userID='+assignList+ '&buildingId=' + buildingId ,
+            url: '${APIurl}?buildingId=' + buildingId ,
             type: 'POST',
             contentType:'application/json',
             dataType:'json',
+            data: JSON.stringify(assignList),
             success: function(result){
                 $("#myModal").modal('hide');
                 $('input[name=staff]').each(function (){
@@ -257,13 +258,13 @@
             }
         });
     }
-    function getListUserIdByBuilding(buildingId) {
+    function getStaffBuilding(buildingId) {
         var resultdata = [];
         var data = {
             buildingId : buildingId
         }
         $.ajax({
-            url: '/api/admin/building/listUserIdByBuilding?buildingId=' + buildingId ,
+            url: '/api/admin/building/staffs?buildingId=' + buildingId ,
             type: 'GET',
             async : false,
             contentType:'application/json',

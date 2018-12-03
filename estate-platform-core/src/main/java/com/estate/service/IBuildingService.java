@@ -13,5 +13,5 @@ public interface IBuildingService {
     BuildingDTO findById(long id);
     void assignStaff(long[] userID, long buildingId);
 
-    List<Long> getListUserIdByBuilding(long buildingId);
+    List<Long> getStaffBuilding(long buildingId);
 }

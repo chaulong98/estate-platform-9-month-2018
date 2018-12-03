@@ -26,14 +26,13 @@ public class BuildingAPI {
 
 
     @PostMapping(path = "/assignment")
-    public ResponseEntity<Void> assignStaff(@RequestParam long[] userID, long buildingId) {
+    public ResponseEntity<Void> assignStaff(@RequestBody long[] userID, @RequestParam long buildingId) {
         iBuildingService.assignStaff(userID, buildingId);
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping(path = "/listUserIdByBuilding")
+    @GetMapping(path = "/staffs")
     public ResponseEntity<Object> getListUserIdByBuilding(@RequestParam long buildingId) {
-
-        return ResponseEntity.ok(iBuildingService.getListUserIdByBuilding(buildingId));
+        return ResponseEntity.ok(iBuildingService.getStaffBuilding(buildingId));
     }
 }

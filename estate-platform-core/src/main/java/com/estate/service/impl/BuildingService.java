@@ -100,7 +100,7 @@ public class BuildingService implements IBuildingService {
     }
 
     @Override
-    public List<Long> getListUserIdByBuilding(long buildingId) {
+    public List<Long> getStaffBuilding(long buildingId) {
         BuildingEntity buildingEntity = buildingRepository.findOne(buildingId);
         List<Long> listUserId = buildingEntity.getStaffs().stream().map(BaseEntity::getId).collect(Collectors.toList());
         return listUserId;
