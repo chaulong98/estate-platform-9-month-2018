@@ -7,6 +7,7 @@ import com.example.dto.UserDTO;
 import com.example.entity.BuildingEntity;
 import com.example.entity.UserEntity;
 import com.example.repository.BuildingRepository;
+import com.example.repository.UserRepository;
 import com.example.service.IBuildingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class BuildingService implements IBuildingService{
@@ -37,6 +39,9 @@ public class BuildingService implements IBuildingService{
 
     @PersistenceContext
     private EntityManager em;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public void findAll(BuildingDTO model, Pageable pageable) {
@@ -90,34 +95,21 @@ public class BuildingService implements IBuildingService{
     }
 
     @Override
-    public List<UserDTO> listStaffForAssignBuilding(String roleCode, Long buildingId) {
-        List<UserDTO> listAllStaff = userService.findbyRoleCode(roleCode);
-        BuildingEntity buildingEntity = buildingRepository.findOne(buildingId);
-        List<UserEntity> listAssignedStaffEntity = buildingEntity.getStaffs();
-        List<UserDTO> listAssignedStaffDto = new ArrayList<>();
-
-        for(UserEntity entity : listAssignedStaffEntity){
-            UserDTO dto = userConverter.convertToDto(entity);
-            listAssignedStaffDto.add(dto);
-        }
-
-        Set<Long> listIdAssignedStaff = new HashSet<>();
-        for(UserDTO dto : listAssignedStaffDto){
-            listIdAssignedStaff.add(dto.getId());
-        }
-
-        for(UserDTO dto : listAllStaff){
-            if(listIdAssignedStaff.contains(dto.getId())){
-                dto.setChecked("checked");
+    public List<UserDTO> getStaff(String roleCode, Long buildingId) {
+        List<UserDTO> users = userRepository.findByStatusAndRoles_Code(1, roleCode)
+                                .stream().map(item -> userConverter.convertToDto(item)).collect(Collectors.toList());
+        for (UserDTO item: users) {
+            boolean isChecked = userRepository.existsByUserNameAndBuildingsId(item.getUserName(), buildingId);
+            if (isChecked) {
+                item.setChecked("checked");
             }
         }
-
-        return  listAllStaff;
+        return users;
     }
 
     @Override
-    public BuildingDTO assignBuilding(BuildingDTO dto, Long buildingId) {
-        String[] listUserId = dto.getListId();
+    public BuildingDTO assignBuilding(long[] staffIds, Long buildingId) {
+        /*String[] listUserId = dto.getListId();
         List<UserDTO> userDTOS = userService.findByListId(listUserId);
         List<UserEntity> userEntities = new ArrayList<>();
         for(UserDTO userDTO : userDTOS){
@@ -134,6 +126,7 @@ public class BuildingService implements IBuildingService{
         if(buildingEntity.getType() != null) {
             model.setProductType(buildingEntity.getType().split(","));
         }
-        return model;
+        return model;*/
+        return null;
     }
 }

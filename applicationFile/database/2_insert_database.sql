@@ -1,4 +1,4 @@
-set search_path to estate9month2018;
+set search_path to estatevietdat;
 
 INSERT INTO role(code, name) VALUES ('MANAGER','quản lý');
 INSERT INTO role(code, name) VALUES ('USER','nhân viên');

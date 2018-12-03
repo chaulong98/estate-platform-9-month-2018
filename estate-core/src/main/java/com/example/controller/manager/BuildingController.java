@@ -57,7 +57,7 @@ public class BuildingController {
     @RequestMapping(value = "/ajax-manager-building-delivery", method = RequestMethod.GET)
     public ModelAndView staffPage(UserDTO model, @RequestParam(value = "id", required = false) Long buildingId){
         ModelAndView mav = new ModelAndView("manager/building/delivery");
-        model.setListResult(buildingService.listStaffForAssignBuilding(SystemConstant.USER_ROLE, buildingId));
+        model.setListResult(buildingService.getStaff(SystemConstant.USER_ROLE, buildingId));
         mav.addObject(SystemConstant.MODEL, model);
         mav.addObject("buildingId", buildingId);
         return mav;

@@ -15,7 +15,7 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="table-responsive">
-                            <table class="table">
+                            <table class="table" id="userAssignTable">
                                 <thead>
                                 <tr>
                                     <th>Chọn nhân viên</th>
@@ -24,18 +24,10 @@
                                 </thead>
                                 <tbody>
                                 <c:forEach var="item" items="${model.listResult}">
-                                    <c:if test="${not empty item.checked}">
-                                        <tr>
-                                            <td><input type="checkbox" value="${item.id}" id="checkbox_${item.id}" ${item.checked}/></td>
-                                            <td>${item.fullName}</td>
-                                        </tr>
-                                    </c:if>
-                                    <c:if test="${empty item.checked}">
-                                        <tr>
-                                            <td><input type="checkbox" value="${item.id}" id="checkbox_${item.id}" /></td>
-                                            <td>${item.fullName}</td>
-                                        </tr>
-                                    </c:if>
+                                    <tr>
+                                        <td><input type="checkbox" value="${item.id}" id="checkbox_${item.id}" ${item.checked}/></td>
+                                        <td>${item.fullName}</td>
+                                    </tr>
                                 </c:forEach>
                                 </tbody>
                             </table>

@@ -23,8 +23,8 @@ public class BuildingApi {
             return  ResponseEntity.ok(buildingService.update(buildingDTO));
     }
 
-    @RequestMapping(value = "/api/building/{id}", method = RequestMethod.POST)
-    public ResponseEntity<BuildingDTO> assignBuilding(@RequestBody BuildingDTO buildingDTO, @PathVariable("id") Long buildingId){
-        return  ResponseEntity.ok(buildingService.assignBuilding(buildingDTO, buildingId));
+    @RequestMapping(value = "/api/building/{id}/assignment", method = RequestMethod.POST)
+    public ResponseEntity<BuildingDTO> assignBuilding(@RequestBody long[] staffIds, @PathVariable("id") Long buildingId){
+        return ResponseEntity.ok(buildingService.assignBuilding(staffIds, buildingId));
     }
 }

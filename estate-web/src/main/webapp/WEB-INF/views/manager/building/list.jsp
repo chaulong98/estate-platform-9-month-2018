@@ -242,32 +242,25 @@
 
     function saveStaff(){
         $('#save').click(function () {
-            var data = {};
-            var listId = [];
+            var userArrays = $('#userAssignTable').find('tbody input[type=checkbox]:checked').map(function () {
+                return $(this).val();
+            }).get();
             var buildingId = $('#buildingId').val();
-            $('input[type=checkbox]:checked').each(function () {
-                listId.push($(this).val());
-            })
-            data["listId"] = listId;
-            call(data, buildingId);
+            $.ajax({
+                url: '${APIurl}/' +  buildingId + "/assignment",
+                type: 'POST',
+                data: JSON.stringify(userArrays),
+                contentType: 'application/json',
+                dataType: 'json',
+                success: function(result){
+                    console.log("sucess");
+                },
+                error: function(result){
+                    console.log("fail");
+
+                }
+            });
         })
-    }
-
-    function call(data, buildingId){
-        $.ajax({
-            url: '${APIurl}/' +  buildingId,
-            type: 'POST',
-            data: JSON.stringify(data),
-            contentType: 'application/json',
-            dataType: 'json',
-            success: function(result){
-                console.log("sucess");
-            },
-            error: function(result){
-                console.log("fail");
-
-            }
-        });
     }
 </script>
 </body>

@@ -9,4 +9,6 @@ import java.util.List;
 
 public interface UserRepository extends JpaRepository<UserEntity, Long>, UserRepositoryCustom {
     UserEntity findOneByUserName(String name);
+    boolean existsByUserNameAndBuildingsId(String name, long buildingId);
+    List<UserEntity> findByStatusAndRoles_Code(int status, String roleCode);
 }

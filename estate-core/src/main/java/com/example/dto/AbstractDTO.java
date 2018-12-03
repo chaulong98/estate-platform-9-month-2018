@@ -16,16 +16,6 @@ public class AbstractDTO<T> implements Serializable {
     private int maxPageItems = 2;
     private int page = 1;
     private List<T> listResult = new ArrayList<>();
-    private String[] listId = new String[]{};
-
-
-    public String[] getListId() {
-        return listId;
-    }
-
-    public void setListId(String[] listId) {
-        this.listId = listId;
-    }
 
     public Long getId() {
         return id;

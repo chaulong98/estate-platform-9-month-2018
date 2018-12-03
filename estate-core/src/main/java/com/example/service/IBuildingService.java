@@ -11,6 +11,6 @@ public interface IBuildingService {
     BuildingDTO findById(Long id);
     BuildingDTO save(BuildingDTO dto);
     BuildingDTO update(BuildingDTO dto);
-    List<UserDTO> listStaffForAssignBuilding(String roleCode, Long buildingId);
-    BuildingDTO assignBuilding(BuildingDTO dto, Long buildingId);
+    List<UserDTO> getStaff(String roleCode, Long buildingId);
+    BuildingDTO assignBuilding(long[] staffIds, Long buildingId);
 }
