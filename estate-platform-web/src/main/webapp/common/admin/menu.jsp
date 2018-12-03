@@ -51,6 +51,13 @@
                     </a>
                     <b class="arrow"></b>
                 </li>
+                <li class="">
+                    <a href='<c:url value="/admin/building/list-priority-building"/>'>
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Danh sách toà nhà ưu tiên
+                    </a>
+                    <b class="arrow"></b>
+                </li>
             </ul>
         </li>
     </ul>

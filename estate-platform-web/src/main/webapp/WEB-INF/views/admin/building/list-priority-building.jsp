@@ -6,7 +6,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Danh sách toà nhà</title>
+    <title>Danh sách toà nhà ưu tiên</title>
 </head>
 <body>
 <div class="main-content">
@@ -21,7 +21,7 @@
                     <i class="ace-icon fa fa-home home-icon"></i>
                     <a href="<c:url value="/admin/home"/>">Trang chủ</a>
                 </li>
-                <li class="active">Danh sách toà nhà</li>
+                <li class="active">Danh sách toà nhà ưu tiên</li>
             </ul><!-- /.breadcrumb -->
         </div>
         <div class="page-content">
@@ -41,69 +41,69 @@
                 <div class="col-xs-12">
                     <!-- PAGE CONTENT BEGINS -->
                     <form:form action="${formURL}" modelAttribute="model" id="formSubmit" method="get">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="widget-box table-filter collapsed">
-                                <div class="widget-header">
-                                    <h4 class="widget-title">Tìm kiếm</h4>
-                                    <div class="widget-toolbar" >
-                                        <a href="#" data-action="collapse" >
-                                            <i class="ace-icon fa fa-chevron-down" ></i>
-                                        </a>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="widget-box table-filter collapsed">
+                                    <div class="widget-header">
+                                        <h4 class="widget-title">Tìm kiếm</h4>
+                                        <div class="widget-toolbar" >
+                                            <a href="#" data-action="collapse" >
+                                                <i class="ace-icon fa fa-chevron-down" ></i>
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="widget-body">
-                                    <div class="widget-main">
-                                        <div class="form-horizontal">
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label">Tên:</label>
-                                                <div class="col-sm-8">
-                                                    <div class="fg-line">
-                                                        <form:input path="name" cssClass="form-control input-sm"/>
+                                    <div class="widget-body">
+                                        <div class="widget-main">
+                                            <div class="form-horizontal">
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label">Tên:</label>
+                                                    <div class="col-sm-8">
+                                                        <div class="fg-line">
+                                                            <form:input path="name" cssClass="form-control input-sm"/>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label">Quận:</label>
-                                                <div class="col-sm-8">
-                                                    <div class="fg-line">
-                                                        <form:input path="district" cssClass="form-control input-sm"/>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label">Quận:</label>
+                                                    <div class="col-sm-8">
+                                                        <div class="fg-line">
+                                                            <form:input path="district" cssClass="form-control input-sm"/>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label"></label>
-                                                <div class="col-sm-8">
-                                                    <button type="button" class="btn btn-sm btn-success" id="btnSearch">
-                                                        Tìm kiếm
-                                                        <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
-                                                    </button>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label"></label>
+                                                    <div class="col-sm-8">
+                                                        <button type="button" class="btn btn-sm btn-success" id="btnSearch">
+                                                            Tìm kiếm
+                                                            <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="table-btn-controls">
-                                <div class="pull-right tableTools-container">
-                                    <div class="dt-buttons btn-overlap btn-group">
-                                        <a flag="info" class="dt-button buttons-colvis btn btn-white btn-primary btn-bold"
-                                           data-toggle="tooltip" title="Thêm toà nhà mới" href='<c:url value="/admin/building/edit"/>'>
+                                <div class="table-btn-controls">
+                                    <div class="pull-right tableTools-container">
+                                        <div class="dt-buttons btn-overlap btn-group">
+                                            <a flag="info" class="dt-button buttons-colvis btn btn-white btn-primary btn-bold"
+                                               data-toggle="tooltip" title="Thêm toà nhà mới" href='<c:url value="/admin/building/edit"/>'>
                                                     <span>
                                                     <i class="fa fa-plus-circle bigger-110 purple"></i>
                                                 </span>
-                                        </a>
-                                        <button id="btnDelete" type="button" class="dt-button buttons-html5 btn btn-white btn-primary btn-bold" disabled
-                                                data-toggle="tooltip" title="Xóa toà nhà">
+                                            </a>
+                                            <button id="btnDelete" type="button" class="dt-button buttons-html5 btn btn-white btn-primary btn-bold" disabled
+                                                    data-toggle="tooltip" title="Xóa toà nhà">
                                                     <span>
                                                         <i class="fa fa-trash-o bigger-110 pink"></i>
                                                 	</span>
-                                        </button>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="table-responsive">

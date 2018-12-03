@@ -1,7 +1,9 @@
 package com.estate.service.impl;
 
 import com.estate.converter.BuildingConverter;
+import com.estate.dto.AbstractDTO;
 import com.estate.dto.BuildingDTO;
+import com.estate.entity.BaseEntity;
 import com.estate.entity.BuildingEntity;
 import com.estate.entity.UserEntity;
 import com.estate.repository.BuildingRepository;
@@ -17,8 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,20 +40,14 @@ public class BuildingService implements IBuildingService {
     private UserRepository userRepository;
 
     public Long getTotalItems() {
-        StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM BuildingEntity");
-        Query query = entityManager.createQuery(sql.toString());
+        Query query = entityManager.createQuery("SELECT COUNT(*) FROM BuildingEntity");
         return (Long) query.getResultList().get(0);
     }
 
     public void findAll(BuildingDTO model, Pageable pageable) {
         List<BuildingEntity> buildings = buildingRepository.findAll(pageable).getContent();
         model.setListResult(buildings.stream().map(item -> converter.convertToDto(item)).collect(Collectors.toList()));
-        Collections.sort(model.getListResult(), new Comparator<BuildingDTO>() {
-            @Override
-            public int compare(BuildingDTO o1, BuildingDTO o2) {
-                return o1.getId().compareTo(o2.getId());
-            }
-        });
+        model.getListResult().sort(Comparator.comparing(AbstractDTO::getId));
         model.setTotalItems(getTotalItems().intValue());
     }
 
@@ -61,7 +56,7 @@ public class BuildingService implements IBuildingService {
     public BuildingDTO save(BuildingDTO buildingDTO) {
         BuildingEntity buildingEntity = converter.convertToEntity(buildingDTO);
         buildingRepository.save(buildingEntity);
-        if(buildingDTO.getBase64() != null){
+        if (buildingDTO.getBase64() != null) {
             writeImg(buildingDTO, buildingEntity);
         }
         return converter.convertToDto(buildingEntity);
@@ -74,7 +69,7 @@ public class BuildingService implements IBuildingService {
         BuildingEntity update = converter.convertToEntity(updateBuilding);
         update.setCreatedDate(existBuilding.getCreatedDate());
         update.setCreatedBy(existBuilding.getCreatedBy());
-        if(updateBuilding.getBase64() != null){
+        if (updateBuilding.getBase64() != null) {
             writeImg(updateBuilding, update);
         } else {
             update.setAvatar(existBuilding.getAvatar());
@@ -86,7 +81,7 @@ public class BuildingService implements IBuildingService {
     private void writeImg(BuildingDTO updateBuilding, BuildingEntity updateEntity) {
         byte[] decodedBase64 = Base64.decodeBase64(updateBuilding.getBase64().getBytes());
         String path = updateBuilding.getImgName();
-        UploadFileUtils.writeOrUpdate(path,decodedBase64);
+        UploadFileUtils.writeOrUpdate(path, decodedBase64);
         updateEntity.setAvatar("/anh/test/" + path);
     }
 
@@ -99,11 +94,15 @@ public class BuildingService implements IBuildingService {
     @Override
     public void assignStaff(long[] userID, long buildingId) {
         BuildingEntity buildingEntity = buildingRepository.findOneById(buildingId);
-        List<UserEntity> list = new ArrayList<>();
-        for(long item:userID){
-            list.add(userRepository.findOneById(item));
-        }
+        List<UserEntity> list = Arrays.stream(userID).mapToObj(id -> userRepository.findOneById(id)).collect(Collectors.toList());
         buildingEntity.setStaffs(list);
         buildingRepository.save(buildingEntity);
+    }
+
+    @Override
+    public List<Long> getListUserIdByBuilding(long buildingId) {
+        BuildingEntity buildingEntity = buildingRepository.findOne(buildingId);
+        List<Long> listUserId = buildingEntity.getStaffs().stream().map(BaseEntity::getId).collect(Collectors.toList());
+        return listUserId;
     }
 }

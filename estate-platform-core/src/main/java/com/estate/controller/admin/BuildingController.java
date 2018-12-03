@@ -48,6 +48,18 @@ public class BuildingController {
         return mav;
     }
 
+    @RequestMapping(value = "/admin/building/list-priority-building", method = RequestMethod.GET)
+    public ModelAndView showPriorityBuilding (@ModelAttribute("model") BuildingDTO model, UserDTO staff,
+                                      @RequestParam(value = "id",required = false) Long id, HttpServletRequest request) {
+        ModelAndView mav = new ModelAndView("admin/building/list-priority-building");
+        buildingService.findAll(model, new PageRequest(model.getPage() - 1 , model.getMaxPageItems()));
+        initMessageResponse(mav,request);
+        userService.findAll(staff,new PageRequest(model.getPage() - 1 , model.getMaxPageItems()));
+        mav.addObject("staff",staff);
+        mav.addObject(SystemConstant.MODEL, model);
+        return mav;
+    }
+
     @RequestMapping(value = "/admin/building/edit", method = RequestMethod.GET)
     public ModelAndView editBuilding(@ModelAttribute(SystemConstant.MODEL) BuildingDTO model,
                                  @RequestParam(value = "id",required = false) Long id, HttpServletRequest request) {
