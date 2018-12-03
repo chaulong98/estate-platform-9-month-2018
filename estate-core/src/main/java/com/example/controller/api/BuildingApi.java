@@ -1,13 +1,11 @@
 package com.example.controller.api;
 
 import com.example.dto.BuildingDTO;
+import com.example.dto.UserDTO;
 import com.example.service.impl.BuildingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class BuildingApi {
@@ -22,6 +20,11 @@ public class BuildingApi {
 
     @RequestMapping(value = "/api/building", method = RequestMethod.PUT)
     public ResponseEntity<BuildingDTO> updateBuilding(@RequestBody BuildingDTO buildingDTO){
-        return  ResponseEntity.ok(buildingService.update(buildingDTO));
+            return  ResponseEntity.ok(buildingService.update(buildingDTO));
+    }
+
+    @RequestMapping(value = "/api/building/{id}", method = RequestMethod.POST)
+    public ResponseEntity<BuildingDTO> assignBuilding(@RequestBody BuildingDTO buildingDTO, @PathVariable("id") Long buildingId){
+        return  ResponseEntity.ok(buildingService.assignBuilding(buildingDTO, buildingId));
     }
 }

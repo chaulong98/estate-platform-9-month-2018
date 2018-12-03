@@ -5,5 +5,6 @@ import com.example.dto.UserDTO;
 import java.util.List;
 
 public interface IUserService {
-    List<UserDTO> findAllStaff();
+    List<UserDTO> findbyRoleCode(String code);
+    List<UserDTO> findByListId(String[] listId);
 }

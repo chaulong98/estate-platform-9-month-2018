@@ -15,12 +15,12 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     @PersistenceContext
     private EntityManager entityManager;
 
-    @Override
+    /*@Override
     public List<UserEntity> findAllStaff() {
         StringBuilder sql = new StringBuilder("FROM UserEntity");
-        sql.append(" WHERE roles.code = 'MANAGER'");
-        /*sql.append(" WHERE 1 = 1");*/
+        *//*sql.append(" WHERE roles[0].code = 'MANAGER'");*//*
+        *//*sql.append(" WHERE 1 = 1");*//*
         Query query = entityManager.createQuery(sql.toString());
         return query.getResultList();
-    }
+    }*/
 }

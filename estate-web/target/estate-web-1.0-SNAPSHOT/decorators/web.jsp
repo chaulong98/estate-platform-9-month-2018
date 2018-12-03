@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.1/jquery.twbsPagination.min.js"></script>
+    <script src="<c:url value="/template/assets/js/global_javascript.js"/>"></script>
     <!-- bootstrap & fontawesome -->
     <link rel="stylesheet" href="/template/assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/template/assets/font-awesome/4.2.0/css/font-awesome.min.css" />

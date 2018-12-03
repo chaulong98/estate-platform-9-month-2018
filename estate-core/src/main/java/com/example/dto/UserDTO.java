@@ -5,6 +5,15 @@ public class UserDTO extends AbstractDTO<UserDTO> {
     private String fullName;
     private String password;
     private Integer status;
+    private String checked = "";
+
+    public String getChecked() {
+        return checked;
+    }
+
+    public void setChecked(String checked) {
+        this.checked = checked;
+    }
 
     public String getUserName() {
         return userName;

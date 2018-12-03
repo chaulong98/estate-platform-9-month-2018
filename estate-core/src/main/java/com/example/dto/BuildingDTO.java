@@ -1,8 +1,6 @@
 package com.example.dto;
 
 
-import java.util.Map;
-
 public class BuildingDTO extends AbstractDTO<BuildingDTO>{
 
     private String buildingName;
@@ -57,7 +55,7 @@ public class BuildingDTO extends AbstractDTO<BuildingDTO>{
 
     private Integer feeBrokerRage;
 
-    private String[] type;
+    private String[] productType = new String[]{};
 
     private String image;
 
@@ -269,12 +267,12 @@ public class BuildingDTO extends AbstractDTO<BuildingDTO>{
         this.feeBrokerRage = feeBrokerRage;
     }
 
-    public String[] getType() {
-        return type;
+    public String[] getProductType() {
+        return productType;
     }
 
-    public void setType(String[] type) {
-        this.type = type;
+    public void setProductType(String[] productType) {
+        this.productType = productType;
     }
 
     public String getImage() {

@@ -224,10 +224,13 @@
                                 <table>
                                     <c:forEach items="${type}" var="item">
                                         <tr>
-                                            <td><form:checkbox path="type" value="${item}"/></td>
+                                            <td><form:checkbox path="productType" value="${item.getKey()}"/></td>
                                             <td>${item.getValue()}</td>
                                         </tr>
                                     </c:forEach>
+                                    <%--<tr>--%>
+                                        <%--<form:checkboxes path="type" items="${type}" />--%>
+                                    <%--</tr>--%>
                                 </table>
                             </div>
                         </div>
@@ -256,10 +259,16 @@
             $('#btnAddOrUpdateNew').click(function (e) {
                 e.preventDefault();
                 var data = {};
+                var productType = [];
                 var formData = $('#formSubmit').serializeArray();
                 $.each(formData, function (i, v) {
-                    data[""+v.name+""] = v.value;
+                    if(v.name == "productType"){
+                        productType.push(v.value);
+                    }else{
+                        data[""+v.name+""] = v.value;
+                    }
                 })
+                data["productType"] = productType;
                 var buildingId = $('#buildingId').val();
                 if(buildingId == ""){
                     addBuilding(data);
@@ -277,8 +286,7 @@
                 contentType: 'application/json',
                 dataType: 'json',
                 success: function(result){
-                    console.log("success");
-
+                    window.location.href = "<c:url value='/manager-building-list'/>";
                 },
                 error: function(result){
                     console.log("fail");
@@ -295,8 +303,7 @@
                 contentType: 'application/json',
                 dataType: 'json',
                 success: function(result){
-                    console.log("success");
-
+                    window.location.href = "<c:url value='/manager-building-list'/>";
                 },
                 error: function(result){
                     console.log("fail");

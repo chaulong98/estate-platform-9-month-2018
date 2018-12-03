@@ -1,9 +1,9 @@
 package com.example.controller.manager;
 
 import com.example.constant.SystemConstant;
-import com.example.constant.Type;
 import com.example.dto.BuildingDTO;
 import com.example.dto.UserDTO;
+import com.example.enums.BuildingType;
 import com.example.service.impl.BuildingService;
 import com.example.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,18 +43,23 @@ public class BuildingController {
             model = buildingService.findById(id);
         }
         Map<Integer, String> mapDistrict = new TreeMap<>();
+        Map<String, String> mapType = new TreeMap<>();
         buildMapDistrict(mapDistrict);
+        buildMapType(mapType);
         mav.addObject(SystemConstant.MODEL, model);
         mav.addObject(SystemConstant.MAP_DISTRICT, mapDistrict);
-        mav.addObject(SystemConstant.TYPE, Type.values());
+        mav.addObject(SystemConstant.TYPE, mapType);
         return mav;
     }
 
+
+
     @RequestMapping(value = "/ajax-manager-building-delivery", method = RequestMethod.GET)
-    public ModelAndView staffPage(UserDTO model){
+    public ModelAndView staffPage(UserDTO model, @RequestParam(value = "id", required = false) Long buildingId){
         ModelAndView mav = new ModelAndView("manager/building/delivery");
-        model.setListResult(userService.findAllStaff());
+        model.setListResult(buildingService.listStaffForAssignBuilding(SystemConstant.USER_ROLE, buildingId));
         mav.addObject(SystemConstant.MODEL, model);
+        mav.addObject("buildingId", buildingId);
         return mav;
     }
 
@@ -73,5 +78,11 @@ public class BuildingController {
         mapDistrict.put(11, "Quận 11");
         mapDistrict.put(12, "Quận 12");
         mapDistrict.put(13, "Quận Bình Thạnh");
+    }
+
+    private void buildMapType(Map<String, String> mapType) {
+        for(BuildingType type : BuildingType.values()){
+            mapType.put(type.toString(), type.getName());
+        }
     }
 }

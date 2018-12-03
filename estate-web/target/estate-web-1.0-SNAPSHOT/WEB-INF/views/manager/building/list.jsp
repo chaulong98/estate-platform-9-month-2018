@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
 <c:url var="formURL" value="/manager-building-list"></c:url>
+<c:url var="APIurl" value="/api/building"/>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -215,8 +216,8 @@
     var visiblePages = ${model.maxPageItems};
     var startPage = ${model.page};
     $(document).ready(function () {
-        loadModal();
     });
+
     $('#pagination-demo').twbsPagination({
         totalPages: totalPages,
         visiblePages: visiblePages,
@@ -235,7 +236,38 @@
         var url = $(btn).attr('url');
         $('#myModal').load(url, "", function() {
             $(this).modal('toggle');
+            saveStaff();
         })
+    }
+
+    function saveStaff(){
+        $('#save').click(function () {
+            var data = {};
+            var listId = [];
+            var buildingId = $('#buildingId').val();
+            $('input[type=checkbox]:checked').each(function () {
+                listId.push($(this).val());
+            })
+            data["listId"] = listId;
+            call(data, buildingId);
+        })
+    }
+
+    function call(data, buildingId){
+        $.ajax({
+            url: '${APIurl}/' +  buildingId,
+            type: 'POST',
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function(result){
+                console.log("sucess");
+            },
+            error: function(result){
+                console.log("fail");
+
+            }
+        });
     }
 </script>
 </body>
