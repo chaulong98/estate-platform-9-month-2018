@@ -17,12 +17,12 @@ public class BuildingBuilder {
     private Integer areaTo;
     private Integer costFrom;
     private Integer costTo;
-    private String staffName;
+    private Long staffId;
 
     public BuildingBuilder(Builder builder) {
         this.productName = builder.productName;
         this.district = builder.district;
-        this.ward = builder.district;
+        this.ward = builder.ward;
         this.street = builder.street;
         this.buildingArea = builder.buildingArea;
         this.basementNumber = builder.basementNumber;
@@ -35,7 +35,7 @@ public class BuildingBuilder {
         this.areaTo = builder.areaTo;
         this.costFrom = builder.costFrom;
         this.costTo = builder.costTo;
-        this.staffName = builder.staffName;
+        this.staffId = builder.staffId;
     }
 
     public String getProductName() {
@@ -98,8 +98,8 @@ public class BuildingBuilder {
         return costTo;
     }
 
-    public String getStaffName() {
-        return staffName;
+    public Long getStaffId() {
+        return staffId;
     }
 
     public static class Builder {
@@ -118,7 +118,7 @@ public class BuildingBuilder {
         private Integer areaTo;
         private Integer costFrom;
         private Integer costTo;
-        private String staffName;
+        private Long staffId;
 
         public Builder setProductName(String productName) {
             this.productName = productName;
@@ -195,8 +195,8 @@ public class BuildingBuilder {
             return this;
         }
 
-        public Builder setStaffName(String staffName) {
-            this.staffName = staffName;
+        public Builder setStaffId(Long staffId) {
+            this.staffId = staffId;
             return this;
         }
 

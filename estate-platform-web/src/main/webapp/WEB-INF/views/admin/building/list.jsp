@@ -186,8 +186,7 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="col-sm-6">
-                                            <button id="btnSearch" type="button"
-                                                    class="btn btn-sm btn-success">
+                                            <button id="btnSearch" type="button" class="btn btn-sm btn-success" onclick="searchBuilding()">
                                                 Tìm kiếm
                                                 <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
                                             </button>
@@ -482,6 +481,10 @@
                 window.location.href = "<c:url value='/admin/building/list?message=error_system'/>";
             },
         });
+    }
+    function searchBuilding() {
+        $('#page').val(1);
+        $('#formSubmit').submit();
     }
 </script>
 </body>

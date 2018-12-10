@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -33,10 +34,11 @@ public class BuildingController {
     public static Long id;
 
 
-    @RequestMapping(value = "/admin/building/list", method = RequestMethod.GET)
+    @RequestMapping(value = {"/admin/building/list","/admin/building/assignment"}, method = RequestMethod.GET)
     public ModelAndView showBuilding(@ModelAttribute(SystemConstant.MODEL) BuildingDTO model, /*@ModelAttribute("modal1") BuildingDTO model1,*/ HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("admin/building/list");
-        buildingService.findAll(model, new com.estate.paging.PageRequest(model.getPage(), model.getMaxPageItems()));
+        List<BuildingDTO> buildings = buildingService.findAll(model, new com.estate.paging.PageRequest(model.getPage(), model.getMaxPageItems()));
+        model.setListResult(buildings);
         mav.addObject(SystemConstant.MODEL, model);
         mav.addObject("districts", districtService.getDistricts());
         mav.addObject("buildingTypes", buildingService.getBuildingType());

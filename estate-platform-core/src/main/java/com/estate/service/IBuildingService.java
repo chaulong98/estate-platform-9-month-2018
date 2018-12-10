@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface IBuildingService {
-    List<BuildingDTO> findAll(BuildingDTO model, com.estate.paging.PageRequest pageRequest);
+    List<BuildingDTO> findAll(BuildingDTO model, com.estate.paging.Pageable pageRequest);
 
     void findBuildingPriority(BuildingDTO model, Pageable pageable);
 

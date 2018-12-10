@@ -13,6 +13,7 @@ import javax.persistence.Query;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.List;
 
 public class BuildingRepositoryImpl implements BuildingRepositoryCustom {
@@ -24,8 +25,14 @@ public class BuildingRepositoryImpl implements BuildingRepositoryCustom {
     @Override
     public List<BuildingEntity> findAll(BuildingBuilder builder, Pageable pageable) {
         StringBuilder sql = new StringBuilder("SELECT * FROM estateletuan.building AS b");
+        if (builder.getStaffId() != null) {
+            sql.append(" INNER JOIN estateletuan.user_building AS ub ON ub.building_id = b.id ");
+        }
         sql.append(" WHERE 1 = 1 ");
         sql = buildQueryBuilding(sql, builder);
+        if (builder.getStaffId() != null) {
+            sql.append(" AND ub.user_id = "+builder.getStaffId()+" ");
+        }
         Query query = entityManager.createNativeQuery(sql.toString(), BuildingEntity.class);
         return query.getResultList();
     }
@@ -38,10 +45,14 @@ public class BuildingRepositoryImpl implements BuildingRepositoryCustom {
                 String fieldType = field.getType().getName();
                 if (fieldType.equals("java.lang.String")) {
                     String value = getValue(field, String.class, builder);
-                    sql.append(" AND LOWER(b."+field.getName().toLowerCase()+") LIKE '%"+value.toLowerCase()+"%' ");
+                    if (StringUtils.isNotBlank(value)) {
+                        sql.append(" AND LOWER(b."+field.getName().toLowerCase()+") LIKE '%"+value.toLowerCase()+"%' ");
+                    }
                 } else if (fieldType.equals("java.lang.Integer")) {
                     Integer value = getValue(field, Integer.class, builder);
-                    sql.append(" AND b."+field.getName().toLowerCase()+" = "+value+" ");
+                    if (value != null) {
+                        sql.append(" AND b."+field.getName().toLowerCase()+" = "+value+" ");
+                    }
                 }
             }
         }
@@ -52,7 +63,21 @@ public class BuildingRepositoryImpl implements BuildingRepositoryCustom {
             sql.append(" AND b.rentcost <= "+builder.getCostTo()+" ");
         }
         if (builder.getTypeBuilding().length > 0) {
-
+            sql.append(" AND (b.type LIKE '%"+builder.getTypeBuilding()[0]+"%'");
+            Arrays.stream(builder.getTypeBuilding()).filter(item -> !item.equals(builder.getTypeBuilding()[0])).forEach(item -> sql.append(" OR b.type LIKE '%"+item+"%'"));
+            sql.append(")");
+        }
+        if (builder.getAreaFrom() != null && builder.getAreaTo() != null) {
+            sql.append(" AND EXISTS(SELECT area FROM UNNEST(string_to_array(b.leasedarea, ',')) AS area ");
+            sql.append(" WHERE CAST(area as int) BETWEEN "+builder.getAreaFrom()+" AND "+builder.getAreaTo()+") ");
+        } else {
+            if (builder.getAreaFrom() != null && builder.getAreaTo() == null) {
+                sql.append(" AND EXISTS(SELECT area FROM UNNEST(string_to_array(b.leasedarea, ',')) AS area ");
+                sql.append(" WHERE CAST(area as int) >= "+builder.getAreaFrom()+") ");
+            } else if (builder.getAreaFrom() == null && builder.getAreaTo() != null) {
+                sql.append(" AND EXISTS(SELECT area FROM UNNEST(string_to_array(b.leasedarea, ',')) AS area ");
+                sql.append(" WHERE CAST(area as int) <= "+builder.getAreaTo()+") ");
+            }
         }
         return sql;
     }

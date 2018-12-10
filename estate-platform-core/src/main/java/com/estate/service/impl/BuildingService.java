@@ -13,6 +13,7 @@ import com.estate.service.IBuildingService;
 import com.estate.utils.SecurityUtils;
 import com.estate.utils.UploadFileUtils;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -38,7 +39,7 @@ public class BuildingService implements IBuildingService {
 
 
     @Override
-    public List<BuildingDTO> findAll(BuildingDTO model, com.estate.paging.PageRequest pageRequest) {
+    public List<BuildingDTO> findAll(BuildingDTO model, com.estate.paging.Pageable pageRequest) {
         List<BuildingEntity> buildings = buildingRepository.findAll(getBuildingBuilder(model), pageRequest);
         return buildings.stream().map(item -> buildingConverter.convertToDto(item)).collect(Collectors.toList());
     }
@@ -55,6 +56,10 @@ public class BuildingService implements IBuildingService {
                     .setPhoneNumber(model.getPhoneNumber())
                     .setWard(model.getWard())
                     .setStreet(model.getStreet())
+                    .setTypeBuilding(model.getTypeBuilding())
+                    .setStaffId(StringUtils.isNotBlank(model.getStaffName()) ? userRepository.findOneByUserName(model.getStaffName()).getId() : null)
+                    .setAreaFrom(model.getAreaFrom())
+                    .setAreaTo(model.getAreaTo())
                     .build();
     }
 
