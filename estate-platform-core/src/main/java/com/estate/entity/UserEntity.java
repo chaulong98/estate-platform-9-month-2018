@@ -31,6 +31,9 @@ public class UserEntity extends BaseEntity {
     @ManyToMany(mappedBy = "staffs", fetch = FetchType.EAGER)
     private List<BuildingEntity> buildings = new ArrayList<>();
 
+    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
+    private List<BuildingEntity> priorityBuildings = new ArrayList<>();
+
     public String getUserName() {
         return userName;
     }
@@ -77,5 +80,13 @@ public class UserEntity extends BaseEntity {
 
     public void setBuildings(List<BuildingEntity> buildings) {
         this.buildings = buildings;
+    }
+
+    public List<BuildingEntity> getPriorityBuildings() {
+        return priorityBuildings;
+    }
+
+    public void setPriorityBuildings(List<BuildingEntity> priorityBuildings) {
+        this.priorityBuildings = priorityBuildings;
     }
 }

@@ -7,6 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BuildingRepository extends JpaRepository<BuildingEntity, Long> {
     Page<BuildingEntity> findAll(Pageable pageable);
-
     BuildingEntity findOneById(long id);
 }

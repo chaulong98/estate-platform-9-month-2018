@@ -132,6 +132,18 @@
                                                     <a class="btn btn-sm btn-primary"  onclick="show(${item.id})"
                                                        title="Giao toà nhà" ><i class="fa fa-tasks" aria-hidden="true"></i>
                                                     </a>
+                                                    <c:if test="${item.addedToPriority == false}">
+                                                    <a class="btn btn-sm btn-primary"
+                                                            id="btnAddToPriority" onclick="addPriority(${item.id})"
+                                                       title="Thêm vào danh sách ưu tiên" ><i class="fa fa-plus" aria-hidden="true"></i>
+                                                    </a>
+                                                    </c:if>
+                                                    <c:if test="${item.addedToPriority == true}">
+                                                        <a class="btn btn-sm btn-primary"
+                                                           id="btnAddToPriority" onclick="removeFromPriority(${item.id})"
+                                                           title="Xoá khỏi danh sách ưu tiên" ><i class="fa fa-minus" aria-hidden="true"></i>
+                                                        </a>
+                                                    </c:if>
                                                 </td>
                                             </tr>
 
@@ -233,6 +245,20 @@
                     e.prop("checked",true);
                 }
             })
+        });
+    }
+    function addPriority(id) {
+        $.ajax({
+            url: '/api/admin/building/priority?buildingId=' + id ,
+            type: 'POST',
+            contentType:'application/json',
+            dataType:'json',
+            success: function(result){
+                toastr.success("Thêm vào danh sách ưu tiên thành công")
+            },
+            error: function(result){
+                toastr.error("Thêm vào danh sách ưu tiên thất bại")
+            }
         });
     }
     function updateAssignment(assignList,buildingId) {

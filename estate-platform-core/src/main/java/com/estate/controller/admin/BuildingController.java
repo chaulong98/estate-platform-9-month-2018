@@ -7,6 +7,7 @@ import com.estate.dto.UserDTO;
 import com.estate.entity.BuildingEntity;
 import com.estate.enums.BuildingType;
 import com.estate.security.utils.MessageResponseUtils;
+import com.estate.security.utils.SecurityUtils;
 import com.estate.service.IBuildingService;
 import com.estate.service.IDistrictService;
 import com.estate.service.IUserService;

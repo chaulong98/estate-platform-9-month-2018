@@ -8,6 +8,7 @@ import com.estate.entity.BuildingEntity;
 import com.estate.entity.UserEntity;
 import com.estate.repository.BuildingRepository;
 import com.estate.repository.UserRepository;
+import com.estate.security.utils.SecurityUtils;
 import com.estate.security.utils.UploadFileUtils;
 import com.estate.service.IBuildingService;
 import org.apache.commons.codec.binary.Base64;
@@ -22,7 +23,9 @@ import javax.persistence.Query;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class BuildingService implements IBuildingService {
@@ -47,6 +50,16 @@ public class BuildingService implements IBuildingService {
     public void findAll(BuildingDTO model, Pageable pageable) {
         List<BuildingEntity> buildings = buildingRepository.findAll(pageable).getContent();
         model.setListResult(buildings.stream().map(item -> converter.convertToDto(item)).collect(Collectors.toList()));
+        for(BuildingEntity item : buildings) {
+            for (BuildingDTO dto : model.getListResult()) {
+                if (item.getId().equals(dto.getId())) {
+                    if (item.getUsers().stream().map(BaseEntity::getId).anyMatch(SecurityUtils.getPrincipal().getId()::equals)) {
+                        dto.setAddedToPriority(true);
+                        break;
+                    }
+                }
+            }
+        }
         model.getListResult().sort(Comparator.comparing(AbstractDTO::getId));
         model.setTotalItems(getTotalItems().intValue());
     }
@@ -104,5 +117,14 @@ public class BuildingService implements IBuildingService {
         BuildingEntity buildingEntity = buildingRepository.findOne(buildingId);
         List<Long> listUserId = buildingEntity.getStaffs().stream().map(BaseEntity::getId).collect(Collectors.toList());
         return listUserId;
+    }
+
+    @Override
+    public void addBuildingToPriority(long buildingId) {
+        BuildingEntity buildingEntity = buildingRepository.findOneById(buildingId);
+        if(buildingEntity.getUsers().stream().map(BaseEntity::getId).noneMatch(SecurityUtils.getPrincipal().getId()::equals)){
+            buildingEntity.getUsers().add(userRepository.findOneById(SecurityUtils.getPrincipal().getId()));
+        }
+        buildingRepository.save(buildingEntity);
     }
 }

@@ -105,6 +105,12 @@ public class BuildingEntity extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "user_id", nullable = false))
     private List<UserEntity> staffs = new ArrayList<>();
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "priority_building",
+            joinColumns = @JoinColumn(name = "building_id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "user_id", nullable = false))
+    private List<UserEntity> users = new ArrayList<>();
+
     public String getName() {
         return name;
     }
@@ -351,5 +357,13 @@ public class BuildingEntity extends BaseEntity {
 
     public void setStaffs(List<UserEntity> staffBuilding) {
         this.staffs = staffBuilding;
+    }
+
+    public List<UserEntity> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<UserEntity> users) {
+        this.users = users;
     }
 }
