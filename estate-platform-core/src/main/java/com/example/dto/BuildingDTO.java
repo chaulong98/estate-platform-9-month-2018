@@ -1,6 +1,9 @@
 package com.example.dto;
 
 
+import com.example.entity.UserEntity;
+import com.example.repository.UserRepository;
+
 public class BuildingDTO extends AbstractDTO<BuildingDTO>{
 
     private String buildingName;
@@ -62,7 +65,8 @@ public class BuildingDTO extends AbstractDTO<BuildingDTO>{
     private boolean isPriority;
 
     public boolean isPriority() {
-        return isPriority;
+        /*return utils.getPriority(this.getId());*/
+        return  this.isPriority;
     }
 
     public void setPriority(boolean priority) {

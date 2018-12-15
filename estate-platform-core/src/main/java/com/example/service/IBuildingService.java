@@ -13,6 +13,6 @@ public interface IBuildingService {
     BuildingDTO update(BuildingDTO dto);
     List<UserDTO> getStaff(String roleCode, Long buildingId);
     BuildingDTO assignBuilding(long[] staffIds, Long buildingId);
-    void addPriorityBuilding(Long buildingId);
-    void deletePriorityBuilding(Long buildingId);
+    Integer addPriorityBuilding(Long buildingId);
+    Integer deletePriorityBuilding(Long buildingId);
 }

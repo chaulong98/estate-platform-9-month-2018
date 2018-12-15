@@ -37,15 +37,4 @@ public class UserService implements IUserService {
         }
         return userDTOS;
     }
-
-    @Override
-    public List<UserDTO> findByListId(long[] listId) {
-        List<UserDTO> userDTOS = new ArrayList<>();
-        for(long id : listId){
-            UserEntity entity = userRepository.findOne(id);
-            UserDTO dto = userConverter.convertToDto(entity);
-            userDTOS.add(dto);
-        }
-        return userDTOS;
-    }
 }

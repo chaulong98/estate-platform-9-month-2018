@@ -297,8 +297,12 @@
             contentType: 'application/json',
             dataType: 'json',
             success: function(result){
-                $(btn).find('span').removeClass("glyphicon glyphicon-minus").addClass("glyphicon glyphicon-plus");
-                console.log("sucess");
+                if(result == 0){
+                    console.log("Tòa nhà này không thuộc quản lý của bạn");
+                }else{
+                    $(btn).find('span').removeClass("glyphicon glyphicon-minus").addClass("glyphicon glyphicon-plus");
+                    console.log("sucess");
+                }
             },
             error: function(result){
                 console.log("fail");
@@ -314,8 +318,12 @@
             contentType: 'application/json',
             dataType: 'json',
             success: function(result){
-                $(btn).find('span').removeClass("glyphicon glyphicon-plus").addClass("glyphicon glyphicon-minus");
-                console.log("sucess");
+                if(result == 0){
+                    console.log("Tòa nhà này không thuộc quản lý của bạn");
+                }else{
+                    $(btn).find('span').removeClass("glyphicon glyphicon-minus").addClass("glyphicon glyphicon-plus");
+                    console.log("sucess");
+                }
             },
             error: function(result){
                 console.log("fail");

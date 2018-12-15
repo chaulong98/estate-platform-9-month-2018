@@ -37,15 +37,18 @@ public class UserEntity {
             inverseJoinColumns = @JoinColumn(name = "role_id", nullable = false))
     private List<RoleEntity> roles = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "staffs", fetch = FetchType.EAGER)
-    private List<BuildingEntity> buildings = new ArrayList<>();
+    @OneToMany(mappedBy = "userEntity", fetch = FetchType.EAGER)
+    private List<ManagementEntity> managementEntities;
 
-    public List<BuildingEntity> getBuildings() {
-        return buildings;
+    /*@ManyToMany(mappedBy = "staffs", fetch = FetchType.EAGER)
+    private List<BuildingEntity> buildings = new ArrayList<>();*/
+
+    public List<ManagementEntity> getManagementEntities() {
+        return managementEntities;
     }
 
-    public void setBuildings(List<BuildingEntity> buildings) {
-        this.buildings = buildings;
+    public void setManagementEntities(List<ManagementEntity> managementEntities) {
+        this.managementEntities = managementEntities;
     }
 
     public List<RoleEntity> getRoles() {

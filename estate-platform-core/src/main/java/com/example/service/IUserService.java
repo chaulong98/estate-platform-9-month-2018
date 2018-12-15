@@ -6,5 +6,4 @@ import java.util.List;
 
 public interface IUserService {
     List<UserDTO> findbyRoleCode(String code);
-    List<UserDTO> findByListId(long[] listId);
 }

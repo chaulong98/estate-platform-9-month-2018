@@ -29,7 +29,7 @@ public class BuildingApi {
     }
 
     @RequestMapping(value = "/api/building/{id}/priority", method = RequestMethod.POST)
-    public ResponseEntity<Void> addPriorityBuilding(@PathVariable("id") Long buildingId){
+    public ResponseEntity<Integer> addPriorityBuilding(@PathVariable("id") Long buildingId){
         buildingService.addPriorityBuilding(buildingId);
         return ResponseEntity.noContent().build();
     }

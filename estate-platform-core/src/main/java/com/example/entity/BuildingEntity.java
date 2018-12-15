@@ -96,22 +96,22 @@ public class BuildingEntity {
     @Column
     private String image;
 
-    @Column(nullable = false, columnDefinition = "boolean default false")
-    private boolean isPriority;
 
-
-    @ManyToMany(fetch = FetchType.EAGER)
+    /*@ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "building_staff",
             joinColumns = @JoinColumn(name = "building_id", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "staff_id", nullable = false))
-    private List<UserEntity> staffs = new ArrayList<>();
+    private List<UserEntity> staffs = new ArrayList<>();*/
 
-    public boolean isPriority() {
-        return isPriority;
+    @OneToMany(mappedBy = "buildingEntity", fetch = FetchType.EAGER)
+    private List<ManagementEntity> managementEntities;
+
+    public List<ManagementEntity> getManagementEntities() {
+        return managementEntities;
     }
 
-    public void setPriority(boolean priority) {
-        isPriority = priority;
+    public void setManagementEntities(List<ManagementEntity> managementEntities) {
+        this.managementEntities = managementEntities;
     }
 
     public Long getId() {
@@ -346,11 +346,4 @@ public class BuildingEntity {
         this.image = image;
     }
 
-    public List<UserEntity> getStaffs() {
-        return staffs;
-    }
-
-    public void setStaffs(List<UserEntity> staffs) {
-        this.staffs = staffs;
-    }
 }
