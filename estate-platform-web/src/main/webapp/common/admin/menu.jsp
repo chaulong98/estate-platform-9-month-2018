@@ -33,7 +33,6 @@
             <b class="arrow"></b>
 
             <ul class="submenu">
-
                 <security:authorize ifAnyGranted="MANAGER">
                     <li class="">
                         <a href='<c:url value="/admin/building/list"/>'>
@@ -46,7 +45,7 @@
                 <security:authorize ifAnyGranted="USER">
                     <%--neu la user thi mo cai nay--%>
                     <li class="">
-                        <a href='<c:url value="/admin/building/assignment/list"/>'>
+                        <a href='<c:url value="/admin/building/assignment"/>'>
                             <i class="menu-icon fa fa-caret-right"></i>
                             Danh sách tòa nhà phụ trách
                         </a>

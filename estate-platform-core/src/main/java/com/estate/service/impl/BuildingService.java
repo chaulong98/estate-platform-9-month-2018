@@ -40,6 +40,9 @@ public class BuildingService implements IBuildingService {
 
     @Override
     public List<BuildingDTO> findAll(BuildingDTO model, com.estate.paging.Pageable pageRequest) {
+        if (model.getUrlMapping().equals("/admin/building/assignment")) {
+            model.setStaffName(userRepository.findOne(SecurityUtils.getPrincipal().getId()).getUserName());
+        }
         List<BuildingEntity> buildings = buildingRepository.findAll(getBuildingBuilder(model), pageRequest);
         return buildings.stream().map(item -> buildingConverter.convertToDto(item)).collect(Collectors.toList());
     }

@@ -35,6 +35,8 @@ public class AbstractDTO<T> implements Serializable {
     //tổng số item của bài viết
     private int totalItem = 0;
 
+    private String urlMapping;
+
     public int getTotalPages() {
         return (int)Math.ceil((double) this.getTotalItem()/ this.getMaxPageItems());
     }
@@ -113,5 +115,13 @@ public class AbstractDTO<T> implements Serializable {
 
     public void setListResult(List<T> listResult) {
         this.listResult = listResult;
+    }
+
+    public String getUrlMapping() {
+        return urlMapping;
+    }
+
+    public void setUrlMapping(String urlMapping) {
+        this.urlMapping = urlMapping;
     }
 }

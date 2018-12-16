@@ -35,8 +35,10 @@ public class BuildingController {
 
 
     @RequestMapping(value = {"/admin/building/list","/admin/building/assignment"}, method = RequestMethod.GET)
-    public ModelAndView showBuilding(@ModelAttribute(SystemConstant.MODEL) BuildingDTO model, /*@ModelAttribute("modal1") BuildingDTO model1,*/ HttpServletRequest request) {
+    public ModelAndView showBuilding(@ModelAttribute(SystemConstant.MODEL) BuildingDTO model,
+                                        HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("admin/building/list");
+        model.setUrlMapping(request.getServletPath());
         List<BuildingDTO> buildings = buildingService.findAll(model, new com.estate.paging.PageRequest(model.getPage(), model.getMaxPageItems()));
         model.setListResult(buildings);
         mav.addObject(SystemConstant.MODEL, model);
