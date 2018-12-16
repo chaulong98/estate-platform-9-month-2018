@@ -39,8 +39,8 @@ public class BuildingAPI {
     }
 
     @PostMapping(path = "/priority")
-    public ResponseEntity<Void> addBuildingToPriority(@RequestParam long buildingId) {
-        iBuildingService.addBuildingToPriority(buildingId);
+    public ResponseEntity<Void> addBuildingToPriority(@RequestParam long buildingId, @RequestParam String action) {
+        iBuildingService.updatePriority(buildingId, action);
         return ResponseEntity.noContent().build();
     }
 }

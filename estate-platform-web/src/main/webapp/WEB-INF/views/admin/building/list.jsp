@@ -133,14 +133,12 @@
                                                        title="Giao toà nhà" ><i class="fa fa-tasks" aria-hidden="true"></i>
                                                     </a>
                                                     <c:if test="${item.addedToPriority == false}">
-                                                    <a class="btn btn-sm btn-primary"
-                                                            id="btnAddToPriority" onclick="addPriority(${item.id})"
-                                                       title="Thêm vào danh sách ưu tiên" ><i class="fa fa-plus" aria-hidden="true"></i>
-                                                    </a>
+                                                        <a class="btn btn-sm btn-primary" id="btnAddToPriority" onclick="updatePriority(${item.id}, 'insert')"
+                                                           title="Thêm vào danh sách ưu tiên" ><i class="fa fa-plus" aria-hidden="true"></i>
+                                                        </a>
                                                     </c:if>
                                                     <c:if test="${item.addedToPriority == true}">
-                                                        <a class="btn btn-sm btn-primary"
-                                                           id="btnAddToPriority" onclick="removeFromPriority(${item.id})"
+                                                        <a class="btn btn-sm btn-primary" id="btnAddToPriority" onclick="updatePriority(${item.id}, 'remove')"
                                                            title="Xoá khỏi danh sách ưu tiên" ><i class="fa fa-minus" aria-hidden="true"></i>
                                                         </a>
                                                     </c:if>
@@ -247,9 +245,9 @@
             })
         });
     }
-    function addPriority(id) {
+    function updatePriority(id, action) {
         $.ajax({
-            url: '/api/admin/building/priority?buildingId=' + id ,
+            url: '/api/admin/building/priority?buildingId=' + id + '&action='+action,
             type: 'POST',
             contentType:'application/json',
             dataType:'json',

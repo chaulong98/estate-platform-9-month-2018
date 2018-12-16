@@ -45,10 +45,18 @@
             <b class="arrow"></b>
             <ul class="submenu">
                 <li class="">
-                    <a href='<c:url value="/admin/building/list"/>'>
-                        <i class="menu-icon fa fa-caret-right"></i>
-                        Danh sách toà nhà
-                    </a>
+                    <security:authorize ifAnyGranted="ADMIN">
+                        <a href='<c:url value="/admin/building/list"/>'>
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Danh sách toà nhà
+                        </a>
+                    </security:authorize>
+                    <security:authorize ifAnyGranted="USER">
+                        <a href='<c:url value="/admin/building/assignment"/>'>
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Danh sách toà nhà
+                        </a>
+                    </security:authorize>
                     <b class="arrow"></b>
                 </li>
                 <li class="">

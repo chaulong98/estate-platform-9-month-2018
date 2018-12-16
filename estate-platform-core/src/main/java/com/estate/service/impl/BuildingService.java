@@ -1,5 +1,6 @@
 package com.estate.service.impl;
 
+import com.estate.constant.SystemConstant;
 import com.estate.converter.BuildingConverter;
 import com.estate.dto.AbstractDTO;
 import com.estate.dto.BuildingDTO;
@@ -48,19 +49,17 @@ public class BuildingService implements IBuildingService {
     }
 
     public void findAll(BuildingDTO model, Pageable pageable) {
-        List<BuildingEntity> buildings = buildingRepository.findAll(pageable).getContent();
-        model.setListResult(buildings.stream().map(item -> converter.convertToDto(item)).collect(Collectors.toList()));
-        for(BuildingEntity item : buildings) {
-            for (BuildingDTO dto : model.getListResult()) {
-                if (item.getId().equals(dto.getId())) {
-                    if (item.getUsers().stream().map(BaseEntity::getId).anyMatch(SecurityUtils.getPrincipal().getId()::equals)) {
-                        dto.setAddedToPriority(true);
-                        break;
-                    }
-                }
+        List<BuildingEntity> buildingEntities = buildingRepository.findAll(pageable).getContent();
+        List<BuildingDTO> buildingDTOS = buildingEntities.stream().map(item -> converter.convertToDto(item)).collect(Collectors.toList());
+        for (BuildingDTO item: buildingDTOS) {
+            boolean isPriority = userRepository.existsByIdAndPriorityBuildings_Id(SecurityUtils.getPrincipal().getId(), item.getId());
+            if (isPriority) {
+                item.setAddedToPriority(true);
             }
         }
-        model.getListResult().sort(Comparator.comparing(AbstractDTO::getId));
+        model.setListResult(buildingDTOS);
+        // sort ngay trong câu query lấy danh sách
+        // model.getListResult().sort(Comparator.comparing(AbstractDTO::getId));
         model.setTotalItems(getTotalItems().intValue());
     }
 
@@ -120,11 +119,15 @@ public class BuildingService implements IBuildingService {
     }
 
     @Override
-    public void addBuildingToPriority(long buildingId) {
-        BuildingEntity buildingEntity = buildingRepository.findOneById(buildingId);
-        if(buildingEntity.getUsers().stream().map(BaseEntity::getId).noneMatch(SecurityUtils.getPrincipal().getId()::equals)){
-            buildingEntity.getUsers().add(userRepository.findOneById(SecurityUtils.getPrincipal().getId()));
+    @Transactional
+    public void updatePriority(long buildingId, String action) {
+        BuildingEntity building = buildingRepository.findOneById(buildingId);
+        UserEntity user = userRepository.findOneById(SecurityUtils.getPrincipal().getId());
+        if (action.equals(SystemConstant.INSERT_ACTION)) {
+            building.getUsers().add(user);
+        } else if (action.equals(SystemConstant.REMOVE_ACTION)) {
+            building.getUsers().remove(user);
         }
-        buildingRepository.save(buildingEntity);
+        buildingRepository.save(building);
     }
 }

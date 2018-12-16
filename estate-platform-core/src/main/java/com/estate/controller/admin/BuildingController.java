@@ -37,7 +37,7 @@ public class BuildingController {
     @Autowired
     private IUserService userService;
 
-    @RequestMapping(value = "/admin/building/list", method = RequestMethod.GET)
+    @RequestMapping(value = {"/admin/building/list", "/admin/building/assignment"}, method = RequestMethod.GET)
     public ModelAndView showBuilding (@ModelAttribute("model") BuildingDTO model, UserDTO staff,
                                       @RequestParam(value = "id",required = false) Long id, HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("admin/building/list");

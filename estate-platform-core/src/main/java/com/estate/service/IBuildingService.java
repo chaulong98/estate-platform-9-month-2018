@@ -13,5 +13,5 @@ public interface IBuildingService {
     BuildingDTO findById(long id);
     void assignStaff(long[] userID, long buildingId);
     List<Long> getStaffBuilding(long buildingId);
-    void addBuildingToPriority(long buildingId);
+    void updatePriority(long buildingId, String action);
 }
