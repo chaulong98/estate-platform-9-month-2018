@@ -30,7 +30,7 @@ public class CustomerAPI {
     }
 
     @GetMapping(path = "/staffs")
-    public ResponseEntity<Object> getListStaffIdByCustomer(@RequestParam long customerID) {
-        return ResponseEntity.ok(customerService.getStaffCustomer(customerID));
+    public ResponseEntity<Object> getListStaffIdByCustomer(@RequestParam long customerId) {
+        return ResponseEntity.ok(customerService.getStaffCustomer(customerId));
     }
 }
