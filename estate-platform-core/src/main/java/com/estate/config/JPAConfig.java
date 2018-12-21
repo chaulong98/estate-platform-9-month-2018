@@ -66,6 +66,7 @@ public class JPAConfig {
         properties.setProperty("hibernate.show_sql", environment.getProperty("hibernate.show_sql"));
         properties.setProperty("hibernate.format_sql", environment.getProperty("hibernate.format_sql"));
         properties.setProperty("hibernate.default_schema", environment.getProperty("hibernate.default_schema"));
+        properties.setProperty("hibernate.enable_lazy_load_no_trans","true");
 		//properties.setProperty("hibernate.hbm2ddl.auto", "create");
         properties.setProperty("hibernate.hbm2ddl.auto", "none");
         return properties;

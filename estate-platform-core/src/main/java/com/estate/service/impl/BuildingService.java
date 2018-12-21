@@ -8,6 +8,7 @@ import com.estate.entity.BuildingEntity;
 import com.estate.entity.UserEntity;
 import com.estate.repository.BuildingRepository;
 import com.estate.repository.UserRepository;
+import com.estate.repository.custom.CustomBuildingRepository;
 import com.estate.security.utils.SecurityUtils;
 import com.estate.security.utils.UploadFileUtils;
 import com.estate.service.IBuildingService;
@@ -17,15 +18,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class BuildingService implements IBuildingService {
@@ -36,32 +32,23 @@ public class BuildingService implements IBuildingService {
     @Autowired
     private BuildingConverter converter;
 
-    @PersistenceContext
-    private EntityManager entityManager;
-
     @Autowired
     private UserRepository userRepository;
 
-    public Long getTotalItems() {
-        Query query = entityManager.createQuery("SELECT COUNT(*) FROM BuildingEntity");
-        return (Long) query.getResultList().get(0);
-    }
+    @Autowired
+    private CustomBuildingRepository customBuildingRepository;
 
     public void findAll(BuildingDTO model, Pageable pageable) {
         List<BuildingEntity> buildings = buildingRepository.findAll(pageable).getContent();
-        model.setListResult(buildings.stream().map(item -> converter.convertToDto(item)).collect(Collectors.toList()));
-        for(BuildingEntity item : buildings) {
-            for (BuildingDTO dto : model.getListResult()) {
-                if (item.getId().equals(dto.getId())) {
-                    if (item.getUsers().stream().map(BaseEntity::getId).anyMatch(SecurityUtils.getPrincipal().getId()::equals)) {
-                        dto.setAddedToPriority(true);
-                        break;
-                    }
-                }
+        List<BuildingDTO> buildingDTOS = buildings.stream().map(item -> converter.convertToDto(item)).collect(Collectors.toList());
+        model.setListResult(buildingDTOS);
+        for(BuildingDTO dto: buildingDTOS){
+            if(userRepository.existsByIdAndPriorityBuildings_Id(SecurityUtils.getPrincipal().getId(),dto.getId())){
+                dto.setIsPriority(true);
             }
         }
         model.getListResult().sort(Comparator.comparing(AbstractDTO::getId));
-        model.setTotalItems(getTotalItems().intValue());
+        model.setTotalItems(customBuildingRepository.getTotalItems().intValue());
     }
 
     @Override
@@ -105,6 +92,7 @@ public class BuildingService implements IBuildingService {
     }
 
     @Override
+    @Transactional
     public void assignStaff(long[] userID, long buildingId) {
         BuildingEntity buildingEntity = buildingRepository.findOneById(buildingId);
         List<UserEntity> list = Arrays.stream(userID).mapToObj(id -> userRepository.findOneById(id)).collect(Collectors.toList());
@@ -115,15 +103,18 @@ public class BuildingService implements IBuildingService {
     @Override
     public List<Long> getStaffBuilding(long buildingId) {
         BuildingEntity buildingEntity = buildingRepository.findOne(buildingId);
-        List<Long> listUserId = buildingEntity.getStaffs().stream().map(BaseEntity::getId).collect(Collectors.toList());
-        return listUserId;
+        return buildingEntity.getStaffs().stream().map(BaseEntity::getId).collect(Collectors.toList());
     }
 
     @Override
-    public void addBuildingToPriority(long buildingId) {
+    @Transactional
+    public void updatePriority(long buildingId, String action) {
         BuildingEntity buildingEntity = buildingRepository.findOneById(buildingId);
-        if(buildingEntity.getUsers().stream().map(BaseEntity::getId).noneMatch(SecurityUtils.getPrincipal().getId()::equals)){
-            buildingEntity.getUsers().add(userRepository.findOneById(SecurityUtils.getPrincipal().getId()));
+        UserEntity user = userRepository.findOneById(SecurityUtils.getPrincipal().getId());
+        if(action.equals("insert")&&buildingEntity.getUsers().stream().map(BaseEntity::getId).noneMatch(user.getId()::equals)){
+            buildingEntity.getUsers().add(user);
+        }else if (action.equals("remove")){
+            buildingEntity.getUsers().remove(user);
         }
         buildingRepository.save(buildingEntity);
     }

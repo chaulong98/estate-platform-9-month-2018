@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
-<c:url var="APIurl" value="/api/admin/building/assignment"/>
-<c:url var="formURL" value="/admin/building/list"/>
+<c:url var="APIurl" value="/api/admin/customer/assignment"/>
+<c:url var="formURL" value="/admin/customer/list"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Danh sách toà nhà</title>
+    <title>Danh sách khách hàng</title>
 </head>
 <body>
 <div class="main-content">
@@ -21,7 +21,7 @@
                     <i class="ace-icon fa fa-home home-icon"></i>
                     <a href="<c:url value="/admin/home"/>">Trang chủ</a>
                 </li>
-                <li class="active">Danh sách toà nhà</li>
+                <li class="active">Danh sách khách hàng</li>
             </ul><!-- /.breadcrumb -->
         </div>
         <div class="page-content">
@@ -41,69 +41,69 @@
                 <div class="col-xs-12">
                     <!-- PAGE CONTENT BEGINS -->
                     <form:form action="${formURL}" modelAttribute="model" id="formSubmit" method="get">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="widget-box table-filter collapsed">
-                                <div class="widget-header">
-                                    <h4 class="widget-title">Tìm kiếm</h4>
-                                    <div class="widget-toolbar" >
-                                        <a href="#" data-action="collapse" >
-                                            <i class="ace-icon fa fa-chevron-down" ></i>
-                                        </a>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="widget-box table-filter collapsed">
+                                    <div class="widget-header">
+                                        <h4 class="widget-title">Tìm kiếm</h4>
+                                        <div class="widget-toolbar" >
+                                            <a href="#" data-action="collapse" >
+                                                <i class="ace-icon fa fa-chevron-down" ></i>
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="widget-body">
-                                    <div class="widget-main">
-                                        <div class="form-horizontal">
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label">Tên:</label>
-                                                <div class="col-sm-8">
-                                                    <div class="fg-line">
-                                                        <form:input path="name" cssClass="form-control input-sm"/>
+                                    <div class="widget-body">
+                                        <div class="widget-main">
+                                            <div class="form-horizontal">
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label">Tên:</label>
+                                                    <div class="col-sm-8">
+                                                        <div class="fg-line">
+                                                            <form:input path="fullName" cssClass="form-control input-sm"/>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label">Quận:</label>
-                                                <div class="col-sm-8">
-                                                    <div class="fg-line">
-                                                        <form:input path="district" cssClass="form-control input-sm"/>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label">SĐT:</label>
+                                                    <div class="col-sm-8">
+                                                        <div class="fg-line">
+                                                            <form:input path="phone" cssClass="form-control input-sm"/>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label"></label>
-                                                <div class="col-sm-8">
-                                                    <button type="button" class="btn btn-sm btn-success" id="btnSearch">
-                                                        Tìm kiếm
-                                                        <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
-                                                    </button>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label"></label>
+                                                    <div class="col-sm-8">
+                                                        <button type="button" class="btn btn-sm btn-success" id="btnSearch">
+                                                            Tìm kiếm
+                                                            <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="table-btn-controls">
-                                <div class="pull-right tableTools-container">
-                                    <div class="dt-buttons btn-overlap btn-group">
-                                        <a flag="info" class="dt-button buttons-colvis btn btn-white btn-primary btn-bold"
-                                           data-toggle="tooltip" title="Thêm toà nhà mới" href='<c:url value="/admin/building/edit"/>'>
+                                <div class="table-btn-controls">
+                                    <div class="pull-right tableTools-container">
+                                        <div class="dt-buttons btn-overlap btn-group">
+                                            <a flag="info" class="dt-button buttons-colvis btn btn-white btn-primary btn-bold"
+                                               data-toggle="tooltip" title="Thêm khách hàng mới" href='<c:url value="/admin/customer/edit"/>'>
                                                     <span>
                                                     <i class="fa fa-plus-circle bigger-110 purple"></i>
                                                 </span>
-                                        </a>
-                                        <button id="btnDelete" type="button" class="dt-button buttons-html5 btn btn-white btn-primary btn-bold" disabled
-                                                data-toggle="tooltip" title="Xóa toà nhà">
+                                            </a>
+                                            <button id="btnDelete" type="button" class="dt-button buttons-html5 btn btn-white btn-primary btn-bold" disabled
+                                                    data-toggle="tooltip" title="Xóa khách hàng">
                                                     <span>
                                                         <i class="fa fa-trash-o bigger-110 pink"></i>
                                                 	</span>
-                                        </button>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="table-responsive">
@@ -111,8 +111,13 @@
                                         <thead>
                                         <tr>
                                             <th><input type="checkbox" value="" id="checkAll"/></th>
-                                            <th>Tên toà nhà</th>
-                                            <th>Loại</th>
+                                            <th>Tên khách hàng</th>
+                                            <th>Di động</th>
+                                            <th>Email</th>
+                                            <th>Nhu cầu</th>
+                                            <th>Người nhập</th>
+                                            <th>Ngày nhập</th>
+                                            <th>Tình trạng</th>
                                             <th>Thao tác</th>
                                         </tr>
                                         </thead>
@@ -120,30 +125,23 @@
                                         <c:forEach var="item" items="${model.listResult}">
                                             <tr>
                                                 <td><input type="checkbox" name="delete"  value='${item.id}' id="checkbox_${item.id}"/></td>
-                                                <td>${item.name}</td>
-                                                <td>${item.type}</td>
+                                                <td>${item.fullName}</td>
+                                                <td>${item.phone}</td>
+                                                <td>${item.email}</td>
+                                                <td>${item.need}</td>
+                                                <td>${item.createdBy}</td>
+                                                <td>${item.createdDate}</td>
+                                                <td>${item.status}</td>
                                                 <td>
-                                                    <c:url var="editURL" value="/admin/building/edit">
+                                                    <c:url var="editURL" value="/admin/customer/edit">
                                                         <c:param name="id" value="${item.id}"/>
                                                     </c:url>
                                                     <a class="btn btn-sm btn-primary btn-edit" data-toggle="tooltip"
-                                                       title="Cập nhật toà nhà" href='${editURL}'><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                       title="Cập nhật thông tin khách hàng" href='${editURL}'><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                     </a>
                                                     <a class="btn btn-sm btn-primary"  onclick="show(${item.id})"
-                                                       title="Giao toà nhà" ><i class="fa fa-tasks" aria-hidden="true"></i>
+                                                       title="Giao khách hàng" ><i class="fa fa-tasks" aria-hidden="true"></i>
                                                     </a>
-                                                    <c:if test="${item.priority == false}">
-                                                    <a class="btn btn-sm btn-primary"
-                                                            id="btnAddToPriority" onclick="updatePriority(${item.id}, 'insert')"
-                                                       title="Thêm vào danh sách ưu tiên" ><i class="fa fa-plus" aria-hidden="true"></i>
-                                                    </a>
-                                                    </c:if>
-                                                    <c:if test="${item.priority == true}">
-                                                        <a class="btn btn-sm btn-primary"
-                                                           id="btnAddToPriority" onclick="updatePriority(${item.id}, 'remove')"
-                                                           title="Xoá khỏi danh sách ưu tiên" ><i class="fa fa-minus" aria-hidden="true"></i>
-                                                        </a>
-                                                    </c:if>
                                                 </td>
                                             </tr>
 
@@ -169,7 +167,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" id="close">&times;</button>
-                    <h4 class="modal-title">Giao toà nhà</h4>
+                    <h4 class="modal-title">Giao khách hàng</h4>
                 </div>
                 <div class="modal-body">
                     <table class="table" id="staffAssignList">
@@ -184,7 +182,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <input type="hidden" id="buildingId">
+                        <input type="hidden" id="customerId">
                         <c:forEach var="item" items="${staff.listResult}">
                             <tr>
                                 <th class="text-center"><input type="checkbox" name="staff" value="${item.id}" id="checkbox_${item.id}" /></th>
@@ -229,14 +227,14 @@
             var staffIds = $('#staffAssignList').find('tbody input[type=checkbox]:checked').map(function () {
                 return $(this).val();
             }).get();
-            var buildingId = $("#buildingId").val();
-            updateAssignment(staffIds,buildingId)
+            var customerId = $("#customerId").val();
+            updateAssignment(staffIds,customerId)
         });
     });
     function show(id) {
         $("#myModal").modal('show');
-        $("#buildingId").val(id);
-        var list = getStaffBuilding(id);
+        $("#customerId").val(id);
+        var list = getStaffCustomer(id);
         $("input[name=staff]").each(function (){
             var e = $(this);
             list.forEach(function (value) {
@@ -247,36 +245,13 @@
             })
         });
     }
-    function updatePriority(id, action) {
-        $.ajax({
-            url: '/api/admin/building/priority?buildingId=' + id + '&action=' + action,
-            type: 'POST',
-            contentType:'application/json',
-            dataType:'json',
-            success: function(result){
-                if(action == 'insert'){
-                    toastr.success("Thêm vào danh sách ưu tiên thành công")
-                }else if(action == 'remove'){
-                    toastr.success("Xoá khỏi danh sách ưu tiên thành công")
-                }
-
-            },
-            error: function(result){
-                if(action == 'insert'){
-                    toastr.error("Thêm vào danh sách ưu tiên thất bại")
-                }else if(action == 'remove'){
-                    toastr.error("Xoá khỏi danh sách ưu tiên thất bại")
-                }
-            }
-        });
-    }
-    function updateAssignment(assignList,buildingId) {
+    function updateAssignment(assignList,customerId) {
         var data = {
             userID : assignList,
-            buildingId : buildingId
+            customerId : customerId
         }
         $.ajax({
-            url: '${APIurl}?buildingId=' + buildingId ,
+            url: '${APIurl}?customerId=' + customerId ,
             type: 'POST',
             contentType:'application/json',
             dataType:'json',
@@ -286,20 +261,20 @@
                 $('input[name=staff]').each(function (){
                     $(this).prop("checked",false);
                 });
-                toastr.success("Giao toà nhà thành công")
+                toastr.success("Giao khách hàng thành công")
             },
             error: function(result){
-                toastr.error("Giao toà nhà thất bại")
+                toastr.error("Giao khách hàng thất bại")
             }
         });
     }
-    function getStaffBuilding(buildingId) {
+    function getStaffCustomer(customerId) {
         var resultdata = [];
         var data = {
-            buildingId : buildingId
+            customerId : customerId
         }
         $.ajax({
-            url: '/api/admin/building/staffs?buildingId=' + buildingId ,
+            url: '/api/admin/customer/staffs?customerId=' + customerId ,
             type: 'GET',
             async : false,
             contentType:'application/json',
@@ -308,7 +283,7 @@
                 resultdata = result;
             },
             error: function(result){
-                toastr.error("Giao toà nhà thất bại")
+                toastr.error("Lỗi hệ thống")
             }
         });
         return resultdata;

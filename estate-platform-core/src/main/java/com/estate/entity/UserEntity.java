@@ -22,17 +22,20 @@ public class UserEntity extends BaseEntity {
     @Column(nullable = false)
     private Integer status;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "role_id", nullable = false))
     private List<RoleEntity> roles = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "staffs", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "staffs", fetch = FetchType.LAZY)
     private List<BuildingEntity> buildings = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
     private List<BuildingEntity> priorityBuildings = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "staffCustomers", fetch = FetchType.LAZY)
+    private List<CustomerEntity> customers = new ArrayList<>();
 
     public String getUserName() {
         return userName;
@@ -88,5 +91,13 @@ public class UserEntity extends BaseEntity {
 
     public void setPriorityBuildings(List<BuildingEntity> priorityBuildings) {
         this.priorityBuildings = priorityBuildings;
+    }
+
+    public List<CustomerEntity> getCustomers() {
+        return customers;
+    }
+
+    public void setCustomers(List<CustomerEntity> customers) {
+        this.customers = customers;
     }
 }

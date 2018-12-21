@@ -1,10 +1,5 @@
 package com.estate.dto;
 
-import com.estate.entity.BuildingEntity;
-import com.estate.entity.UserEntity;
-
-import java.util.List;
-
 public class BuildingDTO extends AbstractDTO<BuildingDTO> {
 
     private static final long serialVersionUID = -605223606014371190L;
@@ -41,7 +36,7 @@ public class BuildingDTO extends AbstractDTO<BuildingDTO> {
     private String avatar;
     private String base64;
     private String imgName;
-    private boolean addedToPriority = false;
+    private boolean isPriority = false;
 
     public String getBase64() {
         if (base64 != null) {
@@ -302,11 +297,11 @@ public class BuildingDTO extends AbstractDTO<BuildingDTO> {
         this.avatar = avatar;
     }
 
-    public boolean isAddedToPriority() {
-        return addedToPriority;
+    public boolean isPriority() {
+        return isPriority;
     }
 
-    public void setAddedToPriority(boolean addedToPriority) {
-        this.addedToPriority = addedToPriority;
+    public void setIsPriority(boolean isPriority) {
+        this.isPriority = isPriority;
     }
 }

@@ -2,16 +2,9 @@ package com.estate.converter;
 
 import com.estate.dto.BuildingDTO;
 import com.estate.entity.BuildingEntity;
-import com.estate.enums.BuildingType;
-import org.apache.commons.lang.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
-import java.util.StringJoiner;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Component
 public class BuildingConverter {
