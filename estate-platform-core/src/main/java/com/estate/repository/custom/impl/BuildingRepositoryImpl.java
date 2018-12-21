@@ -13,6 +13,7 @@ import javax.persistence.Query;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 
@@ -110,6 +111,22 @@ public class BuildingRepositoryImpl implements BuildingRepositoryCustom {
         StringBuilder sql = new StringBuilder("select count(*) from BuildingEntity");
         Query query = entityManager.createQuery(sql.toString());
         return (Long) query.getResultList().get(0);
+    }
+
+    @Override
+    public Long getTotalItems(BuildingBuilder builder) {
+        StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM estateletuan.building AS b");
+        if (builder.getStaffId() != null) {
+            sql.append(" INNER JOIN estateletuan.user_building AS ub ON ub.building_id = b.id ");
+        }
+        sql.append(" WHERE 1 = 1 ");
+        sql = buildQueryBuilding(sql, builder);
+        if (builder.getStaffId() != null) {
+            sql.append(" AND ub.user_id = "+builder.getStaffId()+" ");
+        }
+        Query query = entityManager.createNativeQuery(sql.toString());
+        List<BigInteger> result = query.getResultList();
+        return Long.parseLong(result.get(0).toString(), 10);
     }
 
 }

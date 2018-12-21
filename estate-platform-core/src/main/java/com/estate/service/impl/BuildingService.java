@@ -47,6 +47,11 @@ public class BuildingService implements IBuildingService {
         return buildings.stream().map(item -> buildingConverter.convertToDto(item)).collect(Collectors.toList());
     }
 
+    @Override
+    public int getTotalItems(BuildingDTO model) {
+        return buildingRepository.getTotalItems(getBuildingBuilder(model)).intValue();
+    }
+
     private BuildingBuilder getBuildingBuilder(BuildingDTO model) {
         return new BuildingBuilder.Builder()
                     .setProductName(model.getProductName())

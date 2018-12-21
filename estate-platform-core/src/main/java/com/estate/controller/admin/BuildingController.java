@@ -41,6 +41,7 @@ public class BuildingController {
         model.setUrlMapping(request.getServletPath());
         List<BuildingDTO> buildings = buildingService.findAll(model, new com.estate.paging.PageRequest(model.getPage(), model.getMaxPageItems()));
         model.setListResult(buildings);
+        model.setTotalItem(buildingService.getTotalItems(model));
         mav.addObject(SystemConstant.MODEL, model);
         mav.addObject("districts", districtService.getDistricts());
         mav.addObject("buildingTypes", buildingService.getBuildingType());
