@@ -219,13 +219,9 @@
             contentType: 'application/json',
             dataType: 'json',
             success: function(result){
-                if(result == 0){
-                    toastr.error("Tòa nhà này không thuộc quản lý của bạn");
-                }else{
                     $(btn).find('span').removeClass("glyphicon glyphicon-minus").addClass("glyphicon glyphicon-plus");
                     $(btn).attr("title", "Thêm tòa nhà ưu tiên");
                     toastr.success("Xóa thành công");
-                }
             },
             error: function(result){
                 console.log("fail");
@@ -241,13 +237,9 @@
             contentType: 'application/json',
             dataType: 'json',
             success: function(result){
-                if(result == 0){
-                    toastr.error("Tòa nhà này không thuộc quản lý của bạn");
-                }else{
                     $(btn).find('span').removeClass("glyphicon glyphicon-plus").addClass("glyphicon glyphicon-minus");
                     $(btn).attr('title', 'Xóa tòa nhà ưu tiên');
                     toastr.success("Thêm thành công");
-                }
             },
             error: function(result){
                 console.log("fail");

@@ -195,83 +195,42 @@ public class BuildingService implements IBuildingService{
     }
 
     @Override
-    public Integer addPriorityBuilding(Long buildingId) {
+    public void addPriorityBuilding(Long buildingId) {
         List<String> roles = SecurityUtils.getAuthorities();
         if (isManager(roles)) {
-            //Get list building which current user managing
-            List<BuildingEntity> buildings = buildingRepository.findAll();
-            for(BuildingEntity buildingEntity : buildings){
-                if(buildingEntity.getId() == buildingId){
-                    ManagementEntity existManagementEntity = managementRepository.findOneByUserEntityIdAndBuildingEntityId(SecurityUtils.getPrincipal().getId(), buildingId);
-                    if(existManagementEntity != null){
-                        existManagementEntity.setPriority(true);
-                        managementRepository.save(existManagementEntity);
-                        break;
-                    }
+            ManagementEntity existManagementEntity = managementRepository.findOneByUserEntityIdAndBuildingEntityId(SecurityUtils.getPrincipal().getId(), buildingId);
+            //Nếu building đó đang được manager quản lý
+            if (existManagementEntity != null) {
+                existManagementEntity.setPriority(true);
+                managementRepository.save(existManagementEntity);
+                return;
+            }
 
-                    ManagementEntity newManagementEntity = new ManagementEntity();
-                    newManagementEntity.setBuildingEntity(buildingRepository.findOne(buildingId));
-                    newManagementEntity.setUserEntity(userRepository.findOne(SecurityUtils.getPrincipal().getId()));
-                    newManagementEntity.setPriority(true);
-                    managementRepository.save(newManagementEntity);
-                    break;
-                }
-            }
-            return 1;
+            //Nếu building đó chưa được manager quản lý thì thêm vào bảng manament và set ưu tiên
+            ManagementEntity newManagementEntity = new ManagementEntity();
+            newManagementEntity.setBuildingEntity(buildingRepository.findOne(buildingId));
+            newManagementEntity.setUserEntity(userRepository.findOne(SecurityUtils.getPrincipal().getId()));
+            newManagementEntity.setPriority(true);
+            managementRepository.save(newManagementEntity);
         } else{
-            //Get list building which current user managing
-            List<ManagementEntity> managementEntities = managementRepository.findByUserEntityId(SecurityUtils.getPrincipal().getId());
-            if(managementEntities.size() == 0){
-                return 0;
-            }
-            for(ManagementEntity managementEntity : managementEntities){
-                if(managementEntity.getBuildingEntity().getId() == buildingId){
-                    managementEntity.setPriority(true);
-                    managementRepository.save(managementEntity);
-                    break;
-                }
-            }
-            return managementEntities.size();
+            ManagementEntity existManagementEntity = managementRepository.findOneByUserEntityIdAndBuildingEntityId(SecurityUtils.getPrincipal().getId(), buildingId);
+            existManagementEntity.setPriority(true);
+            managementRepository.save(existManagementEntity);
         }
     }
 
     @Override
-    public Integer deletePriorityBuilding(Long buildingId) {
+    public void deletePriorityBuilding(Long buildingId) {
+        //Vì delete chỉ xảy ra sau khi building được add vào danh sách ưu tiên nên existManagementEntity luôn != null
         List<String> roles = SecurityUtils.getAuthorities();
         if (isManager(roles)) {
-            //Get list building which current user managing
-            List<BuildingEntity> buildings = buildingRepository.findAll();
-            for(BuildingEntity buildingEntity : buildings){
-                if(buildingEntity.getId() == buildingId){
-                    ManagementEntity managementEntity = managementRepository.findOneByUserEntityIdAndBuildingEntityId(SecurityUtils.getPrincipal().getId(), buildingId);
-                    if(managementEntity != null){
-                        managementEntity.setPriority(false);
-                        managementRepository.save(managementEntity);
-                        break;
-                    }
-
-                    managementEntity.setBuildingEntity(buildingRepository.findOne(buildingId));
-                    managementEntity.setUserEntity(userRepository.findOne(SecurityUtils.getPrincipal().getId()));
-                    managementEntity.setPriority(false);
-                    managementRepository.save(managementEntity);
-                    break;
-                }
-            }
-            return 1;
-        } else{
-            //Get list building which current user managing
-            List<ManagementEntity> managementEntities = managementRepository.findByUserEntityId(SecurityUtils.getPrincipal().getId());
-            if(managementEntities.size() == 0){
-                return 0;
-            }
-            for(ManagementEntity managementEntity : managementEntities){
-                if(managementEntity.getBuildingEntity().getId() == buildingId){
-                    managementEntity.setPriority(false);
-                    managementRepository.save(managementEntity);
-                    break;
-                }
-            }
-            return managementEntities.size();
+            ManagementEntity existManagementEntity = managementRepository.findOneByUserEntityIdAndBuildingEntityId(SecurityUtils.getPrincipal().getId(), buildingId);
+            existManagementEntity.setPriority(false);
+            managementRepository.save(existManagementEntity);
+        }else{
+            ManagementEntity existManagementEntity = managementRepository.findOneByUserEntityIdAndBuildingEntityId(SecurityUtils.getPrincipal().getId(), buildingId);
+            existManagementEntity.setPriority(false);
+            managementRepository.save(existManagementEntity);
         }
     }
 
