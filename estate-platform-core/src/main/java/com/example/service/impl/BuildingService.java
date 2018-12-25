@@ -152,16 +152,38 @@ public class BuildingService implements IBuildingService{
         }
 
         BuildingEntity existBuilding = buildingRepository.findOne(buildingId);
-        //commend
-        /*buildingEntity.setStaffs(userEntities);
-        buildingEntity = buildingRepository.save(buildingEntity);*/
 
-        for(UserEntity existUser : staffs){
-            ManagementEntity managementEntity = new ManagementEntity();
-            managementEntity.setBuildingEntity(existBuilding);
-            managementEntity.setUserEntity(existUser);
-            managementRepository.save(managementEntity);
+        // List user managing the current building
+        List<ManagementEntity> managementEntities = managementRepository.findByBuildingEntityId(buildingId);
+
+        if(staffs.size() >= managementEntities.size()) {
+            Set<Long> setId = new HashSet<>();
+            for (ManagementEntity managementEntity : managementEntities) {
+                setId.add(managementEntity.getUserEntity().getId());
+            }
+
+            for (UserEntity staff : staffs) {
+                //danh sách truyền vào chưa có userEntity thì thêm vào bảng management
+                if (!setId.contains(staff.getId())) {
+                    ManagementEntity newManagementEntity = new ManagementEntity();
+                    newManagementEntity.setBuildingEntity(existBuilding);
+                    newManagementEntity.setUserEntity(staff);
+                    managementRepository.save(newManagementEntity);
+                }
+            }
+        }else{
+            Set<Long> setId = new HashSet<>();
+            for (UserEntity staff : staffs) {
+                setId.add(staff.getId());
+            }
+            for(ManagementEntity managementEntity : managementEntities){
+                // danh sách truyền vào không chứa userEntity trong bảng management thì xóa user trong bảng đi
+                if (!setId.contains(managementEntity.getUserEntity().getId())) {
+                    managementRepository.delete(managementEntity);
+                }
+            }
         }
+
 
         // help testing postman
         BuildingDTO model = buildingConverter.convertToDto(existBuilding);
@@ -250,6 +272,21 @@ public class BuildingService implements IBuildingService{
             }
             return managementEntities.size();
         }
+    }
+
+    @Override
+    public void findPriorityBuilding(BuildingDTO model, Pageable pageable) {
+        //Lấy ra danh sách tòa nhà ưu tiên mà user đang quản lý có phân trang
+        List<ManagementEntity> managementEntities = managementRepository.findByUserEntityIdAndIsPriority(SecurityUtils.getPrincipal().getId(), true, pageable).getContent();
+        List<BuildingEntity> buildingEntities = new ArrayList<>();
+        for(ManagementEntity item : managementEntities){
+            buildingEntities.add(buildingRepository.findOne(item.getBuildingEntity().getId()));
+        }
+        List<BuildingDTO> buildingDTOS = buildingEntities.stream().map(item -> buildingConverter.convertToDto(item)).collect(Collectors.toList());
+
+        model.setListResult(buildingDTOS);
+        model.setTotalPages((int) Math.ceil((double) (managementRepository
+                .findByUserEntityIdAndIsPriority(SecurityUtils.getPrincipal().getId(), true).size())/(model.getMaxPageItems())));
     }
 
     private boolean isManager(List<String> roles) {

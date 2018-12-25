@@ -71,6 +71,14 @@ public class BuildingController {
         return mav;
     }
 
+    @RequestMapping(value = "/admin/building/list/priority", method = RequestMethod.GET)
+    public ModelAndView showPriorityList(@ModelAttribute(SystemConstant.MODEL) BuildingDTO model){
+        ModelAndView mav = new ModelAndView("manager/building/priority_list");
+        buildingService.findPriorityBuilding(model, new PageRequest(model.getPage() - 1, model.getMaxPageItems()));
+        mav.addObject(SystemConstant.MODEL, model);
+        return mav;
+    }
+
     private void buildMapDistrict(Map<String, String> mapDistrict) {
         List<DistrictDTO> districts = districtService.findAll();
         for(DistrictDTO dto : districts){

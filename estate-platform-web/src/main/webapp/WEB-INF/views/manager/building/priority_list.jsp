@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
-<c:url var="formURL" value="/admin/building/list"></c:url>
-<c:url var="APIurl" value="/api/building"/>
+<c:url var="formURL" value="/admin/building/list/priority"></c:url>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -80,7 +79,6 @@
                                         <th>Giá thuê</th>
                                         <th>Phí dịch vụ</th>
                                         <th>Phí MG</th>
-                                        <th>Thao tác</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -96,31 +94,6 @@
                                             <td>${item.releasedCost}</td>
                                             <td>${item.feeService}</td>
                                             <td>${item.feeOvertime}</td>
-                                            <td>
-                                                <c:url var="editURL" value="/admin/building/edit">
-                                                    <c:param name="id" value="${item.id}"/>
-                                                </c:url>
-                                                <a class="btn btn-sm btn-primary btn-edit" data-toggle="tooltip"
-                                                   title="Cập nhật tòa nhà" href='${editURL}'><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                                </a>
-                                                <c:url var="deliveryURL" value="/ajax-manager-building-delivery">
-                                                    <c:param name="id" value="${item.id}"/>
-                                                </c:url>
-                                                <a class="btn btn-sm btn-primary btn-add" data-toggle="tooltip"
-                                                   title="Giao tòa nhà" url="${deliveryURL}" onclick="loadModal(this)"><i class="fa fa-pencil-square" aria-hidden="true"></i>
-                                                </a>
-                                                <c:if test="${!item.priority}">
-                                                    <a class="btn btn-sm btn-primary btn-add" data-toggle="tooltip"
-                                                       title="Thêm tòa nhà ưu tiên" onclick="priorityBuilding(this, ${item.id}, ${item.priority})"><span class="glyphicon glyphicon-plus"></span>
-                                                    </a>
-                                                </c:if>
-                                                <c:if test="${item.priority}">
-                                                    <a class="btn btn-sm btn-primary btn-add" data-toggle="tooltip"
-                                                       title="Xóa tòa nhà ưu tiên" onclick="priorityBuilding(this, ${item.id}, ${item.priority})"><span class="glyphicon glyphicon-minus"></span>
-                                                    </a>
-                                                </c:if>
-
-                                            </td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>
@@ -137,9 +110,6 @@
         </div>
     </div>
 </div>
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" role="dialog"></div>
 
 
 <script type="text/javascript">
@@ -163,99 +133,6 @@
             }
         }
     });
-    
-    function loadModal(btn) {
-        var url = $(btn).attr('url');
-        $('#myModal').load(url, "", function() {
-            $(this).modal('toggle');
-            saveStaff();
-        })
-    }
-
-    function saveStaff(){
-        $('#save').click(function () {
-            /*var userArrays = $('#userAssignTable').find('tbody input[type=checkbox]:checked').map(function () {
-                return $(this).val();
-            }).get();*/
-
-            var userArrays = [];
-
-            $('input[type=checkbox]:checked').each(function () {
-                userArrays.push($(this).val());
-            })
-
-            var buildingId = $('#buildingId').val();
-            $.ajax({
-                url: '${APIurl}/' +  buildingId + "/assignment",
-                type: 'POST',
-                data: JSON.stringify(userArrays),
-                contentType: 'application/json',
-                dataType: 'json',
-                success: function(result){
-                    $('#myModal').modal('hide');
-                    setTimeout(function() {
-                        toastr.success("Giao tòa nhà thành công");
-                    }, 1000);
-                },
-                error: function(result){
-                    toastr.error("Giao toà nhà thất bại");
-                }
-            });
-        })
-    }
-
-    function priorityBuilding(btn, buildingId, priority){
-        var priority = priority;
-        if(priority){
-            removePriority(btn, buildingId);
-        }else{
-            addPriority(btn, buildingId);
-        }
-
-    }
-
-    function removePriority(btn, buildingId){
-        $.ajax({
-            url: '${APIurl}/' +  buildingId + "/priority",
-            type: 'DELETE',
-            contentType: 'application/json',
-            dataType: 'json',
-            success: function(result){
-                if(result == 0){
-                    toastr.error("Tòa nhà này không thuộc quản lý của bạn");
-                }else{
-                    $(btn).find('span').removeClass("glyphicon glyphicon-minus").addClass("glyphicon glyphicon-plus");
-                    toastr.success("Xóa thành công");
-                }
-            },
-            error: function(result){
-                console.log("fail");
-
-            }
-        });
-    }
-
-    function addPriority(btn, buildingId){
-        $.ajax({
-            url: '${APIurl}/' +  buildingId + "/priority",
-            type: 'POST',
-            contentType: 'application/json',
-            dataType: 'json',
-            success: function(result){
-                if(result == 0){
-                    toastr.error("Tòa nhà này không thuộc quản lý của bạn");
-                }else{
-                    $(btn).find('span').removeClass("glyphicon glyphicon-plus").addClass("glyphicon glyphicon-minus");
-                    toastr.success("Thêm thành công");
-                }
-            },
-            error: function(result){
-                console.log("fail");
-
-            }
-        });
-    }
-</script>
-
+ </script>
 </body>
 </html>

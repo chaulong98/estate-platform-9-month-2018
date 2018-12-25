@@ -10,6 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.1/jquery.twbsPagination.min.js"></script>
     <script src="<c:url value="/template/assets/js/global_javascript.js"/>"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <!-- bootstrap & fontawesome -->
     <link rel="stylesheet" href="/template/assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/template/assets/font-awesome/4.2.0/css/font-awesome.min.css" />
@@ -18,7 +19,7 @@
 
     <!-- text fonts -->
     <link rel="stylesheet" href="/template/assets/fonts/fonts.googleapis.com.css" />
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
     <!-- ace styles -->
     <link rel="stylesheet" href="/template/assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
 </head>
@@ -28,6 +29,7 @@
     <!-- header -->
 
     <div class="main-container" id="main-container">
+        <%@include file="/common/web/sidebar.jsp"%>
         <dec:body/>
         <!-- footer -->
         <%@ include file="/common/web/footer.jsp" %>

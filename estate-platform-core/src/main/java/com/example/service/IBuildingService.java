@@ -15,4 +15,5 @@ public interface IBuildingService {
     BuildingDTO assignBuilding(long[] staffIds, Long buildingId);
     Integer addPriorityBuilding(Long buildingId);
     Integer deletePriorityBuilding(Long buildingId);
+    void findPriorityBuilding(BuildingDTO model, Pageable pageable);
 }

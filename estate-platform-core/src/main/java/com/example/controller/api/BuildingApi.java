@@ -35,7 +35,7 @@ public class BuildingApi {
     }
 
     @RequestMapping(value = "/api/building/{id}/priority", method = RequestMethod.DELETE)
-    public ResponseEntity<Void> deletePriorityBuilding(@PathVariable("id") Long buildingId){
+    public ResponseEntity<Integer> deletePriorityBuilding(@PathVariable("id") Long buildingId){
         buildingService.deletePriorityBuilding(buildingId);
         return ResponseEntity.noContent().build();
     }
