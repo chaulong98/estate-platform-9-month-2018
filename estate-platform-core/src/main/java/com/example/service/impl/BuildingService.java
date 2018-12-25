@@ -168,6 +168,7 @@ public class BuildingService implements IBuildingService{
                     ManagementEntity newManagementEntity = new ManagementEntity();
                     newManagementEntity.setBuildingEntity(existBuilding);
                     newManagementEntity.setUserEntity(staff);
+                    newManagementEntity.setPriority(false);
                     managementRepository.save(newManagementEntity);
                 }
             }

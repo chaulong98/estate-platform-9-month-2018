@@ -111,12 +111,12 @@
                                                 </a>
                                                 <c:if test="${!item.priority}">
                                                     <a class="btn btn-sm btn-primary btn-add" data-toggle="tooltip"
-                                                       title="Thêm tòa nhà ưu tiên" onclick="priorityBuilding(this, ${item.id}, ${item.priority})"><span class="glyphicon glyphicon-plus"></span>
+                                                       title="Thêm tòa nhà ưu tiên" onclick="priorityBuilding(this, ${item.id})"><span class="glyphicon glyphicon-plus"></span>
                                                     </a>
                                                 </c:if>
                                                 <c:if test="${item.priority}">
                                                     <a class="btn btn-sm btn-primary btn-add" data-toggle="tooltip"
-                                                       title="Xóa tòa nhà ưu tiên" onclick="priorityBuilding(this, ${item.id}, ${item.priority})"><span class="glyphicon glyphicon-minus"></span>
+                                                       title="Xóa tòa nhà ưu tiên" onclick="priorityBuilding(this, ${item.id})"><span class="glyphicon glyphicon-minus"></span>
                                                     </a>
                                                 </c:if>
 
@@ -204,14 +204,12 @@
         })
     }
 
-    function priorityBuilding(btn, buildingId, priority){
-        var priority = priority;
-        if(priority){
+    function priorityBuilding(btn, buildingId){
+        if($(btn).find('span').attr('class') == 'glyphicon glyphicon-minus' ){
             removePriority(btn, buildingId);
-        }else{
+        }else if($(btn).find('span').attr('class') == 'glyphicon glyphicon-plus'){
             addPriority(btn, buildingId);
         }
-
     }
 
     function removePriority(btn, buildingId){
@@ -225,6 +223,7 @@
                     toastr.error("Tòa nhà này không thuộc quản lý của bạn");
                 }else{
                     $(btn).find('span').removeClass("glyphicon glyphicon-minus").addClass("glyphicon glyphicon-plus");
+                    $(btn).attr("title", "Thêm tòa nhà ưu tiên");
                     toastr.success("Xóa thành công");
                 }
             },
@@ -246,6 +245,7 @@
                     toastr.error("Tòa nhà này không thuộc quản lý của bạn");
                 }else{
                     $(btn).find('span').removeClass("glyphicon glyphicon-plus").addClass("glyphicon glyphicon-minus");
+                    $(btn).attr('title', 'Xóa tòa nhà ưu tiên');
                     toastr.success("Thêm thành công");
                 }
             },
