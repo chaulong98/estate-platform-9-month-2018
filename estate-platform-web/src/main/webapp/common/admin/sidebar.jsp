@@ -38,7 +38,7 @@
         <li class="active">
             <a href="index.html">
                 <i class="menu-icon fa fa-tachometer"></i>
-                <span class="menu-text"> Quản lý sản phẩm </span>
+                <span class="menu-text">Quản lý</span>
             </a>
 
             <b class="arrow"></b>
@@ -59,14 +59,38 @@
             <ul class="submenu">
 
                 <li class="">
-                    <a href="<c:url value='/building/list'/> ">
+                    <a href="<c:url value='/admin/building/list'/> ">
                         <i class="menu-icon fa fa-caret-right"></i>
                         Danh mục tòa nhà
                     </a>
 
-                    <a href="<c:url value='/building/list/priority'/> ">
+                    <a href="<c:url value='/admin/building/list/priority'/> ">
                         <i class="menu-icon fa fa-caret-right"></i>
                         Danh mục tòa nhà ưu tiên
+                    </a>
+
+                    <b class="arrow"></b>
+                </li>
+            </ul>
+        </li>
+        <li class="">
+            <a href="#" class="dropdown-toggle">
+                <i class="menu-icon fa fa-desktop"></i>
+                <span class="menu-text">
+								Quản lý khách hàng
+							</span>
+
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+
+            <b class="arrow"></b>
+
+            <ul class="submenu">
+
+                <li class="">
+                    <a href="<c:url value='/admin/building/list'/> ">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Danh mục khách hàng
                     </a>
 
                     <b class="arrow"></b>

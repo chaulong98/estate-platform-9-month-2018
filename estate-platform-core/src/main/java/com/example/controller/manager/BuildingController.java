@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-@Controller
+@Controller(value = "buildingControllerOfManager")
 public class BuildingController {
 
     @Autowired
@@ -39,8 +39,17 @@ public class BuildingController {
     @RequestMapping(value = "/admin/building/list", method = RequestMethod.GET)
     public ModelAndView listPage(@ModelAttribute(SystemConstant.MODEL) BuildingDTO model){
         ModelAndView mav = new ModelAndView("manager/building/list");
-        buildingService.findAll(model, new PageRequest(model.getPage() - 1, model.getMaxPageItems()));
+        buildingService.findAll(model, new com.example.paging.PageRequest(model.getPage(), model.getMaxPageItems()));
+        Map<String, String> mapType = new HashMap<>();
+        Map<String, String> mapDistrict = new HashMap<>();
+        Map<String, String> staffMaps = new HashMap<>();
+        buildMapType(mapType);
+        buildMapDistrict(mapDistrict);
+        buildMapStaff(staffMaps);
         mav.addObject(SystemConstant.MODEL, model);
+        mav.addObject(SystemConstant.MAP_DISTRICT, mapDistrict);
+        mav.addObject(SystemConstant.TYPE, mapType);
+        mav.addObject(SystemConstant.STAFFS, staffMaps);
         return mav;
     }
 
@@ -89,6 +98,13 @@ public class BuildingController {
     private void buildMapType(Map<String, String> mapType) {
         for(BuildingType type : BuildingType.values()){
             mapType.put(type.toString(), type.getName());
+        }
+    }
+
+    private void buildMapStaff(Map<String, String> staffMaps) {
+        List<UserDTO> userDTOS = userService.findAllActiveStaff();
+        for (UserDTO item : userDTOS) {
+            staffMaps.put(item.getUserName(), item.getFullName());
         }
     }
 }

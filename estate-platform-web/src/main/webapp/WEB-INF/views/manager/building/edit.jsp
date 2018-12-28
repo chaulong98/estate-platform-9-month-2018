@@ -48,7 +48,7 @@
                             <label class="col-sm-3 control-label no-padding-right">Quận</label>
                             <div class="col-sm-9">
                                 <form:select path="district">
-                                    <form:option value="0" label="--Chọn quận--"/>
+                                    <form:option value="" label="--Chọn quận--"/>
                                     <form:options items="${mapDistrict}"/>
                                 </form:select>
                             </div>

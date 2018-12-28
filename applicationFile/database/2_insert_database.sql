@@ -23,3 +23,9 @@ INSERT INTO building(district, emptyarea, basementarea, buildingname, releasedco
 INSERT INTO building(district, emptyarea, basementarea, buildingname, releasedcost, feeservice, managername, phonenumber) VALUES (3,120, 100,'Tan Minh Nhan', 456, 15, 'A.Tam', '79841231');
 INSERT INTO building(district, emptyarea, basementarea, buildingname, releasedcost, feeservice, managername, phonenumber) VALUES (4, 130,150,'Etown', 112, 45, 'A.Thinh/A.Xam', '09042558546544');
 INSERT INTO building(district, emptyarea, basementarea, buildingname, releasedcost, feeservice, managername, phonenumber) VALUES (5, 100, 140,'Green', 100, 45, 'A.Tung', '09412325854');
+
+INSERT INTO district(code, name) VALUES ('quan-1', 'quận 1'),
+					('quan-2', 'quận 2'),
+					('quan-3', 'quận 3'),
+					('quan-4', 'quận 4'),
+					('quan-5', 'quận 5')

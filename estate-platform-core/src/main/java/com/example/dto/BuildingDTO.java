@@ -64,6 +64,56 @@ public class BuildingDTO extends AbstractDTO<BuildingDTO>{
 
     private boolean isPriority;
 
+    private Integer areaFrom;
+
+    private Integer areaTo;
+
+    private Integer costFrom;
+
+    private Integer costTo;
+
+    private String staffName;
+
+    public String getStaffName() {
+        return staffName;
+    }
+
+    public void setStaffName(String staffName) {
+        this.staffName = staffName;
+    }
+
+    public Integer getAreaFrom() {
+        return areaFrom;
+    }
+
+    public void setAreaFrom(Integer areaFrom) {
+        this.areaFrom = areaFrom;
+    }
+
+    public Integer getAreaTo() {
+        return areaTo;
+    }
+
+    public void setAreaTo(Integer areaTo) {
+        this.areaTo = areaTo;
+    }
+
+    public Integer getCostFrom() {
+        return costFrom;
+    }
+
+    public void setCostFrom(Integer costFrom) {
+        this.costFrom = costFrom;
+    }
+
+    public Integer getCostTo() {
+        return costTo;
+    }
+
+    public void setCostTo(Integer costTo) {
+        this.costTo = costTo;
+    }
+
     public boolean isPriority() {
         /*return utils.getPriority(this.getId());*/
         return  this.isPriority;

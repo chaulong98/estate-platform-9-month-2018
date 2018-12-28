@@ -1,5 +1,6 @@
 package com.example.service.impl;
 
+import com.example.builder.BuildingBuilder;
 import com.example.constant.SystemConstant;
 import com.example.converter.BuildingConverter;
 import com.example.converter.UserConverter;
@@ -13,6 +14,7 @@ import com.example.repository.ManagementRepository;
 import com.example.repository.UserRepository;
 import com.example.service.IBuildingService;
 import com.example.utils.SecurityUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -48,8 +50,8 @@ public class BuildingService implements IBuildingService{
 
 
     @Override
-    public void findAll(BuildingDTO model, Pageable pageable) {
-        List<BuildingEntity> buildingEntities = buildingRepository.findAll(pageable).getContent();
+    public List<BuildingDTO> findAll(BuildingDTO model, com.example.paging.Pageable pageable) {
+        List<BuildingEntity> buildingEntities = buildingRepository.findAll(getBuildingBuilder(model), pageable);
         List<BuildingDTO> buildingDTOS = new ArrayList<>();
         for(BuildingEntity entity : buildingEntities){
             BuildingDTO dto = buildingConverter.convertToDto(entity);
@@ -65,6 +67,45 @@ public class BuildingService implements IBuildingService{
         }
         model.setListResult(buildingDTOS);
         model.setTotalPages((int) Math.ceil((double) (buildingRepository.count())/(model.getMaxPageItems())));
+        return buildingDTOS;
+    }
+
+    private BuildingBuilder getBuildingBuilder(BuildingDTO model) {
+        return new BuildingBuilder.Builder()
+                    .setbuildingName(model.getBuildingName())
+                    .setBasementArea(model.getBasementArea())
+                    .setBasementNumber(model.getBasementNumber())
+                    .setDirection(model.getDirection())
+                    .setLevel(model.getLevel())
+                    .setDistrict(model.getDistrict())
+                    .setManagerName(model.getManagerName())
+                    .setPhoneNumber(model.getPhoneNumber())
+                    .setWard(model.getWard())
+                    .setStreet(model.getStreet())
+                    .setProductType(model.getProductType())
+                    .setStaffId(StringUtils.isNotBlank(model.getStaffName()) ? userRepository.findOneByUserName(model.getStaffName()).getId() : null)
+                    .setAreaFrom(model.getAreaFrom())
+                    .setAreaTo(model.getAreaTo())
+                    .build();
+    }
+
+    @Override
+    public void findAssinedBuilding(BuildingDTO model, Long userid, Pageable pageable) {
+        List<ManagementEntity> managementEntities = managementRepository.findByUserEntityId(userid, pageable).getContent();
+        List<BuildingEntity> buildingEntities = new ArrayList<>();
+
+        for(ManagementEntity managementEntity : managementEntities){
+            buildingEntities.add(buildingRepository.findOne(managementEntity.getBuildingEntity().getId()));
+        }
+
+        List<BuildingDTO> buildingDTOS = buildingEntities.stream().map(item -> buildingConverter.convertToDto(item)).collect(Collectors.toList());
+
+        for(int i = 0; i < buildingDTOS.size(); i++){
+            buildingDTOS.get(i).setPriority(managementEntities.get(i).isPriority());
+        }
+
+        model.setListResult(buildingDTOS);
+        model.setTotalPages((int) Math.ceil((double) (managementRepository.findByUserEntityId(userid).size())/(model.getMaxPageItems())));
     }
 
     public BuildingDTO findById(Long id){

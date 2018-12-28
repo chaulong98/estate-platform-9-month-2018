@@ -9,9 +9,9 @@
         <pattern>/api*</pattern>
     </excludes>
 
-    <!--<decorator name="admin" page="admin.jsp">
+    <decorator name="admin" page="admin.jsp">
         <pattern>/admin*</pattern>
-    </decorator>-->
+    </decorator>
 
     <decorator name="web" page="web.jsp">
         <pattern>/*</pattern>

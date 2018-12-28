@@ -12,29 +12,21 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService implements IUserService {
-
 
     @Autowired
     private UserConverter userConverter;
 
     @Autowired
-    private RoleRepository roleRepository;
-
-    @Autowired
     private UserRepository userRepository;
 
+
     @Override
-    public List<UserDTO> findbyRoleCode(String code) {
-        RoleEntity roleEntity = roleRepository.findOneByCode(code);
-        List<UserEntity> userEntities = roleEntity.getUsers();
-        List<UserDTO> userDTOS = new ArrayList<>();
-        for(UserEntity entity : userEntities){
-            UserDTO dto = userConverter.convertToDto(entity);
-            userDTOS.add(dto);
-        }
+    public List<UserDTO> findAllActiveStaff() {
+        List<UserDTO> userDTOS = userRepository.findByStatusAndRoles_Code(1, "USER").stream().map(item -> userConverter.convertToDto(item)).collect(Collectors.toList());
         return userDTOS;
     }
 }
