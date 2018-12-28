@@ -45,7 +45,7 @@ public class CustomerController {
                                      @RequestParam(value = "id",required = false) Long id, HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("admin/customer/edit");
         customerService.findAll(model, new PageRequest(model.getPage() - 1 , model.getMaxPageItems()));
-        if(id!=null){
+        if(id != null){
             model = customerService.findById(id);
         }
         initMessageResponse(mav,request);

@@ -118,6 +118,7 @@
                 addCustomer(data);
             }
             else {
+                data['id'] = customerId;
                 updateCustomer(data);
             }
         });
