@@ -45,6 +45,7 @@ public class BuildingController {
         initMessageResponse(mav,request);
         userService.findAll(staff,new PageRequest(model.getPage() - 1 , model.getMaxPageItems()));
         mav.addObject("staff",staff);
+        mav.addObject("district", districtService.getDistrict());
         mav.addObject(SystemConstant.MODEL, model);
         return mav;
     }
@@ -70,7 +71,7 @@ public class BuildingController {
             model = buildingService.findById(id);
         }
         initMessageResponse(mav,request);
-        ArrayList<String> types = new ArrayList<String>();
+        ArrayList<String> types = new ArrayList<>();
         EnumSet.allOf(BuildingType.class).forEach(buildingType -> types.add(buildingType.getValue()));
         mav.addObject("type", types);
         mav.addObject("district", districtService.getDistrict());

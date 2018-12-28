@@ -9,13 +9,13 @@ public class BuildingDTO extends AbstractDTO<BuildingDTO> {
     private String ward;
     private String street;
     private String structure;
-    private String basement;
-    private String floorArea;
+    private Integer basement;
+    private Integer floorArea;
     private String direction;
     private String grade;
     private String rentArea;
     private String description;
-    private String rentFee;
+    private Integer rentFee;
     private String feeDescription;
     private String serviceFee;
     private String carFee;
@@ -37,6 +37,11 @@ public class BuildingDTO extends AbstractDTO<BuildingDTO> {
     private String base64;
     private String imgName;
     private boolean isPriority = false;
+    private Integer costFrom;
+    private Integer costTo;
+    private Integer areaFrom;
+    private Integer areaTo;
+    private String staffName;
 
     public String getBase64() {
         if (base64 != null) {
@@ -97,19 +102,19 @@ public class BuildingDTO extends AbstractDTO<BuildingDTO> {
         this.structure = structure;
     }
 
-    public String getBasement() {
+    public Integer getBasement() {
         return basement;
     }
 
-    public void setBasement(String basement) {
+    public void setBasement(Integer basement) {
         this.basement = basement;
     }
 
-    public String getFloorArea() {
+    public Integer getFloorArea() {
         return floorArea;
     }
 
-    public void setFloorArea(String floorArea) {
+    public void setFloorArea(Integer floorArea) {
         this.floorArea = floorArea;
     }
 
@@ -145,11 +150,11 @@ public class BuildingDTO extends AbstractDTO<BuildingDTO> {
         this.description = description;
     }
 
-    public String getRentFee() {
+    public Integer getRentFee() {
         return rentFee;
     }
 
-    public void setRentFee(String rentFee) {
+    public void setRentFee(Integer rentFee) {
         this.rentFee = rentFee;
     }
 
@@ -303,5 +308,45 @@ public class BuildingDTO extends AbstractDTO<BuildingDTO> {
 
     public void setIsPriority(boolean isPriority) {
         this.isPriority = isPriority;
+    }
+
+    public Integer getCostFrom() {
+        return costFrom;
+    }
+
+    public void setCostFrom(Integer costFrom) {
+        this.costFrom = costFrom;
+    }
+
+    public Integer getCostTo() {
+        return costTo;
+    }
+
+    public void setCostTo(Integer costTo) {
+        this.costTo = costTo;
+    }
+
+    public Integer getAreaFrom() {
+        return areaFrom;
+    }
+
+    public void setAreaFrom(Integer areaFrom) {
+        this.areaFrom = areaFrom;
+    }
+
+    public Integer getAreaTo() {
+        return areaTo;
+    }
+
+    public void setAreaTo(Integer areaTo) {
+        this.areaTo = areaTo;
+    }
+
+    public String getStaffName() {
+        return staffName;
+    }
+
+    public void setStaffName(String staffName) {
+        this.staffName = staffName;
     }
 }

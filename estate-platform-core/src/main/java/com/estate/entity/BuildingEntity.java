@@ -25,10 +25,10 @@ public class BuildingEntity extends BaseEntity {
     private String structure;
 
     @Column
-    private String basement;
+    private Integer basement;
 
     @Column
-    private String floorArea;
+    private Integer floorArea;
 
     @Column
     private String direction;
@@ -43,7 +43,7 @@ public class BuildingEntity extends BaseEntity {
     private String description;
 
     @Column
-    private String rentFee;
+    private Integer rentFee;
 
     @Column
     private String feeDescription;
@@ -151,11 +151,11 @@ public class BuildingEntity extends BaseEntity {
         this.structure = structure;
     }
 
-    public String getBasement() {
+    public Integer getBasement() {
         return basement;
     }
 
-    public void setBasement(String basement) {
+    public void setBasement(Integer basement) {
         this.basement = basement;
     }
 
@@ -215,11 +215,11 @@ public class BuildingEntity extends BaseEntity {
         this.map = map;
     }
 
-    public String getFloorArea() {
+    public Integer getFloorArea() {
         return floorArea;
     }
 
-    public void setFloorArea(String floorArea) {
+    public void setFloorArea(Integer floorArea) {
         this.floorArea = floorArea;
     }
 
@@ -231,11 +231,11 @@ public class BuildingEntity extends BaseEntity {
         this.rentArea = rentArea;
     }
 
-    public String getRentFee() {
+    public Integer getRentFee() {
         return rentFee;
     }
 
-    public void setRentFee(String rentFee) {
+    public void setRentFee(Integer rentFee) {
         this.rentFee = rentFee;
     }
 

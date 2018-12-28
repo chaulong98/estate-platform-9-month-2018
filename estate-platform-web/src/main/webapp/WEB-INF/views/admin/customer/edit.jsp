@@ -110,6 +110,9 @@
             e.preventDefault();
             var data = {};
             var formData = $('#formSubmit').serializeArray();
+            $.each(formData, function (i,v) {
+                data[""+v.name+""] = v.value;
+            });
             var customerId = $('#customerId').val();
             if(customerId == ""){
                 addCustomer(data);
