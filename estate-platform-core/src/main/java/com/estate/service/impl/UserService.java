@@ -21,8 +21,15 @@ public class UserService implements IUserService {
     @Autowired
     private UserConverter converter;
 
-    public void findAll(UserDTO model, Pageable pageable) {
+    public void findAllStaff(UserDTO model, Pageable pageable) {
         List<UserEntity> userList = userRepository.findAllByRoles_Code("USER");
         model.setListResult(userList.stream().map(item -> converter.convertToDto(item)).collect(Collectors.toList()));
+    }
+
+    @Override
+    public Map<Long, String> getStaff() {
+        Map<Long, String> results = new HashMap<>();
+        userRepository.findAllByRoles_Code("USER").forEach(item -> results.put(item.getId(),item.getUserName()));
+        return results;
     }
 }

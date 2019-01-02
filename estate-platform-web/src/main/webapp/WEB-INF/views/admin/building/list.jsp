@@ -41,134 +41,157 @@
                 <div class="col-xs-12">
                     <!-- PAGE CONTENT BEGINS -->
                     <form:form action="${formURL}" modelAttribute="model" id="formSubmit" method="get">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="widget-box table-filter collapsed">
-                                <div class="widget-header">
-                                    <h4 class="widget-title">Tìm kiếm</h4>
-                                    <div class="widget-toolbar" >
-                                        <a href="#" data-action="collapse" >
-                                            <i class="ace-icon fa fa-chevron-down" ></i>
-                                        </a>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="widget-box table-filter">
+                                    <div class="widget-header">
+                                        <h4 class="widget-title">
+                                            Tìm kiếm
+                                        </h4>
+                                        <div class="widget-toolbar">
+                                            <a href="#" data-action="collapse">
+                                                <i class="ace-icon fa fa-chevron-up"></i>
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="widget-body">
-                                    <div class="widget-main">
-                                        <div class="form-horizontal">
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label">Tên:</label>
-                                                <div class="col-sm-8">
-                                                    <div class="fg-line">
-                                                        <form:input path="name" cssClass="form-control input-sm"/>
+                                    <div class="widget-body">
+                                        <div class="widget-main">
+                                            <div class="form-horizontal">
+                                                <div class="form-group">
+                                                    <div class="col-sm-6">
+                                                        <label>Tên toà nhà</label>
+                                                        <div class="fg-line">
+                                                            <form:input path="name" cssClass="form-control input-sm"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <label>Diện tích sàn</label>
+                                                        <div class="fg-line">
+                                                            <input type="number" name="buildingArea" class="form-control input-sm"
+                                                                   value="${model.floorArea}"/>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label">Diện tích sàn:</label>
-                                                <div class="col-sm-8">
-                                                    <div class="fg-line">
-                                                        <input type="number" name="floorArea" class="form-control input-sm" value="${model.floorArea}"/>
+                                                <div class="form-group">
+                                                    <div class="col-sm-4">
+                                                        <label>Quận:</label>
+                                                        <div class="fg-line">
+                                                            <form:select path="district" id="district">
+                                                                <form:option value="" label="--- Chọn quận ---"/>
+                                                                <form:options items="${district}"/>
+                                                            </form:select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <label>Phường</label>
+                                                        <div class="fg-line">
+                                                            <form:input path="ward" cssClass="form-control input-sm"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <label>Đường</label>
+                                                        <div class="fg-line">
+                                                            <form:input path="street" id="street" cssClass="form-control input-sm"/>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label">Quận:</label>
-                                                <div class="col-sm-8">
-                                                    <div class="fg-line">
-                                                        <form:select path="district" cssClass="form-control" cssStyle="width: auto">
-                                                            <form:option value="" label="-- Chọn quận --"/>
-                                                            <form:options items="${district}" />
-                                                        </form:select>
+                                                <div class="form-group">
+                                                    <div class="col-sm-4">
+                                                        <label>Số tầng hầm</label>
+                                                        <div class="fg-line">
+                                                            <input type="number" name="basementNumber" class="form-control input-sm"
+                                                                   value="${model.basement}"
+                                                                   id="basementNumber"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <label>Hướng</label>
+                                                        <div class="fg-line">
+                                                            <form:input path="direction" id="direction"
+                                                                        cssClass="form-control input-sm"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <label>Hạng</label>
+                                                        <div class="fg-line">
+                                                            <form:input path="grade" id="level" cssClass="form-control input-sm"/>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="form-group">
-                                            <label class="col-sm-2 control-label">Phường:</label>
-                                                <div class="col-sm-8">
-                                                    <div class="fg-line">
-                                                        <form:input path="ward" cssClass="form-control input-sm"/>
+                                                <div class="form-group">
+                                                    <div class="col-sm-3">
+                                                        <label>Diện tích từ</label>
+                                                        <div class="fg-line">
+                                                            <input type="number" name="areaFrom" class="form-control input-sm"
+                                                                   value="${model.areaFrom}" id="areaFrom"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <label>Diện tích đến</label>
+                                                        <div class="fg-line">
+                                                            <input type="number" name="areaTo" class="form-control input-sm"
+                                                                   value="${model.areaTo}" id="areaTo"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <label>Giá thuê từ</label>
+                                                        <div class="fg-line">
+                                                            <input type="number" name="costFrom" class="form-control input-sm"
+                                                                   value="${model.costFrom}" id="costFrom"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <label>Giá thuê đến</label>
+                                                        <div class="fg-line">
+                                                            <input type="number" name="costTo" class="form-control input-sm"
+                                                                   value="${model.costTo}" id="costTo"/>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label">Đường:</label>
-                                                <div class="col-sm-8">
-                                                    <div class="fg-line">
-                                                        <form:input path="street" cssClass="form-control input-sm"/>
+                                                <div class="form-group">
+                                                    <div class="col-sm-4">
+                                                        <label>Tên quản lý</label>
+                                                        <div class="fg-line">
+                                                            <form:input path="managerName" id="managerName"
+                                                                        cssClass="form-control input-sm"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <label>Điện thoại quản lý</label>
+                                                        <div class="fg-line">
+                                                            <form:input path="managerPhone" id="phoneNumber"
+                                                                        cssClass="form-control input-sm"/>
+                                                        </div>
+                                                    </div>
+                                                        <div class="col-sm-4">
+                                                            <label>Chọn nhân viên phụ trách</label>
+                                                            <div class="fg-line">
+                                                                <form:select path="staffName" id="staffName">
+                                                                    <form:option value="" label="--- Chọn nhân viên phụ trách ---"/>
+                                                                    <form:options items="${staffName}"/>
+                                                                </form:select>
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-sm-6">
+                                                        <div class="fg-line">
+                                                            <form:checkboxes path="type" items="${type}"/>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label">Số tầng hầm:</label>
-                                                <div class="col-sm-8">
-                                                    <div class="fg-line">
-                                                        <form:input path="basement" cssClass="form-control input-sm"/>
+                                                <div class="form-group">
+                                                    <div class="col-sm-6">
+                                                        <button id="btnSearch" type="button" class="btn btn-sm btn-success" onclick="searchBuilding()">
+                                                            Tìm kiếm
+                                                            <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
+                                                        </button>
                                                     </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label">Hướng:</label>
-                                                <div class="col-sm-8">
-                                                    <div class="fg-line">
-                                                        <form:input path="direction" cssClass="form-control input-sm"/>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label">Hạng:</label>
-                                                <div class="col-sm-8">
-                                                    <div class="fg-line">
-                                                        <form:input path="grade" cssClass="form-control input-sm"/>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label">Hạng:</label>
-                                                <div class="col-sm-8">
-                                                    <div class="fg-line">
-                                                        <form:input path="grade" cssClass="form-control input-sm"/>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label">Giá thuê từ:</label>
-                                                <div class="col-sm-8">
-                                                    <div class="fg-line">
-                                                        <input type="number" name="floorArea" class="form-control input-sm" value="${model.costFrom}"/>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label">Giá thuê đến:</label>
-                                                <div class="col-sm-8">
-                                                    <div class="fg-line">
-                                                        <input type="number" name="floorArea" class="form-control input-sm" value="${model.costTo}"/>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label"></label>
-                                                <div class="col-sm-8">
-                                                    <button type="button" class="btn btn-sm btn-success" id="btnSearch">
-                                                        Tìm kiếm
-                                                        <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
-                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                             <div class="table-btn-controls">
                                 <div class="pull-right tableTools-container">
                                     <div class="dt-buttons btn-overlap btn-group">
@@ -198,6 +221,8 @@
                                             <th><input type="checkbox" value="" id="checkAll"/></th>
                                             <th>Tên toà nhà</th>
                                             <th>Loại</th>
+                                            <th>Giá thuê</th>
+                                            <th>Diện tích thuê</th>
                                             <th>Thao tác</th>
                                         </tr>
                                         </thead>
@@ -207,6 +232,8 @@
                                                 <td><input type="checkbox" name="delete"  value='${item.id}' id="checkbox_${item.id}"/></td>
                                                 <td>${item.name}</td>
                                                 <td>${item.type}</td>
+                                                <td>${item.rentFee}</td>
+                                                <td>${item.rentArea}</td>
                                                 <td>
                                                     <c:url var="editURL" value="/admin/building/edit">
                                                         <c:param name="id" value="${item.id}"/>
@@ -410,7 +437,11 @@
                 }
             }
         });
-    });
+    })
+    function searchBuilding() {
+        $('#page').val(1);
+        $('#formSubmit').submit();
+    }
 
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>

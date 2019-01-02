@@ -34,7 +34,7 @@ public class CustomerController {
         ModelAndView mav = new ModelAndView("admin/customer/list");
         customerService.findAll(model, new PageRequest(model.getPage() - 1 , model.getMaxPageItems()));
         initMessageResponse(mav,request);
-        userService.findAll(staff,new PageRequest(model.getPage() - 1 , model.getMaxPageItems()));
+        userService.findAllStaff(staff,new PageRequest(model.getPage() - 1 , model.getMaxPageItems()));
         mav.addObject("staff",staff);
         mav.addObject(SystemConstant.MODEL, model);
         return mav;

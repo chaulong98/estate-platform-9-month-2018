@@ -1,4 +1,4 @@
-<%@ page import="com.example.security.utils.SecurityUtils" %>
+<%@ page import="com.estate.security.utils.SecurityUtils" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@include file="/common/taglib.jsp" %>

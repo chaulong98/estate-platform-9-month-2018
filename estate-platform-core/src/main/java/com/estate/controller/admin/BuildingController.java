@@ -6,6 +6,7 @@ import com.estate.dto.BuildingDTO;
 import com.estate.dto.UserDTO;
 import com.estate.entity.BuildingEntity;
 import com.estate.enums.BuildingType;
+import com.estate.repository.BuildingRepository;
 import com.estate.security.utils.MessageResponseUtils;
 import com.estate.security.utils.SecurityUtils;
 import com.estate.service.IBuildingService;
@@ -41,22 +42,24 @@ public class BuildingController {
     public ModelAndView showBuilding (@ModelAttribute("model") BuildingDTO model, UserDTO staff,
                                       @RequestParam(value = "id",required = false) Long id, HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("admin/building/list");
-        buildingService.findAll(model, new PageRequest(model.getPage() - 1 , model.getMaxPageItems()));
+        model.setListResult(buildingService.findAll(model, new com.estate.repository.paging.PageRequest(model.getPage(), model.getMaxPageItems())));
         initMessageResponse(mav,request);
-        userService.findAll(staff,new PageRequest(model.getPage() - 1 , model.getMaxPageItems()));
-        mav.addObject("staff",staff);
+        ArrayList<String> types = new ArrayList<>();
+        EnumSet.allOf(BuildingType.class).forEach(buildingType -> types.add(buildingType.getValue()));
+        userService.findAllStaff(staff,new PageRequest(staff.getPage()-1,staff.getMaxPageItems()));
+        mav.addObject("type", types);
         mav.addObject("district", districtService.getDistrict());
+        mav.addObject("staffName", userService.getStaff());
+        mav.addObject("staff",staff);
         mav.addObject(SystemConstant.MODEL, model);
         return mav;
     }
 
     @RequestMapping(value = "/admin/building/list-priority-building", method = RequestMethod.GET)
-    public ModelAndView showPriorityBuilding (@ModelAttribute("model") BuildingDTO model, UserDTO staff,
-                                      @RequestParam(value = "id",required = false) Long id, HttpServletRequest request) {
+    public ModelAndView showPriorityBuilding (@ModelAttribute("model") BuildingDTO model, UserDTO staff) {
         ModelAndView mav = new ModelAndView("admin/building/list-priority-building");
-        buildingService.findAll(model, new PageRequest(model.getPage() - 1 , model.getMaxPageItems()));
-        initMessageResponse(mav,request);
-        userService.findAll(staff,new PageRequest(model.getPage() - 1 , model.getMaxPageItems()));
+        buildingService.findPriorityBuildings(model, new PageRequest(model.getPage() - 1 , model.getMaxPageItems()));
+        userService.findAllStaff(staff,new PageRequest(model.getPage() - 1 , model.getMaxPageItems()));
         mav.addObject("staff",staff);
         mav.addObject(SystemConstant.MODEL, model);
         return mav;

@@ -1,5 +1,6 @@
 package com.estate.service.impl;
 
+import com.estate.builder.BuildingBuilder;
 import com.estate.converter.BuildingConverter;
 import com.estate.dto.AbstractDTO;
 import com.estate.dto.BuildingDTO;
@@ -13,6 +14,7 @@ import com.estate.security.utils.SecurityUtils;
 import com.estate.security.utils.UploadFileUtils;
 import com.estate.service.IBuildingService;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,6 +40,38 @@ public class BuildingService implements IBuildingService {
 
     @Autowired
     private CustomBuildingRepository customBuildingRepository;
+
+    @Override
+    public List<BuildingDTO> findAll(BuildingDTO model, com.estate.repository.paging.Pageable pageable) {
+        List<BuildingEntity> buildings = customBuildingRepository.findAll(getBuildingBuilder(model), pageable);
+        List<BuildingDTO> buildingDTOS = buildings.stream().map(item -> converter.convertToDto(item)).collect(Collectors.toList());
+        for(BuildingDTO dto: buildingDTOS){
+            if(userRepository.existsByIdAndPriorityBuildings_Id(SecurityUtils.getPrincipal().getId(),dto.getId())){
+                dto.setIsPriority(true);
+            }
+        }
+        return buildingDTOS;
+    }
+
+    private BuildingBuilder getBuildingBuilder(BuildingDTO model) {
+        return new BuildingBuilder.Builder()
+                .setBasement(model.getBasement())
+                .setName(model.getName())
+                .setDistrict(model.getDistrict())
+                .setFloorArea(model.getFloorArea())
+                .setDirection(model.getDirection())
+                .setGrade(model.getGrade())
+                .setManagerName(model.getManagerName())
+                .setStreet(model.getStreet())
+                .setWard(model.getWard())
+                .setCostFrom(model.getCostFrom())
+                .setCostTo(model.getCostTo())
+                .setAreaFrom(model.getAreaFrom())
+                .setAreaTo(model.getAreaTo())
+                .setType(model.getType())
+                .setStaffId(StringUtils.isNotBlank(model.getStaffName()) ? Long.valueOf(model.getStaffName()) : null)
+                .build();
+    }
 
     public void findAll(BuildingDTO model, Pageable pageable) {
         List<BuildingEntity> buildings = buildingRepository.findAll(pageable).getContent();
@@ -118,4 +153,18 @@ public class BuildingService implements IBuildingService {
         }
         buildingRepository.save(buildingEntity);
     }
+
+    @Override
+    public List<BuildingDTO> findPriorityBuildings(BuildingDTO model, Pageable pageable) {
+        List<BuildingEntity> buildings = buildingRepository.findAll(pageable).getContent();
+        List<BuildingDTO> buildingDTOS = buildings.stream().map(item -> converter.convertToDto(item)).collect(Collectors.toList());
+        for(BuildingDTO dto: buildingDTOS){
+            if(userRepository.existsByIdAndPriorityBuildings_Id(SecurityUtils.getPrincipal().getId(),dto.getId())){
+                dto.setIsPriority(true);
+                model.getListResult().add(dto);
+            }
+        }
+        return model.getListResult();
+    }
+
 }

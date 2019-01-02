@@ -8,10 +8,13 @@ import java.io.IOException;
 
 public class UploadFileUtils {
     public static void writeOrUpdate(String path,byte[] bytes){
-        path = "/anh/test/" + path;
-        File file =new File(StringUtils.substringBeforeLast(path,"/"));
+        File file =new File("c:/anh/"+path);
         if (!file.exists()) {
-            file.mkdir();
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         try (FileOutputStream fop = new FileOutputStream(file)) {
             fop.write(bytes);
